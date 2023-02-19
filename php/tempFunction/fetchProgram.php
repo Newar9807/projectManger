@@ -1,6 +1,6 @@
 <?php
 
-include("assets/dbCon.php");
+include("../assets/dbCon.php");
 
 $facultyId = $_POST["facultyId"];
 $sql = "SELECT `program_name`, `program_id` FROM `tbl_program` WHERE `program_faculty_id` = '{$facultyId}'";

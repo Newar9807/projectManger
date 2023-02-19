@@ -1,6 +1,6 @@
 <?php
 
-include("assets/dbCon.php");
+include("../assets/dbCon.php");
 
 $email = $_POST["email"];
 $password = $_POST["password"];

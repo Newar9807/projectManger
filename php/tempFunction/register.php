@@ -1,6 +1,6 @@
 <?php
 
-include("assets/dbCon.php");
+include("../assets/dbCon.php");
 
 $name = ucwords(strtolower($_POST["name"]));
 $faculty = $_POST["faculty"];

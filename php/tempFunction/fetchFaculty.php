@@ -1,6 +1,6 @@
 <?php
 
-include("assets/dbCon.php");
+include("../assets/dbCon.php");
 
 $sql = "SELECT `faculty_id`,`faculty_name` FROM `tbl_faculty`";
 $res = mysqli_query($conn, $sql);

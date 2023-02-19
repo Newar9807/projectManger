@@ -54,7 +54,7 @@ $(document).ready(function () {
           confirmPassword = $("#stdConfirmPassword").val();
 
         $.post(
-          "php/register.php",
+          "php/tempFunction/register.php",
           {
             name: nam,
             faculty: faculty,
@@ -98,7 +98,7 @@ $(document).ready(function () {
           confirmPassword = $("#tecConfirmPassword").val();
 
         $.post(
-          "php/register.php",
+          "php/tempFunction/register.php",
           {
             name: nam,
             faculty: faculty,
@@ -135,7 +135,7 @@ $(document).ready(function () {
         password = $("#userPassword").val();
 
       $.post(
-        "php/signin.php",
+        "php/tempFunction/signin.php",
         {
           email: email,
           password: password,
@@ -167,7 +167,7 @@ $(document).ready(function () {
     $("#stdFaculty").change(function () {
       var facultyId = $(this).val();
       $.post(
-        "php/fetchProgram.php",
+        "php/tempFunction/fetchProgram.php",
         {
           facultyId: facultyId,
         },
@@ -194,7 +194,7 @@ $(document).ready(function () {
   });
 
   function fetchAvailableFaculty(role) {
-    $.post("php/fetchFaculty.php", {}, function (response) {
+    $.post("php/tempFunction/fetchFaculty.php", {}, function (response) {
       response = JSON.parse(response);
       var htm = "<option value='' disabled>Faculty</option>";
       Object.keys(response).forEach(function (key, index) {
