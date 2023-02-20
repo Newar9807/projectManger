@@ -10,13 +10,13 @@
 
 <body>
     <div class="container">
-        <!-- Navigation Starts -->
-        <?php include($root."/5thproject/php/assets/tecNav.php"); ?>
-        <!-- Navigation Ends -->
+        <!-- Sidebar Starts -->
+        <?php include($root."/5thproject/php/assets/tecSidebar.php"); ?>
+        <!-- Sidebar Ends -->
         <div class="main">
-            <!-- Sidebar Starts -->
-            <?php include($root."/5thproject/php/assets/tecSidebar.php"); ?>
-            <!-- Sidebar Ends -->
+            <!-- Navigation Starts -->
+            <?php include($root."/5thproject/php/assets/tecNav.php"); ?>
+            <!-- Navigation Ends -->
 
             <!-- mid div start -->
             <div class="cardBox">

@@ -9,13 +9,13 @@
     };
 
     //add hovered class
-    let list = document.querySelectorAll(".navigation li");
+    // let list = document.querySelectorAll(".navigation li");
 
-    function activelink() {
-        list.forEach((item) => item.classList.remove("hovered"));
-        this.classList.add("hovered");
-    }
-    list.forEach((item) => item.addEventListener("mouseover", activelink));
+    // function activelink() {
+    //     list.forEach((item) => item.classList.remove("hovered"));
+    //     this.classList.add("hovered");
+    // }
+    // list.forEach((item) => item.addEventListener("mouseover", activelink));
 
     //for profile dropdown
     let subMenu = document.getElementById("subMenu");
