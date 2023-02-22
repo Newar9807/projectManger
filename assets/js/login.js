@@ -158,7 +158,7 @@ $(document).ready(function () {
               clearTimeout(tmpTime);
             }, 6000);
           } else if (response == "success") {
-            window.location = "ttest1.html";
+            window.location = "php/teacherDashboard.php";
           }
         }
       );
