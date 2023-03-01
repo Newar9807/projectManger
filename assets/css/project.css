@@ -1,0 +1,273 @@
+/*table all designs*/
+.tableArea {
+  border-top: 3px solid var(--blue);
+  background: white;
+  margin: 30px auto;
+  margin-top: 10px;
+  padding: 10px 15px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+  width: 95%;
+}
+
+.create-btn {
+  display: flex;
+  gap: 0.2rem;
+  border-radius: 25px;
+  font-size: 18px;
+  color: white;
+  border: none;
+  float: right;
+  background: var(--blue);
+  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
+  padding: 8px;
+  text-align: center;
+}
+
+.badge {
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.4rem;
+}
+
+.badge-completed {
+  background-color: #daf4eb;
+  color: #37c491;
+}
+
+.badge-pending {
+  background-color: #fde4e4;
+  color: #f57878;
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.delete {
+  border: none;
+  background: none;
+}
+
+/* --------------table design end-------------------- */
+
+/* --------------common designs-------------- */
+.content-header {
+  font-size: 35px;
+  font-weight: 200;
+  margin-left: 2rem;
+  margin-top: 10px;
+  margin-bottom: 2rem;
+  /* color: var(--blue); */
+}
+
+.content-details {
+  border-top: 3px solid var(--blue);
+  background: white;
+  margin: 20px auto;
+  padding: 10px 15px;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+  width: 95%;
+}
+
+.content-details-header,
+.content-details-title {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  border-bottom: 1px solid #dddcdc;
+}
+
+.content-details-title h2 {
+  color: red;
+  margin: auto;
+}
+
+.edit-btn {
+  display: flex;
+  gap: 0.5rem;
+  border-radius: 25px;
+  font-size: 18px;
+  color: white;
+  border: none;
+  float: right;
+  background: var(--blue);
+  margin-bottom: 1.5rem;
+  margin-right: 1rem;
+  padding: 5px 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.content-title,
+.content-title > h3 {
+  margin-bottom: 0.5rem;
+}
+
+/* --------common design end------------- */
+
+/* task description */
+
+.bottom-row {
+  display: flex;
+  justify-content: space-between;
+  width: 85%;
+  margin: 2rem auto;
+  padding: 10px;
+}
+
+.content-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  gap: 10px;
+  padding: 10px;
+  width: 85%;
+  margin: 2rem auto;
+}
+
+.item1,
+.item2,
+.item3,
+.item4,
+.item5 {
+  margin-bottom: 1rem;
+}
+
+.item1 {
+  grid-area: 1/1/1/3;
+}
+
+.item2 {
+  grid-area: 2/1/2/3;
+}
+
+.item3 {
+  grid-area: 3/1/3/3;
+}
+
+.item4 {
+  grid-area: 4/1/4/3;
+}
+
+.item5 {
+  grid-area: 1 / 4 / 5 / 7;
+  background-color: whitesmoke;
+  padding: 1.8rem;
+  border-radius: 20px;
+}
+
+.todo-box {
+  margin-top: 1rem;
+  height: 18rem;
+  padding: 10px 25px;
+}
+
+.todo-box > input {
+  margin-bottom: 2rem;
+}
+
+/* -----------task end--------------*/
+
+/*  -------- project section----------*/
+
+.project-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ------data section------- */
+.project-data {
+  display: grid;
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+}
+.content-title > p {
+  font-size: 14px;
+}
+.projectData1 {
+  grid-area: 1/1/1/2;
+}
+
+.projectData2 {
+  grid-area: 1/3/1/4;
+}
+
+.projectData3 {
+  grid-area: 1/5/1/6;
+  margin-bottom: 3rem;
+}
+
+.projectData4 {
+  grid-area: 2/1/2/2;
+}
+
+.projectData5 {
+  grid-area: 2/3/2/4;
+}
+
+.projectData6 {
+  grid-area: 2/5/2/6;
+  margin-bottom: 3rem;
+}
+
+/* --------members--------*/
+
+.project-members {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+.member-details {
+  display: flex;
+  gap: 50px;
+  justify-content: space-evenly;
+}
+.member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+.member > img {
+  width: 120px;
+  height: 120px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+/* ---------description--------- */
+.project-description {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+.description-box {
+  background: whitesmoke;
+  border-radius: 10px;
+  padding: 5px 15px;
+  margin-top: 1.4rem;
+  margin-bottom: 1.4rem;
+  height: 200px;
+}
+
+/* -------progress-------- */
+.project-progress {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5rem;
+}
+.progress-graph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
