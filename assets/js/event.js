@@ -1,7 +1,6 @@
 $(document).ready(function () {
   if (localStorage.getItem("comment") != null) {
     $("#indicator").html(localStorage.getItem("comment"));
-    $(".actn").toggleClass("d-none");
     if (localStorage.getItem("cmtClass") == "true") {
       $("#indicator").removeClass("alert-info");
       $("#indicator").removeClass("alert-danger");
@@ -48,39 +47,7 @@ $(document).ready(function () {
     $("#indicator").addClass("alert-info");
   }, 3000);
 
-  $("#meetingForm").submit(function (e) {
-    e.preventDefault();
-    let description = $("#meetingDescription").val(),
-      date = $("#meetingDate").val();
-    let choosenDate = date.replaceAll("-", "");
-
-    const d = new Date();
-    let year = d.getFullYear(),
-      month = d.getMonth() + 1,
-      day = d.getDate();
-    month = month < 10 ? "0" + month.toString() : month.toString();
-    day = day < 10 ? "0" + day.toString() : day.toString();
-    let currentDate = year + "-" + month + "-" + day;
-    currentDate = currentDate.replaceAll("-", "");
-    currentDate = parseInt(currentDate);
-    choosenDate = parseInt(choosenDate);
-
-    if (currentDate > choosenDate) {
-      $("#meetingDate").addClass(" btn btn-outline-danger");
-    } else {
-      $("#meetingDate").removeClass("btn btn-outline-danger");
-      $.post(
-        "tempFunction/studentMeeting.php",
-        {
-          description: description,
-          date: date,
-        },
-        function (response) {
-          localStorage.setItem("comment", response);
-          localStorage.setItem("cmtClass", true);
-          location.reload();
-        }
-      );
-    }
+  $(".clickCheck").click(function () {
+    $(this).find("small").toggleClass("d-none");
   });
 });

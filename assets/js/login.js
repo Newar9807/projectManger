@@ -52,6 +52,7 @@ $(document).ready(function () {
           email = $("#stdEmail").val(),
           password = $("#stdPassword").val(),
           confirmPassword = $("#stdConfirmPassword").val();
+          console.log(program);
 
         $.post(
           "php/tempFunction/register.php",

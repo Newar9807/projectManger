@@ -8,8 +8,8 @@ $host = $_SERVER['HTTP_HOST'];
 
 // This Session will be set while login process
 $_SESSION["user"] = "Student";
-$_SESSION["userId"] = 4;
-$_SESSION["projectId"] = 1;
+$_SESSION["userId"] = 6;
+$_SESSION["projectId"] = 2;
 
 $userID = $_SESSION['userId'];
 $projectID = $_SESSION["projectId"];
@@ -301,14 +301,20 @@ extract($_SESSION);
                                         if ($resToFetch) :
                                             while ($got = mysqli_fetch_assoc($resToFetch)) :
                                         ?>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;"  <?php endif; ?>>
-                                                    <div class="m-auto">
-                                                        <span class="badge bg-primary rounded-pill" style="font-size: 14px; background-color:#45aaf2;"><?= $got["events_date"]; ?></span>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php elseif ($got["events_status"] == "Meeting Assigned") : ?> style="background-color: #81ecec;" <?php endif; ?>>
+                                                    <div class="m-auto d-grid ">
                                                         <div class="fw-bold"><?= $got["events_status"]; ?></div>
                                                         <?= (word_limiter($got["events_description"])); ?><br>
+                                                        <span class="badge bg-info rounded-pill" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
+                                                        <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                            <small class="d-grid my-1">
+                                                                <!-- <hr style="margin: 0.15rem 0;"> -->
+                                                                <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
+                                                            </small>
+                                                        <?php endif; ?>
                                                     </div>
                                                     <?php if ($got["events_status"] == "Meeting Requested") : ?>
-                                                        <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span>
+                                                        <!-- <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span> -->
                                                     <?php endif; ?>
                                                 </li>
                                             <?php
@@ -321,14 +327,20 @@ extract($_SESSION);
                                         if ($resFromFetch) :
                                             while ($got = mysqli_fetch_assoc($resFromFetch)) :
                                             ?>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;"  <?php endif; ?>>
-                                                    <div class="m-auto">
-                                                        <span class="badge bg-primary rounded-pill" style="font-size: 14px; background-color:#45aaf2;"><?= $got["events_date"]; ?></span>
+                                                <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php elseif ($got["events_status"] == "Meeting Assigned") : ?> style="background-color: #81ecec;" <?php endif; ?>>
+                                                    <div class="m-auto d-grid ">
                                                         <div class="fw-bold"><?= $got["events_status"]; ?></div>
                                                         <?= (word_limiter($got["events_description"])); ?><br>
+                                                        <span class="badge bg-info rounded-pill" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
+                                                        <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                            <small class="d-grid my-1">
+                                                                <!-- <hr style="margin: 0.15rem 0;"> -->
+                                                                <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
+                                                            </small>
+                                                        <?php endif; ?>
                                                     </div>
                                                     <?php if ($got["events_status"] == "Meeting Requested") : ?>
-                                                        <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span>
+                                                        <!-- <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span> -->
                                                     <?php endif; ?>
                                                 </li>
                                     <?php
@@ -398,58 +410,10 @@ extract($_SESSION);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="../assets/js/event.js"></script>
+
     <script>
         $(document).ready(function() {
-            if (localStorage.getItem('comment') != null) {
-                $('#indicator').html(localStorage.getItem('comment'));
-                if (localStorage.getItem('cmtClass') == "true") {
-                    console.log("active");
-                    $('#indicator').removeClass('alert-info');
-                    $('#indicator').removeClass('alert-danger');
-                    $('#indicator').addClass('alert-success');
-                } else {
-                    $('#indicator').removeClass('alert-success');
-                    $('#indicator').removeClass('alert-info');
-                    $('#indicator').addClass('alert-danger');
-                }
-                localStorage.removeItem('comment');
-                localStorage.removeItem('cmtClass');
-            } else {
-                $('#indicator').html('Click On Date To Request Meeting..');
-                $('#indicator').removeClass('alert-success');
-                $('#indicator').removeClass('alert-danger');
-                $('#indicator').addClass('alert-info');
-            }
-
-            $('.gate').on('click', function(e) {
-                $('#meetingDate').removeClass('btn btn-outline-danger');
-                $('#meetingDate').val(this.getAttribute('data-ddate'));
-                console.log($('#meetingDescription'));
-                $('#meetingDescription').focus();
-                $('#eventModal').modal('show');
-            });
-
-            $('.trash').on('click', function(e) {
-                var id = (this.getAttribute('data-id'));
-                $.post(
-                    "tempFunction/deleteMeeting.php", {
-                        id: id,
-                    },
-                    function(response) {
-                        localStorage.setItem('comment', response);
-                        localStorage.setItem('cmtClass', false);
-                        location.reload();
-                    }
-                );
-            });
-
-            setTimeout(function() {
-                $('#indicator').html('Click On Date To Request Meeting..');
-                $('#indicator').removeClass('alert-success');
-                $('#indicator').removeClass('alert-danger');
-                $('#indicator').addClass('alert-info');
-            }, 3000);
-
             $("#meetingForm").submit(function(e) {
                 e.preventDefault();
                 let description = $("#meetingDescription").val(),
@@ -457,28 +421,28 @@ extract($_SESSION);
                 let choosenDate = date.replaceAll("-", "");
 
                 const d = new Date();
-                let year = (d.getFullYear()),
-                    month = (d.getMonth()) + 1,
-                    day = (d.getDate());
-                month = (month < 10) ? '0' + month.toString() : month.toString();
-                day = (day < 10) ? '0' + day.toString() : day.toString();
+                let year = d.getFullYear(),
+                    month = d.getMonth() + 1,
+                    day = d.getDate();
+                month = month < 10 ? "0" + month.toString() : month.toString();
+                day = day < 10 ? "0" + day.toString() : day.toString();
                 let currentDate = year + "-" + month + "-" + day;
                 currentDate = currentDate.replaceAll("-", "");
-                currentDate = (parseInt(currentDate));
-                choosenDate = (parseInt(choosenDate));
+                currentDate = parseInt(currentDate);
+                choosenDate = parseInt(choosenDate);
 
-                if ((currentDate) > (choosenDate)) {
-                    $('#meetingDate').addClass(' btn btn-outline-danger');
+                if (currentDate > choosenDate) {
+                    $("#meetingDate").addClass(" btn btn-outline-danger");
                 } else {
-                    $('#meetingDate').removeClass('btn btn-outline-danger');
+                    $("#meetingDate").removeClass("btn btn-outline-danger");
                     $.post(
                         "tempFunction/studentMeeting.php", {
                             description: description,
                             date: date,
                         },
                         function(response) {
-                            localStorage.setItem('comment', response);
-                            localStorage.setItem('cmtClass', true);
+                            localStorage.setItem("comment", response);
+                            localStorage.setItem("cmtClass", true);
                             location.reload();
                         }
                     );

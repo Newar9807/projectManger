@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2023 at 11:23 AM
+-- Generation Time: Mar 05, 2023 at 04:03 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -46,6 +46,21 @@ CREATE TABLE `tbl_assign_role` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_events`
+--
+
+CREATE TABLE `tbl_events` (
+  `events_id` int(10) UNSIGNED NOT NULL,
+  `events_from_id` int(10) UNSIGNED DEFAULT NULL,
+  `events_to_id` int(10) UNSIGNED DEFAULT NULL,
+  `events_description` varchar(255) DEFAULT NULL,
+  `events_status` varchar(255) DEFAULT NULL,
+  `events_date` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_ext_logbook`
 --
 
@@ -53,6 +68,31 @@ CREATE TABLE `tbl_ext_logbook` (
   `ext_logbook_id` int(10) UNSIGNED NOT NULL,
   `ext_user_id` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_ext_user`
+--
+
+CREATE TABLE `tbl_ext_user` (
+  `ext_user_id` int(10) UNSIGNED DEFAULT NULL,
+  `ext_project_id` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_ext_user`
+--
+
+INSERT INTO `tbl_ext_user` (`ext_user_id`, `ext_project_id`) VALUES
+(2, 1),
+(4, 1),
+(3, 1),
+(3, 2),
+(6, 2),
+(7, 2),
+(8, 2),
+(5, 1);
 
 -- --------------------------------------------------------
 
@@ -159,6 +199,14 @@ CREATE TABLE `tbl_project` (
   `project_priority` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tbl_project`
+--
+
+INSERT INTO `tbl_project` (`project_id`, `project_name`, `project_frontend`, `project_backend`, `project_sdlc`, `project_created`, `project_abstract`, `project_ppt`, `project_status`, `project_priority`) VALUES
+(1, 'Project Manager', 'Html,Css,JavaScript', 'php', 'ProtoType', '2023-03-04', 'Pope John XXIII Middle School is currently accepting applications for the 2023-2024 school year! We invite students entering grades 5-7 to visit our school and spend the day with us.Click Here to schedule your visit or contact our admissions office at adm', 'location', 'Pending', 'High'),
+(2, 'Handy Craft', 'Html, Css, Js', 'Php', 'ProtoType', '2023-03-05', 'Hello this is abstract', 'this is ppt location', 'Approved', 'Medium');
+
 -- --------------------------------------------------------
 
 --
@@ -195,7 +243,6 @@ CREATE TABLE `tbl_task` (
 
 CREATE TABLE `tbl_user` (
   `user_id` int(10) UNSIGNED NOT NULL,
-  `user_project_id` int(10) UNSIGNED DEFAULT NULL,
   `user_program_id` int(10) UNSIGNED DEFAULT NULL,
   `user_role` varchar(255) NOT NULL,
   `user_name` varchar(255) NOT NULL,
@@ -209,12 +256,15 @@ CREATE TABLE `tbl_user` (
 -- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`user_id`, `user_project_id`, `user_program_id`, `user_role`, `user_name`, `user_faculty`, `user_phone`, `user_email`, `user_password`) VALUES
-(1, NULL, 2, 'Student', 'Sheila Fischer', 'Nostrud eaque sunt e', 1, 'vakas@mailinator.com', 'Pa$$w0rd!'),
-(2, NULL, 1, 'Student', 'Samir Shrestha', 'Science And Technology', 9807898070, 'samirshrestha9807@gmail.com', 'samir'),
-(3, NULL, 1, 'Student', 'Utsav Maharjan', 'Science And Technology', 9807898070, 'utsavmaharjan@gmail.com', 'utsav'),
-(4, NULL, NULL, 'Teacher', 'Sarowor Malla', 'Science And Technology', 9123456789, 'sarowor@gmail.com', 'Sarowor@1'),
-(5, NULL, NULL, 'Teacher', 'Melina Rayamajhi', 'Science And Technology', 9231242311, 'melina@gmail.com', 'Melina1@');
+INSERT INTO `tbl_user` (`user_id`, `user_program_id`, `user_role`, `user_name`, `user_faculty`, `user_phone`, `user_email`, `user_password`) VALUES
+(1, NULL, 'Teacher', 'Sheila Fischer', 'Nostrud eaque sunt e', 1, 'vakas@mailinator.com', 'Pa$$w0rd!'),
+(2, 1, 'Student', 'Samir Shrestha', 'Science And Technology', 9807898070, 'samirshrestha9807@gmail.com', 'samir'),
+(3, NULL, 'Teacher', 'Utsav Maharjan', 'Science And Technology', 9807898070, 'utsavmaharjan@gmail.com', 'utsav'),
+(4, 1, 'Student', 'Sarowor Malla', 'Science And Technology', 9123456789, 'sarowor@gmail.com', 'Sarowor@1'),
+(5, 1, 'Studnet', 'Melina Rayamajhi', 'Science And Technology', 9231242311, 'melina@gmail.com', 'Melina1@'),
+(6, 1, 'Student', 'Bishal Tamang', 'Science And Technology', 9807898070, 'bishal@gmail.com', 'Bishal@1'),
+(7, 1, 'Student', 'Shristi Pradhan', 'Science And Technology', 9807121222, 'shristi@gmail.com', 'Shristi@1%'),
+(8, 1, 'Student', 'Prajita Bhattrai', 'Science And Technology', 9812121213, 'prajita@gmail.com', 'Prajita@1%');
 
 --
 -- Indexes for dumped tables
@@ -234,11 +284,24 @@ ALTER TABLE `tbl_assign_role`
   ADD KEY `foreign_user_assign` (`assign_user_id`);
 
 --
+-- Indexes for table `tbl_events`
+--
+ALTER TABLE `tbl_events`
+  ADD PRIMARY KEY (`events_id`);
+
+--
 -- Indexes for table `tbl_ext_logbook`
 --
 ALTER TABLE `tbl_ext_logbook`
   ADD KEY `foreign_logbook_ext` (`ext_logbook_id`),
   ADD KEY `foreign_user_ext` (`ext_user_id`);
+
+--
+-- Indexes for table `tbl_ext_user`
+--
+ALTER TABLE `tbl_ext_user`
+  ADD KEY `foreign_ext_project` (`ext_project_id`),
+  ADD KEY `foreign_ext_user` (`ext_user_id`);
 
 --
 -- Indexes for table `tbl_faculty`
@@ -301,12 +364,17 @@ ALTER TABLE `tbl_task`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`user_id`),
-  ADD KEY `foreign_project_user` (`user_project_id`),
   ADD KEY `foreign_program_user` (`user_program_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `tbl_events`
+--
+ALTER TABLE `tbl_events`
+  MODIFY `events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_faculty`
@@ -342,7 +410,7 @@ ALTER TABLE `tbl_program`
 -- AUTO_INCREMENT for table `tbl_project`
 --
 ALTER TABLE `tbl_project`
-  MODIFY `project_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `project_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_role`
@@ -360,7 +428,7 @@ ALTER TABLE `tbl_task`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables
@@ -385,6 +453,13 @@ ALTER TABLE `tbl_assign_role`
 ALTER TABLE `tbl_ext_logbook`
   ADD CONSTRAINT `foreign_logbook_ext` FOREIGN KEY (`ext_logbook_id`) REFERENCES `tbl_logbook` (`logbook_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `foreign_user_ext` FOREIGN KEY (`ext_user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_ext_user`
+--
+ALTER TABLE `tbl_ext_user`
+  ADD CONSTRAINT `foreign_ext_project` FOREIGN KEY (`ext_project_id`) REFERENCES `tbl_project` (`project_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `foreign_ext_user` FOREIGN KEY (`ext_user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_feedback`
@@ -423,8 +498,7 @@ ALTER TABLE `tbl_task`
 -- Constraints for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  ADD CONSTRAINT `foreign_program_user` FOREIGN KEY (`user_program_id`) REFERENCES `tbl_program` (`program_Id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `foreign_project_user` FOREIGN KEY (`user_project_id`) REFERENCES `tbl_project` (`project_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `foreign_program_user` FOREIGN KEY (`user_program_id`) REFERENCES `tbl_program` (`program_Id`) ON DELETE SET NULL ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -33,7 +33,7 @@ $sql
     <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Student</title>
+    <title>Teacher</title>
 
     <!-- <link href="externalFiles/css/bootstrap_5_2_3.css" rel="stylesheet">
     <link rel="stylesheet" href="externalFiles/css/bootstrap_icons_1_10_2.css"> -->
@@ -305,7 +305,7 @@ $sql
                                             if ($resToFetch) :
                                                 while ($got = mysqli_fetch_assoc($resToFetch)) :
                                             ?>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;"  <?php endif; ?>>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php elseif ($got["events_status"] == "Meeting Assigned") : ?> style="background-color: #81ecec;" <?php endif; ?>>
                                                         <div class="m-auto d-grid clickCheck">
                                                             <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
                                                             <?= $got["events_status"]; ?>
@@ -313,6 +313,10 @@ $sql
                                                             <small class="d-none">
                                                                 <hr style="margin: 0.15rem 0;">
                                                                 <?= $got["events_description"]; ?>
+                                                                <?php if ($got["events_status"] == "Meeting Assigned") : ?>
+                                                                    <br>
+                                                                    <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
+                                                                <?php endif; ?>
                                                             </small>
                                                             <?php if ($got["events_status"] == "Meeting Requested") : ?>
                                                                 <div class="row d-flex justify-content-between align-items-center my-2 actn">
@@ -332,15 +336,18 @@ $sql
                                             if ($resFromFetch) :
                                                 while ($got = mysqli_fetch_assoc($resFromFetch)) :
                                                 ?>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php endif; ?>>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php elseif ($got["events_status"] == "Meeting Assigned") : ?> style="background-color: #81ecec;" <?php endif; ?>>
                                                         <div class="m-auto d-grid clickCheck">
                                                             <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
                                                             <?= $got["events_status"]; ?>
                                                             <span class="badge bg-info rounded-pill mb-2" role="button" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
                                                             <small class="d-none">
                                                                 <hr style="margin: 0.15rem 0;">
-                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam vero quidem, sapiente minima ipsam dolore corporis, obcaecati debitis iure provident aut expedita dolor exercitationem eligendi, ea eveniet eaque. Accusamus dolore minus maxime ducimus!
                                                                 <?= $got["events_description"]; ?>
+                                                                <?php if ($got["events_status"] == "Meeting Assigned") : ?>
+                                                                    <br>
+                                                                    <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
+                                                                <?php endif; ?>
                                                             </small>
                                                             <?php if ($got["events_status"] == "Meeting Requested") : ?>
                                                                 <div class="row d-flex justify-content-between align-items-center my-2 actn">
@@ -387,7 +394,7 @@ $sql
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form id="meetingForm" autocomplete="off">
+                            <form id="meetingTecForm" autocomplete="off">
                                 <div class="mb-3 form-floating">
                                     <textarea class="form-control" placeholder="Some guidelines for meeting.." id="meetingDescription" style="height: 100px" name="meetingDescription" maxlength="100"></textarea>
                                     <label for="meetingDescription">Description</label>
@@ -395,9 +402,32 @@ $sql
                                         Some guidelines for meeting..
                                     </div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="eventDate" class="form-label">Date</label>
-                                    <input type="date" class="form-control" id="meetingDate" name="meetingDate" value="<?= $currentYear . '-' . $currentMonth . '-' . $currentDate; ?>" />
+
+                                <div class="mb-3 row">
+                                    <div class="col-sm-6">
+                                        <!-- <label for="eventDate" class="form-label">Date</label> -->
+                                        <input type="date" class="form-control" id="meetingDate" name="meetingDate" value="<?= $currentYear . '-' . $currentMonth . '-' . $currentDate; ?>" />
+                                    </div>
+                                    <div class="col-sm-6 dropdown">
+                                        <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" id="selected" aria-expanded="false" value="0">Select Project</button>
+                                        <ul class="dropdown-menu">
+                                            <?php
+                                            $fetchProjectSql = "SELECT `tbl_project`.`project_name`, `tbl_project`.`project_id` FROM `tbl_ext_user` JOIN `tbl_project` ON `tbl_ext_user`.`ext_project_id` = `tbl_project`.`project_id` AND `tbl_ext_user`.`ext_user_id` = '{$userID}'";
+                                            $fetchQueryExection = mysqli_query($conn, $fetchProjectSql);
+                                            if (mysqli_num_rows($fetchQueryExection) != 0) :
+                                                while ($got = mysqli_fetch_assoc($fetchQueryExection)) :
+                                            ?>
+                                                    <li class="dropdown-item" role="button" data-id="<?= $got["project_id"]; ?>"><?= $got["project_name"]; ?></li>
+                                                <?php
+                                                endwhile;
+                                            else :
+                                                ?>
+                                                <li><a class="dropdown-item" href="#" disabled>Not Assigned To Any Project !!</a></li>
+                                            <?php
+                                            endif;
+                                            ?>
+                                        </ul>
+                                    </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">
@@ -431,8 +461,24 @@ $sql
 
     <script>
         $(document).ready(function() {
-            $('.clickCheck').click(function() {
-                $(this).find("small").toggleClass('d-none');
+            function getCurrentDate() {
+                const d = new Date();
+                let year = d.getFullYear(),
+                    month = d.getMonth() + 1,
+                    day = d.getDate();
+
+                month = month < 10 ? "0" + month.toString() : month.toString();
+                day = day < 10 ? "0" + day.toString() : day.toString();
+                let currentDate = year + "-" + month + "-" + day;
+                currentDate = currentDate.replaceAll("-", "");
+                return currentDate;
+            }
+
+            $('.dropdown-menu li').click(function() {
+                $('#selected').addClass("btn-outline-success");
+                $('#selected').removeClass("btn-outline-danger");
+                $('#selected').text($(this).text());
+                $('#selected').attr('value', $(this).data("id"));
             });
 
             $('.reject').click(function() {
@@ -461,6 +507,42 @@ $sql
                         location.reload();
                     }
                 );
+            });
+
+            $("#meetingTecForm").submit(function(e) {
+                e.preventDefault();
+                let description = $("#meetingDescription").val(),
+                    date = $("#meetingDate").val(),
+                    project = $('#selected').val();
+                let choosenDate = date.replaceAll("-", "");
+                currentDate = parseInt(getCurrentDate());
+                choosenDate = parseInt(choosenDate);
+
+                if (project == "Select Project") {
+                    $('#selected').addClass("btn-outline-danger");
+                    $('#selected').removeClass("btn-outline-dark");
+                } else {
+                    $('#selected').addClass("btn-outline-success");
+                    $('#selected').removeClass("btn-outline-danger");
+                }
+
+                if ((currentDate > choosenDate)) {
+                    $("#meetingDate").addClass(" btn btn-outline-danger");
+                } else {
+                    $("#meetingDate").removeClass("btn btn-outline-danger");
+                    $.post(
+                        "tempFunction/teacherMeeting.php", {
+                            description: description,
+                            date: date,
+                            project: project,
+                        },
+                        function(response) {
+                            localStorage.setItem("comment", response);
+                            localStorage.setItem("cmtClass", true);
+                            location.reload();
+                        }
+                    );
+                }
             });
         });
     </script>
