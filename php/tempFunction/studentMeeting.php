@@ -10,7 +10,8 @@ include("../assets/dbCon.php");
 
 if ($_SESSION["user"] = "Student") :
     // If meeting is requested by student
-    $stdSql = "SELECT `user_project_id` as 'PID' FROM `tbl_user` WHERE `user_id` = {$userId}";
+    // $stdSql = "SELECT `user_project_id` as 'PID' FROM `tbl_user` WHERE `user_id` = {$userId}";
+    $stdSql = "SELECT `tbl_ext_user`.`ext_project_id` as 'PID' FROM `tbl_user` JOIN `tbl_ext_user` ON `tbl_user`.`user_id` = `tbl_ext_user`.`ext_user_id` AND `tbl_ext_user`.`ext_user_id` = '{$userId}' AND `tbl_user`.`user_role` = 'Student'";
     $stdRes = mysqli_query($conn, $stdSql);
     if (mysqli_num_rows($stdRes) == 1) :
         $stdRes = mysqli_fetch_assoc($stdRes);
@@ -19,7 +20,8 @@ if ($_SESSION["user"] = "Student") :
     endif;
     $fromID = $stdRes["PID"];
 
-    $tecSql = "SELECT `user_id` as 'tecID' FROM `tbl_user` WHERE `user_project_id` = '{$fromID}' AND `user_role` = 'Teacher'";
+    // $tecSql = "SELECT `user_id` as 'tecID' FROM `tbl_user` WHERE `user_project_id` = '{$fromID}' AND `user_role` = 'Teacher'";
+    $tecSql = "SELECT `tbl_ext_user`.`ext_user_id` as 'tecID' FROM `tbl_user`  JOIN `tbl_ext_user` ON `tbl_user`.`user_id` = `tbl_ext_user`.`ext_user_id` AND `tbl_ext_user`.`ext_project_id` = '{$fromID}' AND `tbl_user`.`user_role` = 'Teacher'";
     $tecRes = mysqli_query($conn, $tecSql);
     if (mysqli_num_rows($tecRes) == 1) :
         $tecRes = mysqli_fetch_assoc($tecRes);

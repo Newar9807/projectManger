@@ -19,7 +19,7 @@
             </a>
         </li>
         <li>
-            <a href="studentTestEvents.php">
+            <a href="studentEvents.php">
                 <span class="icon"><ion-icon name="calendar-outline"></ion-icon>
                 </span>
                 <span class="title">Events</span>
