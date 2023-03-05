@@ -305,7 +305,7 @@ $sql
                                             if ($resToFetch) :
                                                 while ($got = mysqli_fetch_assoc($resToFetch)) :
                                             ?>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;"  <?php endif; ?>>
                                                         <div class="m-auto d-grid clickCheck">
                                                             <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
                                                             <?= $got["events_status"]; ?>
@@ -314,10 +314,12 @@ $sql
                                                                 <hr style="margin: 0.15rem 0;">
                                                                 <?= $got["events_description"]; ?>
                                                             </small>
-                                                            <div class="row d-flex justify-content-between align-items-center my-2">
-                                                                <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
-                                                                <span class="badge bg-success rounded-pill accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
-                                                            </div>
+                                                            <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                                <div class="row d-flex justify-content-between align-items-center my-2 actn">
+                                                                    <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
+                                                                    <span class="badge bg-success rounded-pill accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
+                                                                </div>
+                                                            <?php endif; ?>
                                                         </div>
                                                     </li>
                                                 <?php
@@ -330,7 +332,7 @@ $sql
                                             if ($resFromFetch) :
                                                 while ($got = mysqli_fetch_assoc($resFromFetch)) :
                                                 ?>
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php endif; ?>>
                                                         <div class="m-auto d-grid clickCheck">
                                                             <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
                                                             <?= $got["events_status"]; ?>
@@ -340,10 +342,12 @@ $sql
                                                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam vero quidem, sapiente minima ipsam dolore corporis, obcaecati debitis iure provident aut expedita dolor exercitationem eligendi, ea eveniet eaque. Accusamus dolore minus maxime ducimus!
                                                                 <?= $got["events_description"]; ?>
                                                             </small>
-                                                            <div class="row d-flex justify-content-between align-items-center my-2">
-                                                                <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
-                                                                <span class="badge bg-success rounded-pill accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
-                                                            </div>
+                                                            <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                                <div class="row d-flex justify-content-between align-items-center my-2 actn">
+                                                                    <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
+                                                                    <span class="badge bg-success rounded-pill accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
+                                                                </div>
+                                                            <?php endif; ?>
                                                         </div>
                                                     </li>
                                         <?php
@@ -430,6 +434,7 @@ $sql
             $('.clickCheck').click(function() {
                 $(this).find("small").toggleClass('d-none');
             });
+
             $('.reject').click(function() {
                 var id = this.getAttribute("data-id");
                 $.post(
@@ -439,6 +444,20 @@ $sql
                     function(response) {
                         localStorage.setItem("comment", response);
                         localStorage.setItem("cmtClass", false);
+                        location.reload();
+                    }
+                );
+            });
+
+            $('.accept').click(function() {
+                var id = this.getAttribute("data-id");
+                $.post(
+                    "tempFunction/acceptMeeting.php", {
+                        id: id,
+                    },
+                    function(response) {
+                        localStorage.setItem("comment", response);
+                        localStorage.setItem("cmtClass", true);
                         location.reload();
                     }
                 );

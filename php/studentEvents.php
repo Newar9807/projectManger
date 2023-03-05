@@ -301,13 +301,15 @@ extract($_SESSION);
                                         if ($resToFetch) :
                                             while ($got = mysqli_fetch_assoc($resToFetch)) :
                                         ?>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;"  <?php endif; ?>>
                                                     <div class="m-auto">
                                                         <span class="badge bg-primary rounded-pill" style="font-size: 14px; background-color:#45aaf2;"><?= $got["events_date"]; ?></span>
                                                         <div class="fw-bold"><?= $got["events_status"]; ?></div>
                                                         <?= (word_limiter($got["events_description"])); ?><br>
                                                     </div>
-                                                    <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span>
+                                                    <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                        <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span>
+                                                    <?php endif; ?>
                                                 </li>
                                             <?php
                                             endwhile;
@@ -319,13 +321,15 @@ extract($_SESSION);
                                         if ($resFromFetch) :
                                             while ($got = mysqli_fetch_assoc($resFromFetch)) :
                                             ?>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;"  <?php endif; ?>>
                                                     <div class="m-auto">
                                                         <span class="badge bg-primary rounded-pill" style="font-size: 14px; background-color:#45aaf2;"><?= $got["events_date"]; ?></span>
                                                         <div class="fw-bold"><?= $got["events_status"]; ?></div>
                                                         <?= (word_limiter($got["events_description"])); ?><br>
                                                     </div>
-                                                    <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span>
+                                                    <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                        <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span>
+                                                    <?php endif; ?>
                                                 </li>
                                     <?php
                                             endwhile;
@@ -383,7 +387,7 @@ extract($_SESSION);
                 </div>
             </div>
             <!-- Event Model Ends -->
-            
+
         </div>
     </div>
 

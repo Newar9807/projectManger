@@ -1,8 +1,8 @@
 $(document).ready(function () {
   if (localStorage.getItem("comment") != null) {
     $("#indicator").html(localStorage.getItem("comment"));
+    $(".actn").toggleClass("d-none");
     if (localStorage.getItem("cmtClass") == "true") {
-      console.log("active");
       $("#indicator").removeClass("alert-info");
       $("#indicator").removeClass("alert-danger");
       $("#indicator").addClass("alert-success");
