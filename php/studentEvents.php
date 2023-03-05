@@ -1,16 +1,24 @@
 <?php
+require_once("usefulFunction/eventFunctions.php");
+require_once("usefulFunction/wordLimiter.php");
+require_once("assets/dbCon.php");
+
+$root = $_SERVER['DOCUMENT_ROOT'];
+$host = $_SERVER['HTTP_HOST'];
+
 // This Session will be set while login process
 $_SESSION["user"] = "Student";
 $_SESSION["userId"] = 4;
 $_SESSION["projectId"] = 1;
 
 $userID = $_SESSION['userId'];
+$projectID = $_SESSION["projectId"];
 
-$root = $_SERVER['DOCUMENT_ROOT'];
-$host = $_SERVER['HTTP_HOST'];
-
-require_once("usefulFunction/eventFunctions.php");
-require_once("usefulFunction/wordLimiter.php");
+// Database Work
+$sqlToFetch = "SELECT * FROM `tbl_events` WHERE `events_to_id` = '{$projectID}' ORDER BY `events_id` DESC";
+$resToFetch = mysqli_query($conn, $sqlToFetch);
+$sqlFromFetch = "SELECT * FROM `tbl_events` WHERE `events_from_id` = '{$projectID}' ORDER BY `events_id` DESC";
+$resFromFetch = mysqli_query($conn, $sqlFromFetch);
 
 if (isset($_POST["right"])) :
     init('right');
@@ -21,6 +29,7 @@ else :
 endif;
 
 extract($_SESSION);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -294,7 +303,7 @@ extract($_SESSION);
                                         ?>
                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                                     <div class="m-auto">
-                                                        <span class="badge bg-primary rounded-pill"><?= $got["events_date"]; ?></span>
+                                                        <span class="badge bg-primary rounded-pill" style="font-size: 14px; background-color:#45aaf2;"><?= $got["events_date"]; ?></span>
                                                         <div class="fw-bold"><?= $got["events_status"]; ?></div>
                                                         <?= (word_limiter($got["events_description"])); ?><br>
                                                     </div>
@@ -312,7 +321,7 @@ extract($_SESSION);
                                             ?>
                                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                                     <div class="m-auto">
-                                                        <span class="badge bg-primary rounded-pill"><?= $got["events_date"]; ?></span>
+                                                        <span class="badge bg-primary rounded-pill" style="font-size: 14px; background-color:#45aaf2;"><?= $got["events_date"]; ?></span>
                                                         <div class="fw-bold"><?= $got["events_status"]; ?></div>
                                                         <?= (word_limiter($got["events_description"])); ?><br>
                                                     </div>
@@ -345,13 +354,20 @@ extract($_SESSION);
                         </div>
                         <div class="modal-body">
                             <form id="meetingForm" autocomplete="off">
-                                <div class="mb-3">
-                                    <label for="eventInput" class="form-label">Description</label>
-                                    <input type="text" class="form-control" id="meetingDescription" name="meetingDescription" aria-describedby="eventHelp" maxlength="50" />
+                                <div class="mb-3 form-floating">
+                                    <textarea class="form-control" placeholder="Why do you want to meet Supervisor ?" id="meetingDescription" style="height: 100px" name="meetingDescription" maxlength="100"></textarea>
+                                    <label for="meetingDescription">Description</label>
                                     <div id="eventHelp" class="form-text">
                                         Why do you want to meet Supervisor ?
                                     </div>
                                 </div>
+                                <!-- <div class="mb-3">
+                                    <label for="eventInput" class="form-label">Description</label>
+                                    <input type="text" class="form-control" id="meetingDescription" name="meetingDescription" aria-describedby="eventHelp" maxlength="150" />
+                                    <div id="eventHelp" class="form-text">
+                                        Why do you want to meet Supervisor ?
+                                    </div>
+                                </div> -->
                                 <div class="mb-3">
                                     <label for="eventDate" class="form-label">Date</label>
                                     <input type="date" class="form-control" id="meetingDate" name="meetingDate" value="<?= $currentYear . '-' . $currentMonth . '-' . $currentDate; ?>" />
@@ -366,6 +382,8 @@ extract($_SESSION);
                     </div>
                 </div>
             </div>
+            <!-- Event Model Ends -->
+            
         </div>
     </div>
 
@@ -402,6 +420,8 @@ extract($_SESSION);
             $('.gate').on('click', function(e) {
                 $('#meetingDate').removeClass('btn btn-outline-danger');
                 $('#meetingDate').val(this.getAttribute('data-ddate'));
+                console.log($('#meetingDescription'));
+                $('#meetingDescription').focus();
                 $('#eventModal').modal('show');
             });
 

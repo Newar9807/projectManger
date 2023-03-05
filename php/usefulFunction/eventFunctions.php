@@ -56,14 +56,6 @@ function init($data = null)
     ];
     $data = null;
 }
-
-// function getAllEvents(){
-$projectID = $_SESSION["projectId"];
-$conn = mysqli_connect('localhost', 'root', '', 'pms') or die('Error Database Connection');
-$sqlToFetch = "SELECT * FROM `tbl_events` WHERE `events_to_id` = '{$projectID}' ORDER BY `events_id` DESC";
-$resToFetch = mysqli_query($conn, $sqlToFetch);
-$sqlFromFetch = "SELECT * FROM `tbl_events` WHERE `events_from_id` = '{$projectID}' ORDER BY `events_id` DESC";
-$resFromFetch = mysqli_query($conn, $sqlFromFetch);
     
     
 

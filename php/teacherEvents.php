@@ -1,15 +1,18 @@
 <?php
+require_once("usefulFunction/eventFunctions.php");
+require_once("usefulFunction/wordLimiter.php");
+require_once("assets/dbCon.php");
+
 // This Session will be set while login process
 $_SESSION["user"] = "Teacher";
 $_SESSION["userId"] = 3;
-
-$userID = $_SESSION['userId'];
+$_SESSION["projectId"] = [1, 2, 3];
 
 $root = $_SERVER['DOCUMENT_ROOT'];
 $host = $_SERVER['HTTP_HOST'];
 
-require_once("usefulFunction/eventFunctions.php");
-require_once("usefulFunction/wordLimiter.php");
+$userID = $_SESSION['userId'];
+$projectID = $_SESSION["projectId"];
 
 if (isset($_POST["right"])) :
     init('right');
@@ -46,7 +49,7 @@ $sql
             margin: 50px auto;
         }
 
-        .row {
+        #newOne {
             border-top: 5px solid var(--blue);
             border-left: 5px solid var(--blue);
             box-shadow: 5px 10px 28px;
@@ -151,7 +154,7 @@ $sql
             ?>
             <div class="container text-center d-grid aligns-items-center">
 
-                <div class="row">
+                <div class="row" id="newOne">
                     <div class="first col-sm-8 align-text-bottom ms-5" style="margin-top: 100px;">
                         <div class="mb-3">
                             <h1 class="display-6">CALENDER</h1>
@@ -276,12 +279,83 @@ $sql
                             </div>
                             <div class="list-group" id="eventInset">
                                 <ol class="list-group">
-
                                     <?php
-                                    $a = mysqli_num_rows($resToFetch);
-                                    $b = mysqli_num_rows($resFromFetch);
-                                    if (mysqli_num_rows($resToFetch) == 0 && mysqli_num_rows($resFromFetch) == 0) :
-                                    ?>
+                                    $count = 0;
+                                    // Database Work
+                                    foreach ($projectID as $value) :
+                                        // $sqlToFetch = "SELECT * FROM `tbl_events` WHERE `events_to_id` = '{$value}' ORDER BY `events_id` DESC";
+                                        // $sqlFromFetch = "SELECT * FROM `tbl_events` WHERE `events_from_id` = '{$value}' ORDER BY `events_id` DESC";
+                                        $sqlToFetch = "SELECT * FROM `tbl_events` JOIN `tbl_project` ON `tbl_events`.`events_to_id` = '{$value}' AND `tbl_events`.`events_from_id` = `tbl_project`.`project_id` ORDER BY `tbl_events`.`events_id` DESC";
+                                        $resToFetch = mysqli_query($conn, $sqlToFetch);
+                                        $sqlFromFetch = "SELECT * FROM `tbl_events` JOIN `tbl_project` ON `tbl_events`.`events_from_id` = '{$value}' AND `tbl_events`.`events_to_id` = `tbl_project`.`project_id` ORDER BY `tbl_events`.`events_id` DESC";
+                                        $resFromFetch = mysqli_query($conn, $sqlFromFetch);
+
+                                        if (mysqli_num_rows($resToFetch) == 0 && mysqli_num_rows($resFromFetch) == 0) :
+                                            $count++;
+                                            continue;
+                                        elseif (!$resToFetch || !$resFromFetch) : ?>
+                                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                                <div class="m-auto">
+                                                    <div class="fw-bold">Query Execution Error </div>
+                                                    Sorry !!
+                                                </div>
+                                            </li>
+                                            <?php
+                                        else :
+                                            if ($resToFetch) :
+                                                while ($got = mysqli_fetch_assoc($resToFetch)) :
+                                            ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <div class="m-auto d-grid clickCheck">
+                                                            <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
+                                                            <?= $got["events_status"]; ?>
+                                                            <span class="badge bg-info rounded-pill mb-2" role="button" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
+                                                            <small class="d-none">
+                                                                <hr style="margin: 0.15rem 0;">
+                                                                <?= $got["events_description"]; ?>
+                                                            </small>
+                                                            <div class="row d-flex justify-content-between align-items-center my-2">
+                                                                <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
+                                                                <span class="badge bg-success rounded-pill accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                <?php
+                                                endwhile;
+                                            else :
+                                                // Query Execution Error
+                                                echo "";
+                                            endif;
+
+                                            if ($resFromFetch) :
+                                                while ($got = mysqli_fetch_assoc($resFromFetch)) :
+                                                ?>
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                        <div class="m-auto d-grid clickCheck">
+                                                            <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
+                                                            <?= $got["events_status"]; ?>
+                                                            <span class="badge bg-info rounded-pill mb-2" role="button" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
+                                                            <small class="d-none">
+                                                                <hr style="margin: 0.15rem 0;">
+                                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam vero quidem, sapiente minima ipsam dolore corporis, obcaecati debitis iure provident aut expedita dolor exercitationem eligendi, ea eveniet eaque. Accusamus dolore minus maxime ducimus!
+                                                                <?= $got["events_description"]; ?>
+                                                            </small>
+                                                            <div class="row d-flex justify-content-between align-items-center my-2">
+                                                                <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
+                                                                <span class="badge bg-success rounded-pill accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                        <?php
+                                                endwhile;
+                                            else :
+                                                // Query Execution Error
+                                                echo "Query Execution Error";
+                                            endif;
+                                        endif;
+                                    endforeach;
+                                    if ($count == count($projectID)) :
+                                        ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-start">
                                             <div class="m-auto">
                                                 <div class="fw-bold">No Meetings Interaction </div>
@@ -289,65 +363,6 @@ $sql
                                             </div>
                                         </li>
                                     <?php
-                                    elseif (!$resToFetch || !$resFromFetch) : ?>
-                                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                                            <div class="m-auto">
-                                                <div class="fw-bold">Query Execution Error </div>
-                                                Sorry !!
-                                            </div>
-                                        </li>
-                                        <?php
-                                    else :
-                                        if ($resToFetch) :
-                                            while ($got = mysqli_fetch_assoc($resToFetch)) :
-                                        ?>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <div class="m-auto d-grid clickCheck">
-                                                        <div class="fw-bold" role="button" id="clickCheck<?= 1; ?>"><?= word_limiter("Project Manager System", 22); ?></div>
-                                                        Meeting Requested
-                                                        <small class="d-none">
-                                                            <hr>
-                                                            Sir, we want to talk about desiginig
-                                                            <br>
-                                                        </small>
-                                                        <span class="badge bg-danger rounded-pill trash my-2" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash"></i></span>
-                                                        <span class="badge bg-success rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2"></i></span>
-                                                    </div>
-                                                </li>
-
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <span class="badge bg-success rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2"></i></span>
-                                                    <div class="m-auto" role="button">
-                                                        <span class="badge bg-primary rounded-pill"><?= $got["events_date"]; ?></span>
-                                                        <div class="fw-bold"><?= $got["events_status"]; ?></div>
-                                                        <?= (word_limiter($got["events_description"])); ?><br>
-                                                    </div>
-                                                    <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span>
-                                                </li>
-                                            <?php
-                                            endwhile;
-                                        else :
-                                            // Query Execution Error
-                                            echo "";
-                                        endif;
-
-                                        if ($resFromFetch) :
-                                            while ($got = mysqli_fetch_assoc($resFromFetch)) :
-                                            ?>
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <div class="m-auto">
-                                                        <span class="badge bg-primary rounded-pill"><?= $got["events_date"]; ?></span>
-                                                        <div class="fw-bold"><?= $got["events_status"]; ?></div>
-                                                        <?= (word_limiter($got["events_description"])); ?><br>
-                                                    </div>
-                                                    <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span>
-                                                </li>
-                                    <?php
-                                            endwhile;
-                                        else :
-                                            // Query Execution Error
-                                            echo "Query Execution Error";
-                                        endif;
                                     endif;
                                     ?>
                                 </ol>
@@ -369,11 +384,11 @@ $sql
                         </div>
                         <div class="modal-body">
                             <form id="meetingForm" autocomplete="off">
-                                <div class="mb-3">
-                                    <label for="eventInput" class="form-label">Description</label>
-                                    <input type="text" class="form-control" id="meetingDescription" name="meetingDescription" aria-describedby="eventHelp" maxlength="50" />
+                                <div class="mb-3 form-floating">
+                                    <textarea class="form-control" placeholder="Some guidelines for meeting.." id="meetingDescription" style="height: 100px" name="meetingDescription" maxlength="100"></textarea>
+                                    <label for="meetingDescription">Description</label>
                                     <div id="eventHelp" class="form-text">
-                                        Why do you want to meet Supervisor ?
+                                        Some guidelines for meeting..
                                     </div>
                                 </div>
                                 <div class="mb-3">
@@ -382,7 +397,7 @@ $sql
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">
-                                        Request
+                                        Schedule
                                     </button>
                                 </div>
                             </form>
@@ -390,42 +405,7 @@ $sql
                     </div>
                 </div>
             </div>
-
-            <!-- Input Modal -->
-            <div class="modal fade" id="inputModal" tabindex="-1" aria-labelledby="inputModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="inputModalLabel">
-                                Input Manually
-                            </h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="home" method="POST">
-                                <div class="mb-3">
-                                    <label for="eventInput" class="form-label">Enter Year</label>
-                                    <input type="number" class="form-control" id="inputYear" name="inputYear" aria-describedby="inputYearHelp" value="20" />
-                                    <div id="inputYearHelp" class="form-text">
-
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="eventInput" class="form-label">Enter Month</label>
-                                    <input type="number" class="form-control" id="inputMonth" name="inputMonth" aria-describedby="inputMonthHelp" min="1" max="12" />
-                                    <div id="inputMonthHelp" class="form-text">
-
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Show</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- mid div ends -->
+            <!-- Event Model Ends -->
 
         </div>
     </div>
@@ -449,6 +429,19 @@ $sql
         $(document).ready(function() {
             $('.clickCheck').click(function() {
                 $(this).find("small").toggleClass('d-none');
+            });
+            $('.reject').click(function() {
+                var id = this.getAttribute("data-id");
+                $.post(
+                    "tempFunction/rejectMeeting.php", {
+                        id: id,
+                    },
+                    function(response) {
+                        localStorage.setItem("comment", response);
+                        localStorage.setItem("cmtClass", false);
+                        location.reload();
+                    }
+                );
             });
         });
     </script>
