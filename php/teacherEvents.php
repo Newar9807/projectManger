@@ -133,7 +133,7 @@ $sql
 <body style="overflow-y: hidden; background-color: #55efc4;">
     <div class="containers">
         <!-- Sidebar Starts -->
-        <?php include($root . "/5thproject/php/assets/stdSidebar.php"); ?>
+        <?php include($root . "/5thproject/php/assets/tecSidebar.php"); ?>
         <!-- Sidebar Ends -->
 
         <div class="main">
@@ -157,7 +157,7 @@ $sql
                 <div class="row" id="newOne">
                     <div class="first col-sm-8 align-text-bottom ms-5" style="margin-top: 100px;">
                         <div class="mb-3">
-                            <h1 class="display-6">CALENDER</h1>
+                            <h1 class="display-6">CALENDAR</h1>
                         </div>
                         <div class="calendar mt-4">
                             <table class="table">
@@ -302,23 +302,22 @@ $sql
                                             </li>
                                             <?php
                                         else :
-                                            if ($resToFetch) :
-                                                while ($got = mysqli_fetch_assoc($resToFetch)) :
+                                            if ($resFromFetch) :
+                                                while ($got = mysqli_fetch_assoc($resFromFetch)) :
                                             ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php elseif ($got["events_status"] == "Meeting Assigned") : ?> style="background-color: #81ecec;" <?php endif; ?>>
                                                         <div class="m-auto d-grid clickCheck">
                                                             <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
                                                             <?= $got["events_status"]; ?>
                                                             <span class="badge bg-info rounded-pill mb-2" role="button" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
-                                                            <small class="d-none">
-                                                                <hr style="margin: 0.15rem 0;">
-                                                                <?= $got["events_description"]; ?>
-                                                                <?php if ($got["events_status"] == "Meeting Assigned") : ?>
+                                                            <?php if ($got["events_status"] != "Meeting Requested") : ?>
+                                                                <small class="d-none">
+                                                                    <hr style="margin: 0.15rem 0;">
+                                                                    <?= $got["events_description"]; ?>
                                                                     <br>
                                                                     <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
-                                                                <?php endif; ?>
-                                                            </small>
-                                                            <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                                </small>
+                                                            <?php else : ?>
                                                                 <div class="row d-flex justify-content-between align-items-center my-2 actn">
                                                                     <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
                                                                     <span class="badge bg-success rounded-pill accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
@@ -333,26 +332,25 @@ $sql
                                                 echo "";
                                             endif;
 
-                                            if ($resFromFetch) :
-                                                while ($got = mysqli_fetch_assoc($resFromFetch)) :
+                                            if ($resToFetch) :
+                                                while ($got = mysqli_fetch_assoc($resToFetch)) :
                                                 ?>
                                                     <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php elseif ($got["events_status"] == "Meeting Assigned") : ?> style="background-color: #81ecec;" <?php endif; ?>>
                                                         <div class="m-auto d-grid clickCheck">
                                                             <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
                                                             <?= $got["events_status"]; ?>
                                                             <span class="badge bg-info rounded-pill mb-2" role="button" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
-                                                            <small class="d-none">
-                                                                <hr style="margin: 0.15rem 0;">
-                                                                <?= $got["events_description"]; ?>
-                                                                <?php if ($got["events_status"] == "Meeting Assigned") : ?>
+                                                            <?php if ($got["events_status"] != "Meeting Requested") : ?>
+                                                                <small class="d-none">
+                                                                    <hr style="margin: 0.15rem 0;">
+                                                                    <?= $got["events_description"]; ?>
                                                                     <br>
                                                                     <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
-                                                                <?php endif; ?>
-                                                            </small>
-                                                            <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                                </small>
+                                                            <?php else : ?>
                                                                 <div class="row d-flex justify-content-between align-items-center my-2 actn">
                                                                     <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
-                                                                    <span class="badge bg-success rounded-pill accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
+                                                                    <span class="badge bg-success rounded-pill  accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
                                                                 </div>
                                                             <?php endif; ?>
                                                         </div>
@@ -518,17 +516,16 @@ $sql
                 currentDate = parseInt(getCurrentDate());
                 choosenDate = parseInt(choosenDate);
 
-                if (project == "Select Project") {
-                    $('#selected').addClass("btn-outline-danger");
-                    $('#selected').removeClass("btn-outline-dark");
+                if ((currentDate > choosenDate) || (project == 0)) {
+                    if (currentDate > choosenDate) {
+                        $("#meetingDate").addClass(" btn btn-outline-danger")
+                    } else {
+                        $('#selected').addClass("btn-outline-danger");
+                        $('#selected').removeClass("btn-outline-dark");
+                    }
                 } else {
                     $('#selected').addClass("btn-outline-success");
                     $('#selected').removeClass("btn-outline-danger");
-                }
-
-                if ((currentDate > choosenDate)) {
-                    $("#meetingDate").addClass(" btn btn-outline-danger");
-                } else {
                     $("#meetingDate").removeClass("btn btn-outline-danger");
                     $.post(
                         "tempFunction/teacherMeeting.php", {

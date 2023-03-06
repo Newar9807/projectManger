@@ -155,7 +155,7 @@ extract($_SESSION);
                 <div class="row">
                     <div class="first col-sm-8 align-text-bottom ms-5" style="margin-top: 100px;">
                         <div class="mb-3">
-                            <h1 class="display-6">CALENDER</h1>
+                            <h1 class="display-6">CALENDAR</h1>
                         </div>
                         <div class="calendar mt-4">
                             <table class="table">

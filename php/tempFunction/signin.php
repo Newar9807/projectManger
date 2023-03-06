@@ -22,7 +22,7 @@ $sqlSecond = "SELECT `user_id` FROM `tbl_user` WHERE `user_email` = '{$email}' A
 
 $resSecond = mysqli_query($conn, $sqlSecond);
 
-if ($resSecond) :
+if ($resSecond && (mysqli_num_rows($resSecond) == 1)) :
     while ($fetchSecond = mysqli_fetch_assoc($resSecond)) :
         session_start();
         $_SESSION["user_id"] = $fetchSecond["user_id"];

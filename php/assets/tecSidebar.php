@@ -13,16 +13,16 @@
             </a>
         </li>
         <li>
+            <a href="teacherTasks.php">
+                <span class="icon"><ion-icon name="document-text-outline"></ion-icon></span>
+                <span class="title">Tasks</span>
+            </a>
+        </li>
+        <li>
             <a href="teacherEvents.php">
                 <span class="icon"><ion-icon name="calendar-outline"></ion-icon>
                 </span>
                 <span class="title">Events</span>
-            </a>
-        </li>
-        <li>
-            <a href="teacherTasks.php">
-                <span class="icon"><ion-icon name="document-text-outline"></ion-icon></span>
-                <span class="title">Tasks</span>
             </a>
         </li>
         <li>
