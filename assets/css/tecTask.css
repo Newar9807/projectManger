@@ -1,0 +1,189 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 4px solid #287bff;
+  align-content: center;
+  border-radius: 10px;
+  width: 50%;
+  height: 700px;
+  margin-top: 20px;
+}
+
+hr {
+  border: 2px solid #287bff;
+}
+
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.row1 {
+  display: flex;
+}
+
+.row2 {
+  display: flex;
+}
+
+.row3 {
+  display: flex;
+}
+
+.row5 {
+  display: flex;
+}
+
+.input-container {
+  width: 280px;
+  position: relative;
+}
+
+.text-input {
+  padding: 0.8rem;
+  width: 100%;
+  height: 70%;
+  border: 2px solid #382f26;
+  border-radius: 5px;
+  font-size: 18px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.select-input {
+  padding: 0.8rem;
+  width: 100%;
+  height: 70%;
+  border: 2px solid #382f26;
+  border-radius: 5px;
+  font-size: 18px;
+  outline: none;
+  transition: all 0.3s;
+}
+
+/* .label::before{
+content: "";
+height: 5px;
+ background-color: #287bff;  
+position: absolute;
+left: 0;
+top: 20px;
+width: 100%;
+z-index: -1;
+} */
+.text-input:focus {
+  border: 2px solid #287bff;
+}
+
+.select-input:focus {
+  border: 2px solid #287bff;
+}
+
+/* .text-input:focus+.label,.filled{
+top: -15px;
+color: #333333;
+font-size: 14px;
+} */
+.text-input::placeholder {
+  font-size: 16px;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.text-input:focus::placeholder {
+  opacity: 1;
+  animation-delay: 0.2s;
+}
+
+.select-input::placeholder {
+  font-size: 16px;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.slect-input:focus::placeholder {
+  opacity: 1;
+  animation-delay: 0.2s;
+}
+
+#task {
+  float: left;
+  margin-left: 60px;
+}
+
+#project {
+  float: right;
+  margin-left: 20px;
+}
+
+#model {
+  float: left;
+  margin-left: 60px;
+}
+
+#phase {
+  float: right;
+  margin-left: 20px;
+}
+
+#dDate {
+  float: left;
+  margin-left: 60px;
+}
+
+#priority {
+  float: right;
+  margin-left: 20px;
+}
+
+#Descript {
+  margin-left: 60px;
+  width: 580px;
+}
+
+#attach {
+  float: left;
+  margin-left: 60px;
+}
+
+#btns {
+  float: right;
+  margin-left: 20px;
+}
+
+#taskBtn {
+  margin-top: 30px;
+  width: 200px;
+  margin-left: 40px;
+  border-radius: 10px;
+  height: 40px;
+  background-color: #287bff;
+  color: #fefefe;
+  border: #287bff;
+}
+#modal-button{
+    cursor: pointer;
+}

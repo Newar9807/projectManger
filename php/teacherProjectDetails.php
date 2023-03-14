@@ -10,8 +10,24 @@ $host = $_SERVER['HTTP_HOST']; ?>
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title>Teacher</title>
+    <style>
+        .content-details-header{
+            display: flex;
+        }
+        .conHead{
+            /* float: left; */
+            margin: 25px 0 0 77px;
+        }
+        .conTail{
+            margin: 30px 40px 0 0;
+            float: right;
+        }
+        .edit-btn{
+            font-size: 24px;
+        }
+    </style>
 </head>
- 
+
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
@@ -25,10 +41,14 @@ $host = $_SERVER['HTTP_HOST']; ?>
             <!-- mid div start -->
             <div class="content-section">
                 <div class="content-details-header">
-                    <h2 class="content-header">Project Details</h2>
-                    <a href="teacherProjects.php">
-                        <button class="edit-btn"><ion-icon name="arrow-undo-outline"></ion-icon>Back</button>
-                    </a>
+                    <div class="conHead content-header">
+                        <h3>Project Details</h3>
+                    </div>
+                    <div class="conTail">
+                        <a href="teacherProjects.php">
+                            <button class="edit-btn"><ion-icon name="arrow-undo-outline"></ion-icon>Back</button>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="content-details">
@@ -119,7 +139,7 @@ $host = $_SERVER['HTTP_HOST']; ?>
 
     /* Charts script */
     <script>
-        var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct","Nov","Dec"];
+        var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
         new Chart("myChart", {
             type: "line",
@@ -129,10 +149,12 @@ $host = $_SERVER['HTTP_HOST']; ?>
                     data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
                     borderColor: "red",
                     fill: false
-                },]
+                }, ]
             },
             options: {
-                legend: { display: false }
+                legend: {
+                    display: false
+                }
             }
         });
     </script>

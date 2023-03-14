@@ -8,8 +8,8 @@ $host = $_SERVER['HTTP_HOST'];
 
 // This Session will be set while login process
 $_SESSION["user"] = "Student";
-$_SESSION["userId"] = 6;
-$_SESSION["projectId"] = 2;
+$_SESSION["userId"] = 4;
+$_SESSION["projectId"] = 1;
 
 $userID = $_SESSION['userId'];
 $projectID = $_SESSION["projectId"];

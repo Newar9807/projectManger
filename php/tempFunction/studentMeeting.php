@@ -1,7 +1,7 @@
 <?php
 // This will be set while login process
 $_SESSION["user"] = "Student";
-$_SESSION["userId"] = 6;
+$_SESSION["userId"] = 4;
 
 $userId = $_SESSION["userId"];
 

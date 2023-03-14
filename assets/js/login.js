@@ -98,7 +98,7 @@ $(document).ready(function () {
           password = $("#tecPassword").val(),
           confirmPassword = $("#tecConfirmPassword").val();
 
-        $.post(
+        $.post( 
           "php/tempFunction/register.php",
           {
             name: nam,
