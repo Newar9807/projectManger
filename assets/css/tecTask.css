@@ -187,9 +187,13 @@ font-size: 14px;
   border: #287bff;
   cursor: pointer;
 }
-#modal-button{
-    cursor: pointer;
-}
-.icon{
+#modal-button {
   cursor: pointer;
+}
+.icon {
+  cursor: pointer;
+}
+.blueSuccess {
+  border: 2px solid #287bff;
+  /* border: 2px solid #6ab04c; */
 }

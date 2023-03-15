@@ -112,7 +112,7 @@ $host = $_SERVER['HTTP_HOST'];
                                 <input type="file" class="text-input" id="fileUpload" name="fileUpload" />
                             </div>
                             <div class="btns" id="btns">
-                                <button type="submit" class="btn btn-primary" id="taskBtn">Save</button>
+                                <button type="submit" class="btn btn-primary" id="taskBtn" value="">Save</button>
                             </div>
                         </div>
                     </form>
@@ -129,14 +129,14 @@ $host = $_SERVER['HTTP_HOST'];
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
     <!-- <script src="../assets/js/teacherDashbaord.js"></script> -->
 
-
+    <!-- <script src="http://datatables.net/reference/api/ajax.reload()"></script> -->
     <script>
         $(document).ready(function() {
 
             const priority = `<option value>Select Priority</option>
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>`;
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>`;
 
             var prototype = ['Requirement Analysis', 'Quick Design', 'Building ProtoType', 'Customer Evaluation', 'Review & Update', 'Development', 'Testing', 'Maintain'],
                 waterfall = ['Requirement Analysis', 'System Design', 'Implementation', 'Testing', 'Deployment', 'Maintenance'];
@@ -156,8 +156,13 @@ $host = $_SERVER['HTTP_HOST'];
                 projectID[<?= $key ?>] = <?= $val; ?>;
             <?php endforeach; ?>
 
+            var table = $("table#myTable").DataTable({
+                "bDestroy": true,
+                "searching": true,
+                // "paging": true,
+            });
+
             $('#modal-button').click(function() {
-                $('#modal').css('display', 'block');
                 $.post(
                     "tempFunction/fetchProjects.php", {
                         'userID': <?= $userID; ?>,
@@ -165,6 +170,8 @@ $host = $_SERVER['HTTP_HOST'];
                     },
                     function(response) {
                         response = JSON.parse(response);
+                        resetTaskForm();
+                        $('#modal').css('display', 'block');
                         var htm = `<option value="0">Select Project</option>`;
                         Object.entries(response).forEach(entry => {
                             const [key, value] = entry;
@@ -180,6 +187,8 @@ $host = $_SERVER['HTTP_HOST'];
                         });
                         $('#projectName').empty();
                         $('#projectName').append(htm);
+                        $('#taskBtn').html('Save');
+                        $('#taskBtn').attr('value', '0');
                     }
                 );
 
@@ -189,6 +198,16 @@ $host = $_SERVER['HTTP_HOST'];
                 $('#taskName').focus();
                 // $('#taskModel>div>div>select').addClass("errorTrack");
                 // $('#taskModel>div>div>textarea').addClass("errorTrack");
+            });
+
+            $('#dueDate').change(function() {
+                if ($(this).val() < today) {
+                    $(this).addClass("errorTrack");
+                    $(this).removeClass("successTrack");
+                } else {
+                    $(this).removeClass("errorTrack");
+                    $(this).addClass("successTrack");
+                }
             });
 
 
@@ -268,7 +287,14 @@ $host = $_SERVER['HTTP_HOST'];
             $("#taskModel").submit(function(e) {
                 e.preventDefault();
                 if ($('#taskModel .successTrack').length != 7) {
-
+                    swal({
+                        title: "Please check all fields",
+                        icon: "warning",
+                        // buttons: ["Cancel", "Yes"],
+                        dangerMode: false,
+                    }).then((isOkay) => {
+                        if (isOkay) {}
+                    });
                 } else {
                     var taskName = $('#taskName').val();
                     var projectID = $('#projectName').val();
@@ -277,26 +303,46 @@ $host = $_SERVER['HTTP_HOST'];
                     var taskPriority = $('#taskPriority').val();
                     var taskDescription = $('#taskDescription').val();
 
-                    $.post(
-                        "tempFunction/storeTasks.php", {
-                            taskName: taskName,
-                            fromID: <?= $userID; ?>,
-                            toID: projectID,
-                            sdlcPhase: sdlcPhase,
-                            taskDescription: taskDescription,
-                            taskPriority: taskPriority,
-                            dueDate: dueDate,
-                        },
-                        function(response) {
-                            fetchTasks();
-                            resetTaskForm();
-                        }
-                    );
+                    if ($('#taskBtn').val() == 0) {
+                        $.post(
+                            "tempFunction/storeTasks.php", {
+                                'taskName': taskName,
+                                'fromID': <?= $userID; ?>,
+                                'toID': projectID,
+                                'sdlcPhase': sdlcPhase,
+                                'taskDescription': taskDescription,
+                                'taskPriority': taskPriority,
+                                'dueDate': dueDate,
+                            },
+                            function(response) {
+                                resetTaskForm();
+                                fetchTasks();
+                            }
+                        );
+                    } else if ($('#taskBtn').val() == 1) {
+                        $.post(
+                            "tempFunction/updateTasks.php", {
+                                'taskID': localStorage.getItem("taskID"),
+                                'taskName': taskName,
+                                'fromID': <?= $userID; ?>,
+                                'toID': projectID,
+                                'sdlcPhase': sdlcPhase,
+                                'taskDescription': taskDescription,
+                                'taskPriority': taskPriority,
+                                'dueDate': dueDate,
+                            },
+                            function(response) {
+                                localStorage.removeItem("taskID")
+                                fetchTasks();
+                                resetTaskForm();
+                            }
+                        );
+                    }
                 }
             });
 
             $("#myTable").on("click", "span", function() {
-                var taskID = ($(this).closest('tr').attr('value'));
+                localStorage.setItem("taskID", $(this).closest('tr').attr('value'));
                 var action = ($(this).attr('id'));
                 if (action == "delete") {
                     swal({
@@ -308,16 +354,16 @@ $host = $_SERVER['HTTP_HOST'];
                         if (isOkay) {
                             // table.row($(this).parents("tr")).remove().draw(false);
                             $.post("tempFunction/deleteTasks.php", {
-                                'taskID': taskID,
+                                'taskID': localStorage.getItem("taskID"),
                             }, function(response) {
                                 response = JSON.parse(response);
                                 fetchTasks();
                             });
                         }
                     });
-                } else if (action == "edit") {
-                    $.post("tempFunction/editTasks.php", {
-                        'taskID': taskID,
+                } else {
+                    $.post("tempFunction/getDataToEditTasks.php", {
+                        'taskID': localStorage.getItem("taskID"),
                     }, function(response) {
                         response = JSON.parse(response);
                         var count = 0;
@@ -327,7 +373,6 @@ $host = $_SERVER['HTTP_HOST'];
 
                         Object.entries(response).forEach(entry => {
                             const [key, value] = entry;
-                            console.log(count + "?" + value);
                             htm = `<option value="` + key + `">` + value + `</option>`;
                             if (count == 1) {
                                 $('#taskModel .forEditOrView').eq(0).val(value);
@@ -362,50 +407,41 @@ $host = $_SERVER['HTTP_HOST'];
                             }
                             count++;
                         });
-                        $('#taskModel .forEditOrView').addClass("successTrack");
-                        $('#taskBtn').html("Update");
+                        if (action == "edit") {
+                            $('#taskModel .forEditOrView').removeClass("blueSuccess");
+                            $('#taskModel .forEditOrView').addClass("successTrack");
+                            $('#taskModel .forEditOrView').prop('disabled', false);
+                            $('#sdlcModel').prop('disabled', true);
+                            $('#taskBtn').html("Update");
+                            $('#taskBtn').css('display', 'block');
+                            $('#taskBtn').attr('value', '1');
+                        } else if (action == "view") {
+                            $('#taskModel .forEditOrView').removeClass("successTrack");
+                            $('#taskModel .forEditOrView').addClass("blueSuccess");
+                            $('#taskModel .forEditOrView').prop('disabled', true);
+                            $('#taskBtn').css('display', 'none');
+                            $('#taskBtn').attr('value', '');
+                        }
                     });
-                    // var count = 0;
-                    // $(this).closest('tr').children().map(function() {
-                    //         count++;
-                    //         if (count < 5) {
-                    //             console.log($(this).html())
-                    //         } else if (count == 5) {
-                    //             console.log($(this).children().html());
-                    //         };
-                    //     }).get()
-                    //     .join(", ");
-
-                } else if (action == "view") {
-                    $('#modal').css('display', 'block');
-
                 }
             });
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    resetTaskForm();
+                }
+            };
 
             function resetTaskForm() {
                 $('#modal').css('display', 'none');
                 $('#taskModel')[0].reset();
+                $('#taskBtn').attr('value', '');
                 $('#sdlcPhase').empty();
                 $('#sdlcPhase').append('<option value="0">Phase..</option>');
                 $('#projectName').append('<option value="0">Projects..</option>');
+                $('#taskPriority').append(priority);
                 $("#taskModel .successTrack, .errorTrack").removeClass("successTrack errorTrack");
             }
-
-            var table = $("table#myTable").DataTable({
-                "bDestroy": true,
-                "searching": true,
-                "paging": true,
-                // columns: [
-                //     null,
-                //     null,
-                //     null,
-                //     null,
-                //     null,
-                //     {
-                //         sortable: false,
-                //     },
-                // ],
-            });
 
             function fetchTasks() {
                 $.post("tempFunction/fetchTasks.php", {
@@ -429,103 +465,49 @@ $host = $_SERVER['HTTP_HOST'];
                                 htmm += `value="${value}"><td>${sno}</td>`;
                             } else if (key == "status") {
                                 htmm += `<td>
-                                <span class="badge badge-${value.toLowerCase()}">${value}</span>
-                                </td>`;
+                    <span class="badge badge-${value.toLowerCase()}">${value}</span>
+                    </td>`;
                             } else {
                                 htmm += `<td>${value}</td>`;
                             }
                         });
 
                         htmm += `<td>
-                                    <div class="actions">
-                                        <span class="icon" id="view">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                        </span>
-                                        <span class="icon" id="edit">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                        </span>
-                                        <span class="icon" id="delete">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>`;
+                        <div class="actions">
+                            <span class="icon" id="view">
+                                    <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
+                            </span>
+                            <span class="icon" id="edit">
+                                    <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
+                            </span>
+                            <span class="icon" id="delete">
+                                    <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
+                            </span>
+                        </div>
+                    </td>
+                </tr>`;
                     });
-
                     $('#myTable tbody').empty();
                     $('#myTable tbody').append(htmm);
-                    // table.DataTable().ajax.reload()
+                    
+                    // $("table#myTable").DataTable().ajax.reload(null, false)
                     table.reload();
                     // $("#myTable").load("teacherTasks.php #myTable");
-
-
-
                 });
             }
             fetchTasks();
-
         });
+        // var count = 0;
+        // $(this).closest('tr').children().map(function() {
+        //         count++;
+        //         if (count < 5) {
+        //             console.log($(this).html())
+        //         } else if (count == 5) {
+        //             console.log($(this).children().html());
+        //         };
+        //     }).get()
+        //     .join(", ");
     </script>
-
-
-    <!-- Sarowor Work -->
-    <script>
-        //add hovered class
-        // let list = document.querySelectorAll(".navigation li");
-
-        // function activelink() {
-        //     list.forEach((item) => item.classList.remove("hovered"));
-        //     this.classList.add("hovered");
-        // }
-        // list.forEach((item) => item.addEventListener("mouseover", activelink));
-
-        //for profile dropdown
-    </script>
-    <script>
-        //delete row
-
-
-        // $("#myTable").on("click", "button", function() {
-        //     swal({
-        //         title: "Are you sure?",
-        //         icon: "warning",
-        //         buttons: ["Cancel", "Yes"],
-        //         dangerMode: true,
-        //     }).then((isOkay) => {
-        //         if (isOkay) {
-        //             table.row($(this).parents("tr")).remove().draw(false);
-        //         }
-        //     });
-        // });
-    </script>
-    <!-- This is to open model -->
-    <script>
-        // var modal = document.getElementById("modal");
-
-        // Get the button that opens the modal
-        // var modalButton = document.getElementById("modal-button");
-
-        // Get the close button
-        // var closeButton = document.getElementsByClassName("close")[0];
-
-        // When the user clicks the button, open the modal
-        // modalButton.onclick = function() {
-        //     modal.style.display = "block";
-        // };
-
-        // When the user clicks on the close button, close the modal
-        // closeButton.onclick = function() {
-        //     modal.style.display = "none";
-        // };
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                resetTaskForm()
-            }
-        };
-    </script>
-
 
 </body>
 
