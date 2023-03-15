@@ -543,6 +543,7 @@ color: var(--white);
   border-radius: 10px;
 
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  margin-bottom: 10px;
   width: 65%;
 
 
@@ -558,14 +559,59 @@ color: var(--white);
   width:200px;
   height: 200px;
 }
+.dashInner{
+  margin-top: 30px;
+ 
 
+  border: 4px solid #287bff;
 
-/*task*/
-.taskArea{
+  position: relative;
+  width: 95%;
+  padding: 20px;
+  /* grid-template-columns: repeat(3,1fr); */
+  display: flex;
+  /* grid-gap: 40px; */
+  height: 650px;
+  margin-left: 40px;
+  border-radius: 10px;
+  /* box-shadow: 0 7px 25px rgba(127, 126, 126, 0.88); */
+  
+}
+.graphss{
+  position: relative;
+  height: 600px;
+  width: 700px;
+  margin-top: 10px;
+}
+.graphss h2{
+  margin-left: 200px;
+}
+
+#lineChart{
+  margin-top: 20px;
+
+}
+.rightDiv{
+  margin-left: 30px;
+  height: 600px;
+  width: 200px;
+  margin-top: 20px;
  
   height: 702px;
   width: 100%;
 }
+.rightDiv h2{
+  margin-left: 140px;
+}
+#container22{
+  margin-top: 20px;
+  width: 420px;
+  height: 100px;
+  /* background-color: #0000; */
+
+}
+
+
 .taskArea .taskSubArea h2{
   margin-top: 10px;
 }

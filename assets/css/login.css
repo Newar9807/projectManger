@@ -563,20 +563,6 @@ margin-left: 10px;
   bottom: 100px;
 } */
 
-.errorTrack {
-  outline: 2px solid #ff4757;
-}
-.successTrack {
-  outline: 2px solid #6ab04c;
-}
-.successColor {
-  color: #6ab04c;
-}
-.errorColor{
-  color: #ff4757;
-  width: 50%;
-  margin:0 auto;
-}
 .stdClass h2 {
   color: #444;
   text-align: center;

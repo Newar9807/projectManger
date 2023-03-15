@@ -1,3 +1,11 @@
+<?php
+// This Session will be set while login process
+$_SESSION["user"] = "Teacher";
+$_SESSION["userId"] = 3;
+$_SESSION["projectId"] = [1, 2, 3];
+$userID = $_SESSION['userId'];
+$projectID = $_SESSION["projectId"];
+?>
 <div class="navigation" id="navigation">
     <ul>
         <li>

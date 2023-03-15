@@ -1,22 +1,21 @@
 <?php $root = $_SERVER['DOCUMENT_ROOT'];
-$host = $_SERVER['HTTP_HOST']; ?>
+$host = $_SERVER['HTTP_HOST'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php include($root . "/5thproject/php/assets/head.php"); ?>
     <link rel="stylesheet" href="../assets/css/tstyle.css">
     <link rel="stylesheet" href="../assets/css/project.css">
     <link rel="stylesheet" href="../assets/css/tecTask.css">
+    <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.2/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $("#myTable").DataTable();
-        });
+
     </script>
     <title>Teacher</title>
 
@@ -37,397 +36,23 @@ $host = $_SERVER['HTTP_HOST']; ?>
                 <h2 class="content-header">Tasks</h2>
                 <div class="tableArea">
                     <div class="table-header">
-                        <a href="#">
-                            <button class="create-btn" id="modal-button">
-                                <ion-icon name="add-outline" style="font-size: 22px; cursor: pointer"></ion-icon>Create New
-                            </button>
-                        </a>
+                        <button class="create-btn" id="modal-button">
+                            <ion-icon name="add-outline" style="font-size: 22px; cursor: pointer"></ion-icon>Create New
+                        </button>
                     </div>
                     <table class="display" id="myTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Project</th>
-                                <th>Task Name</th>
-                                <th>Duration</th>
+                                <th>Project Name</th>
+                                <th>Task Title</th>
+                                <th>Due Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="#" id="modal-button">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-completed"> Completed </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-completed"> Completed </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>sarowar</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>sarowar</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>sarowar</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>sarowar</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>sarowar</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>sarowar</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>sarowar</td>
-                                <td>Thornton</td>
-                                <td>
-                                    2023-01-22 <br />
-                                    2023-03-20 <br />
-                                </td>
-                                <td>
-                                    <span class="badge badge-pending"> Pending </span>
-                                </td>
-                                <td>
-                                    <div class="actions">
-                                        <span class="icon">
-                                            <a href="taskShow.html">
-                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <a href="#">
-                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                                            </a>
-                                        </span>
-                                        <span class="icon">
-                                            <button type="submit" id="delete" class="delete" style="cursor: pointer">
-                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
+                            <!-- Here Comes Task Details -->
                         </tbody>
                     </table>
                 </div>
@@ -440,82 +65,54 @@ $host = $_SERVER['HTTP_HOST']; ?>
                     <br />
                     <hr />
                     <br />
-                    <form action="">
+                    <form action="" id="taskModel" enctype="multipart/form-data">
                         <div class="row1">
                             <div class="input-container" id="task">
                                 <span>Task Name</span>
-                                <input type="text" class="text-input" id="taskName" name="taskName" autocomplete="off" placeholder="Enter Task Name" />
+                                <input type="text" class="text-input forEditOrView" id="taskName" name="taskName" autocomplete="off" placeholder="Enter Task Name" />
 
                             </div>
                             <div class="input-container" id="project">
                                 <span>Projects</span>
-                                <select class="select-input" id="projectName" name="projectName" autocomplete="off" placeholder="Select Projects">
-                                    <option value>Select Project</option>
-                                    <option>RKS</option>
-                                    <option>RMS</option>
-                                    <option>DMS</option>
-                                    <option>CMS</option>
-                                    <option>PMS</option>
+                                <select class="select-input forEditOrView" id="projectName" name="projectName" autocomplete="off" placeholder="Select Projects">
                                 </select>
                             </div>
                         </div><br>
                         <div class="row2">
                             <div class="input-container" id="model">
                                 <span>Sdlc Model</span>
-                                <select class="select-input" id="sdlcModel" name="sdlcModel" autocomplete="off" placeholder="Select Sdlc Model">
-                                    <option value="1">Prototype</option>
-                                    <option value="2">Spiral</option>
-                                    <option value="3">Waterfall</option>
-
-                                </select>
+                                <input type="text" class="select-input forEditOrView" style="opacity:1;" id="sdlcModel" name="sdlcModel" autocomplete="off" value="SDLC" disabled />
                             </div>
                             <div class="input-container" id="phase">
                                 <span>Sdlc Phase</span>
-                                <select class="select-input" id="sdlcPhase" name="sdlcPhase" autocomplete="off" placeholder="Select Phase">
-                                    <option value>Select Phase</option>
-                                    <option value="1">Planning</option>
-                                    <option value="2">Analysis</option>
-                                    <option value="3">Design</option>
-                                    <option value="4">Development</option>
-                                    <option value="5">Testing</option>
-                                    <option value="6">Implementation</option>
-                                    <option value="7">Maintenance</option>
+                                <select class="select-input forEditOrView" id="sdlcPhase" name="sdlcPhase" autocomplete="off" placeholder="Select Phase">
                                 </select>
                             </div>
                         </div><br>
                         <div class="row3">
                             <div class="input-container" id="dDate">
                                 <span>Due date</span>
-                                <input type="date" class="text-input" id="dueDate" name="dueDate" autocomplete="off" placeholder="Enter Task Name" />
-
+                                <input type="date" class="text-input forEditOrView" id="dueDate" name="dueDate" autocomplete="off" placeholder="Enter Task Name" />
                             </div>
                             <div class="input-container" id="priority">
                                 <span>Priority</span>
-                                <select class="select-input" id="taskPriority" name="taskPriority" autocomplete="off" placeholder="Select Priority">
-                                    <option value>Select Priority</option>
-                                    <option value="1">High</option>
-                                    <option value="2">Medium</option>
-                                    <option value="3">Low</option>
-
+                                <select class="select-input forEditOrView" id="taskPriority" name="taskPriority" autocomplete="off" placeholder="Select Priority">
                                 </select>
                             </div>
                         </div><br>
                         <div class="row4">
                             <div class="input-container" id="Descript">
                                 <span>Description</span>
-                                <textarea class="text-input"></textarea>
-
+                                <textarea class="text-input forEditOrView" id="taskDescription" placeholder="Describe about task (length 10-100 words).." maxlength="100"></textarea>
                             </div>
                         </div><br>
                         <div class="row5">
                             <div class="input-container" id="attach">
                                 <span>Attachments</span>
                                 <input type="file" class="text-input" id="fileUpload" name="fileUpload" />
-
                             </div>
                             <div class="btns" id="btns">
                                 <button type="submit" class="btn btn-primary" id="taskBtn">Save</button>
-
                             </div>
                         </div>
                     </form>
@@ -529,101 +126,402 @@ $host = $_SERVER['HTTP_HOST']; ?>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-    <script src="../assets/js/teacherDashbaord.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
+    <!-- <script src="../assets/js/teacherDashbaord.js"></script> -->
+
+
+    <script>
+        $(document).ready(function() {
+
+            const priority = `<option value>Select Priority</option>
+                                    <option value="High">High</option>
+                                    <option value="Medium">Medium</option>
+                                    <option value="Low">Low</option>`;
+
+            var prototype = ['Requirement Analysis', 'Quick Design', 'Building ProtoType', 'Customer Evaluation', 'Review & Update', 'Development', 'Testing', 'Maintain'],
+                waterfall = ['Requirement Analysis', 'System Design', 'Implementation', 'Testing', 'Deployment', 'Maintenance'];
+
+            const allModel = {
+                'ProtoType': prototype,
+                'WaterFall': waterfall,
+            };
+
+            var now = new Date();
+            var day = parseInt(("0" + now.getDate()).slice(-2)) + 1;
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+            var projectID = new Array();
+            <?php foreach ($projectID as $key => $val) : ?>
+                projectID[<?= $key ?>] = <?= $val; ?>;
+            <?php endforeach; ?>
+
+            $('#modal-button').click(function() {
+                $('#modal').css('display', 'block');
+                $.post(
+                    "tempFunction/fetchProjects.php", {
+                        'userID': <?= $userID; ?>,
+                        'projectID': projectID,
+                    },
+                    function(response) {
+                        response = JSON.parse(response);
+                        var htm = `<option value="0">Select Project</option>`;
+                        Object.entries(response).forEach(entry => {
+                            const [key, value] = entry;
+                            htm += `<option value="${key}" `;
+                            Object.entries(value).forEach(entry => {
+                                const [key, value] = entry;
+                                if (key == 0) {
+                                    htm += `data-model="${value}">`;
+                                } else {
+                                    htm += `${value}</option>`;
+                                }
+                            });
+                        });
+                        $('#projectName').empty();
+                        $('#projectName').append(htm);
+                    }
+                );
+
+                $('#dueDate').val(today);
+                $('#dueDate').addClass('successTrack');
+
+                $('#taskName').focus();
+                // $('#taskModel>div>div>select').addClass("errorTrack");
+                // $('#taskModel>div>div>textarea').addClass("errorTrack");
+            });
+
+
+            $('.close:eq(0)').click(function() {
+                resetTaskForm();
+            });
+
+            $('#projectName').change(function() {
+                if ($(this).find(':selected').val() == 0) {
+                    $(this).removeClass('successTrack');
+                    $(this).addClass('errorTrack');
+                    $('#sdlcModel').removeClass('successTrack');
+                    $('#sdlcModel').addClass('errorTrack');
+                } else {
+                    $(this).addClass('successTrack');
+                    $(this).removeClass('errorTrack');
+                    $('#sdlcModel').removeClass('errorTrack');
+                    $('#sdlcModel').addClass('successTrack');
+                    var model = $(this).find(':selected').data('model');
+                    $('#sdlcModel').val(model);
+                    htm = `<option value="0">Select Phase</option>`;
+                    Object.entries(allModel).forEach(entry => {
+                        const [key, value] = entry;
+                        if (key == model) {
+                            Object.entries(value).forEach(entry => {
+                                const [key, value] = entry;
+                                htm += `<option value="${value}">${value}</option>`;
+                            });
+                        }
+                    });
+                    $('#sdlcPhase').empty();
+                    $('#sdlcPhase').append(htm);
+                    $('#sdlcPhase').removeClass('successTrack');
+                }
+            });
+
+            $('#sdlcPhase').change(function() {
+                if ($(this).find(':selected').val() == 0) {
+                    $(this).removeClass('successTrack');
+                    $(this).addClass('errorTrack');
+                } else {
+                    $(this).addClass('successTrack');
+                    $(this).removeClass('errorTrack');
+                }
+            });
+
+            $('#taskPriority').change(function() {
+                if ($(this).find(':selected').val() == 0) {
+                    $(this).removeClass('successTrack');
+                    $(this).addClass('errorTrack');
+                } else {
+                    $(this).removeClass('errorTrack');
+                    $(this).addClass('successTrack');
+                }
+            });
+
+            $('#taskDescription').keyup(function() {
+                if ($(this).val().length < 10) {
+                    $(this).removeClass('successTrack');
+                    $(this).addClass('errorTrack');
+                } else {
+                    $(this).removeClass('errorTrack');
+                    $(this).addClass('successTrack');
+                }
+            });
+
+            $('#taskName').keyup(function() {
+                if ($(this).val().length < 4) {
+                    $(this).removeClass('successTrack');
+                    $(this).addClass('errorTrack');
+                } else {
+                    $(this).removeClass('errorTrack');
+                    $(this).addClass('successTrack');
+                }
+            });
+
+            $("#taskModel").submit(function(e) {
+                e.preventDefault();
+                if ($('#taskModel .successTrack').length != 7) {
+
+                } else {
+                    var taskName = $('#taskName').val();
+                    var projectID = $('#projectName').val();
+                    var sdlcPhase = $('#sdlcPhase').val();
+                    var dueDate = $('#dueDate').val();
+                    var taskPriority = $('#taskPriority').val();
+                    var taskDescription = $('#taskDescription').val();
+
+                    $.post(
+                        "tempFunction/storeTasks.php", {
+                            taskName: taskName,
+                            fromID: <?= $userID; ?>,
+                            toID: projectID,
+                            sdlcPhase: sdlcPhase,
+                            taskDescription: taskDescription,
+                            taskPriority: taskPriority,
+                            dueDate: dueDate,
+                        },
+                        function(response) {
+                            fetchTasks();
+                            resetTaskForm();
+                        }
+                    );
+                }
+            });
+
+            $("#myTable").on("click", "span", function() {
+                var taskID = ($(this).closest('tr').attr('value'));
+                var action = ($(this).attr('id'));
+                if (action == "delete") {
+                    swal({
+                        title: "Are you sure?",
+                        icon: "warning",
+                        buttons: ["Cancel", "Yes"],
+                        dangerMode: true,
+                    }).then((isOkay) => {
+                        if (isOkay) {
+                            // table.row($(this).parents("tr")).remove().draw(false);
+                            $.post("tempFunction/deleteTasks.php", {
+                                'taskID': taskID,
+                            }, function(response) {
+                                response = JSON.parse(response);
+                                fetchTasks();
+                            });
+                        }
+                    });
+                } else if (action == "edit") {
+                    $.post("tempFunction/editTasks.php", {
+                        'taskID': taskID,
+                    }, function(response) {
+                        response = JSON.parse(response);
+                        var count = 0;
+                        resetTaskForm();
+                        $('#modal').css('display', 'block');
+                        $('.forEditOrView').empty();
+
+                        Object.entries(response).forEach(entry => {
+                            const [key, value] = entry;
+                            console.log(count + "?" + value);
+                            htm = `<option value="` + key + `">` + value + `</option>`;
+                            if (count == 1) {
+                                $('#taskModel .forEditOrView').eq(0).val(value);
+                            } else if (count == 0) {
+                                $('#taskModel .forEditOrView').eq(1).append(htm);
+                            } else if (count == 2) {
+                                htm1 = `<option value="0">Select Phase</option>`;
+                                var tmpValue = value;
+                                Object.entries(allModel).forEach(entry => {
+                                    const [key, value] = entry;
+                                    if (key == tmpValue) {
+                                        Object.entries(value).forEach(entry => {
+                                            const [key, value] = entry;
+                                            htm1 += `<option value="${value}">${value}</option>`;
+                                        });
+                                    }
+                                });
+                                $('#taskModel .forEditOrView').eq(3).append(htm1);
+                                $('#taskModel .forEditOrView').eq(count).val(tmpValue);
+                            } else if (count % 2 == 0) {
+                                $('#taskModel .forEditOrView').eq(count).val(value);
+                            } else if (count == 3) {
+                                $('#taskModel .forEditOrView').eq(count).val(value).change();
+                            } else if (count == 5) {
+                                $('#taskModel .forEditOrView').eq(count).append(priority);
+                                $('#taskModel .forEditOrView').eq(count).val(value).change();
+                            } else if (count < 6) {
+                                $('#taskModel .forEditOrView').eq(3).append(htm);
+                                // console.log($('#taskModel .forEditOrView').eq(count).html());
+                            } else if (count == 6) {
+                                $("#taskModel .forEditOrView").html(val);
+                            }
+                            count++;
+                        });
+                        $('#taskModel .forEditOrView').addClass("successTrack");
+                        $('#taskBtn').html("Update");
+                    });
+                    // var count = 0;
+                    // $(this).closest('tr').children().map(function() {
+                    //         count++;
+                    //         if (count < 5) {
+                    //             console.log($(this).html())
+                    //         } else if (count == 5) {
+                    //             console.log($(this).children().html());
+                    //         };
+                    //     }).get()
+                    //     .join(", ");
+
+                } else if (action == "view") {
+                    $('#modal').css('display', 'block');
+
+                }
+            });
+
+            function resetTaskForm() {
+                $('#modal').css('display', 'none');
+                $('#taskModel')[0].reset();
+                $('#sdlcPhase').empty();
+                $('#sdlcPhase').append('<option value="0">Phase..</option>');
+                $('#projectName').append('<option value="0">Projects..</option>');
+                $("#taskModel .successTrack, .errorTrack").removeClass("successTrack errorTrack");
+            }
+
+            var table = $("table#myTable").DataTable({
+                "bDestroy": true,
+                "searching": true,
+                "paging": true,
+                // columns: [
+                //     null,
+                //     null,
+                //     null,
+                //     null,
+                //     null,
+                //     {
+                //         sortable: false,
+                //     },
+                // ],
+            });
+
+            function fetchTasks() {
+                $.post("tempFunction/fetchTasks.php", {
+                    userID: <?= $userID; ?>,
+                }, function(response) {
+                    response = JSON.parse(response);
+                    var htmm = ``;
+                    Object.entries(response).forEach(entry => {
+                        const [key, value] = entry;
+                        var sno = parseInt(key) + 1;
+
+                        htmm += `<tr`
+                        if (sno % 2 == 0) {
+                            htmm += ` class = "even" `;
+                        } else {
+                            htmm += ` class = "odd" `;
+                        }
+                        Object.entries(value).forEach(entry => {
+                            const [key, value] = entry;
+                            if (key == "taskID") {
+                                htmm += `value="${value}"><td>${sno}</td>`;
+                            } else if (key == "status") {
+                                htmm += `<td>
+                                <span class="badge badge-${value.toLowerCase()}">${value}</span>
+                                </td>`;
+                            } else {
+                                htmm += `<td>${value}</td>`;
+                            }
+                        });
+
+                        htmm += `<td>
+                                    <div class="actions">
+                                        <span class="icon" id="view">
+                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
+                                        </span>
+                                        <span class="icon" id="edit">
+                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
+                                        </span>
+                                        <span class="icon" id="delete">
+                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>`;
+                    });
+
+                    $('#myTable tbody').empty();
+                    $('#myTable tbody').append(htmm);
+                    // table.DataTable().ajax.reload()
+                    table.reload();
+                    // $("#myTable").load("teacherTasks.php #myTable");
+
+
+
+                });
+            }
+            fetchTasks();
+
+        });
+    </script>
+
 
     <!-- Sarowor Work -->
     <script>
-        //menutoggle
-        let toggle = document.querySelector(".toggle");
-        let navigation = document.querySelector(".navigation");
-        let main = document.querySelector(".main");
-        toggle.onclick = function() {
-            navigation.classList.toggle("active");
-            main.classList.toggle("active");
-        };
-
         //add hovered class
-        let list = document.querySelectorAll(".navigation li");
+        // let list = document.querySelectorAll(".navigation li");
 
-        function activelink() {
-            list.forEach((item) => item.classList.remove("hovered"));
-            this.classList.add("hovered");
-        }
-        list.forEach((item) => item.addEventListener("mouseover", activelink));
+        // function activelink() {
+        //     list.forEach((item) => item.classList.remove("hovered"));
+        //     this.classList.add("hovered");
+        // }
+        // list.forEach((item) => item.addEventListener("mouseover", activelink));
 
         //for profile dropdown
     </script>
     <script>
-        let subMenu = document.getElementById("subMenu");
-
-        function toggleMenu() {
-            subMenu.classList.toggle("open-menu");
-            console.log("hello");
-        }
-
         //delete row
 
-        var table = $("#myTable").DataTable({
-            columns: [
-                null,
-                null,
-                null,
-                null,
-                null,
-                {
-                    sortable: false,
-                },
-            ],
-        });
 
-        $("#myTable").on("click", "button", function() {
-            swal({
-                title: "Are you sure?",
-                icon: "warning",
-                buttons: ["Cancel", "Yes"],
-                dangerMode: true,
-            }).then((isOkay) => {
-                if (isOkay) {
-                    table.row($(this).parents("tr")).remove().draw(false);
-                }
-            });
-        });
-    </script>
-
-    <script>
-        //for notification
-        let subMenu2 = document.getElementById("notifiWrap");
-
-        function testnoti() {
-            subMenu2.classList.toggle("open-noti");
-            console.log("hello1");
-        }
+        // $("#myTable").on("click", "button", function() {
+        //     swal({
+        //         title: "Are you sure?",
+        //         icon: "warning",
+        //         buttons: ["Cancel", "Yes"],
+        //         dangerMode: true,
+        //     }).then((isOkay) => {
+        //         if (isOkay) {
+        //             table.row($(this).parents("tr")).remove().draw(false);
+        //         }
+        //     });
+        // });
     </script>
     <!-- This is to open model -->
     <script>
-        var modal = document.getElementById("modal");
+        // var modal = document.getElementById("modal");
 
         // Get the button that opens the modal
-        var modalButton = document.getElementById("modal-button");
+        // var modalButton = document.getElementById("modal-button");
 
         // Get the close button
-        var closeButton = document.getElementsByClassName("close")[0];
+        // var closeButton = document.getElementsByClassName("close")[0];
 
         // When the user clicks the button, open the modal
-        modalButton.onclick = function() {
-            modal.style.display = "block";
-        };
+        // modalButton.onclick = function() {
+        //     modal.style.display = "block";
+        // };
 
         // When the user clicks on the close button, close the modal
-        closeButton.onclick = function() {
-            modal.style.display = "none";
-        };
+        // closeButton.onclick = function() {
+        //     modal.style.display = "none";
+        // };
 
         // When the user clicks anywhere outside of the modal, close it
         window.onclick = function(event) {
             if (event.target == modal) {
-                modal.style.display = "none";
+                resetTaskForm()
             }
         };
     </script>

@@ -7,12 +7,12 @@ require_once("assets/dbCon.php");
 $_SESSION["user"] = "Teacher";
 $_SESSION["userId"] = 3;
 $_SESSION["projectId"] = [1, 2, 3];
+$userID = $_SESSION['userId'];
+$projectID = $_SESSION["projectId"];
 
 $root = $_SERVER['DOCUMENT_ROOT'];
 $host = $_SERVER['HTTP_HOST'];
 
-$userID = $_SESSION['userId'];
-$projectID = $_SESSION["projectId"];
 
 if (isset($_POST["right"])) :
     init('right');
