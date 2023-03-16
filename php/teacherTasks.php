@@ -156,11 +156,11 @@ $host = $_SERVER['HTTP_HOST'];
                 projectID[<?= $key ?>] = <?= $val; ?>;
             <?php endforeach; ?>
 
-            var table = $("table#myTable").DataTable({
-                "bDestroy": true,
-                "searching": true,
-                // "paging": true,
-            });
+            // var table = $("table#myTable").DataTable({
+            //     "bDestroy": true,
+            //     "searching": true,
+            //     // "paging": true,
+            // });
 
             $('#modal-button').click(function() {
                 $.post(
@@ -185,19 +185,14 @@ $host = $_SERVER['HTTP_HOST'];
                                 }
                             });
                         });
-                        $('#projectName').empty();
-                        $('#projectName').append(htm);
-                        $('#taskBtn').html('Save');
-                        $('#taskBtn').attr('value', '0');
+                        $('#projectName').empty().append(htm);
+                        $('#taskBtn').html('Save').attr('value', '0');
+
+                        $('#dueDate').val(today).addClass('successTrack');
+
+                        $('#taskName').focus();
                     }
                 );
-
-                $('#dueDate').val(today);
-                $('#dueDate').addClass('successTrack');
-
-                $('#taskName').focus();
-                // $('#taskModel>div>div>select').addClass("errorTrack");
-                // $('#taskModel>div>div>textarea').addClass("errorTrack");
             });
 
             $('#dueDate').change(function() {
@@ -436,10 +431,9 @@ $host = $_SERVER['HTTP_HOST'];
                 $('#modal').css('display', 'none');
                 $('#taskModel')[0].reset();
                 $('#taskBtn').attr('value', '');
-                $('#sdlcPhase').empty();
-                $('#sdlcPhase').append('<option value="0">Phase..</option>');
-                $('#projectName').append('<option value="0">Projects..</option>');
-                $('#taskPriority').append(priority);
+                $('#sdlcPhase').empty().append('<option value="0">Phase..</option>');
+                $('#projectName').empty().append('<option value="0">Projects..</option>');
+                $('#taskPriority').empty().append(priority);
                 $("#taskModel .successTrack, .errorTrack").removeClass("successTrack errorTrack");
             }
 
@@ -447,52 +441,70 @@ $host = $_SERVER['HTTP_HOST'];
                 $.post("tempFunction/fetchTasks.php", {
                     userID: <?= $userID; ?>,
                 }, function(response) {
-                    response = JSON.parse(response);
-                    var htmm = ``;
-                    Object.entries(response).forEach(entry => {
-                        const [key, value] = entry;
-                        var sno = parseInt(key) + 1;
-
-                        htmm += `<tr`
-                        if (sno % 2 == 0) {
-                            htmm += ` class = "even" `;
-                        } else {
-                            htmm += ` class = "odd" `;
-                        }
-                        Object.entries(value).forEach(entry => {
-                            const [key, value] = entry;
-                            if (key == "taskID") {
-                                htmm += `value="${value}"><td>${sno}</td>`;
-                            } else if (key == "status") {
-                                htmm += `<td>
-                    <span class="badge badge-${value.toLowerCase()}">${value}</span>
-                    </td>`;
-                            } else {
-                                htmm += `<td>${value}</td>`;
+                    response = $.parseJSON(response);
+                    $("#myTable").DataTable({
+                        "bDestroy": true,
+                        "data": response,
+                        "paging": true,
+                        "searching": true,
+                        "scrollY": 425,
+                        "order": [
+                            [0, 'desc']
+                        ],
+                        "createdRow": function(row, data, dataIndex, cells) {
+                            $(row).attr("value", data.taskID);
+                        },
+                        "columnDefs": [{
+                                "targets": 0,
+                                "createdCell": function(td, cellData, rowData, row, col) {
+                                    $(td).html(row + 1);
+                                },
+                            },
+                            {
+                                "targets": 2,
+                                "sortable": false,
+                            },
+                            {
+                                "targets": 5,
+                                "sortable": false,
                             }
-                        });
-
-                        htmm += `<td>
-                        <div class="actions">
-                            <span class="icon" id="view">
-                                    <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
-                            </span>
-                            <span class="icon" id="edit">
-                                    <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
-                            </span>
-                            <span class="icon" id="delete">
-                                    <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
-                            </span>
-                        </div>
-                    </td>
-                </tr>`;
+                        ],
+                        "columns": [{
+                                "data": "taskID",
+                            },
+                            {
+                                "data": "projectName"
+                            },
+                            {
+                                "data": "taskName"
+                            },
+                            {
+                                "data": "duration"
+                            },
+                            {
+                                "data": "status",
+                                mRender: function(data, type, row) {
+                                    return `<span class="badge badge-${data.toLowerCase()}">${data}</span>`;
+                                }
+                            },
+                            /* Action */
+                            {
+                                mRender: function(data, type, row) {
+                                    return `<div class="actions">
+                                        <span class="icon" id="view">
+                                                <ion-icon name="eye-outline" style="color: grey; font-size: 20px"></ion-icon>
+                                        </span>
+                                        <span class="icon" id="edit">
+                                                <ion-icon name="pencil" style="color: #3cab66; font-size: 20px"></ion-icon>
+                                        </span>
+                                        <span class="icon" id="delete">
+                                                <ion-icon name="trash-outline" style="color: #f57878; font-size: 20px"></ion-icon>
+                                        </span>
+                                    </div>`;
+                                }
+                            },
+                        ],
                     });
-                    $('#myTable tbody').empty();
-                    $('#myTable tbody').append(htmm);
-                    
-                    // $("table#myTable").DataTable().ajax.reload(null, false)
-                    table.reload();
-                    // $("#myTable").load("teacherTasks.php #myTable");
                 });
             }
             fetchTasks();
