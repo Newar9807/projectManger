@@ -444,13 +444,13 @@ $sql
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
 
     <!-- <script type="module" src="externalFiles/js/unpkg.esm.js"></script> -->
     <!-- <script nomodule src="externalFiles/js/unpkg.js"></script> -->
     <!-- <script src="externalFiles/js/chart_3_5_1.js"></script> -->
 
-    <script src="../assets/js/teacherDashbaord.js"></script>
+    <script src="../assets/js/websiteSkeleton.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <!-- <script src="externalFiles/js/bootstrap_5_2_3.js"></script> -->

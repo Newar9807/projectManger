@@ -6,6 +6,15 @@ $host = $_SERVER['HTTP_HOST']; ?>
 <head>
     <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
+    <link rel="stylesheet" href="../assets/css/tstyle.css" />
+    <!-- <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" /> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
     <title>Teacher</title>
 </head>
 
@@ -20,426 +29,216 @@ $host = $_SERVER['HTTP_HOST']; ?>
             <!-- Navigation Ends -->
 
             <!-- mid div start -->
-            <div class="cardBox">
-                <div class="card">
-                    <div>
-                        <!-- <div class="numbers" id="TaskNumber" name="TaskNumber">
-                            
-                        </div> -->
-                        <div class="numbers" id="Task">
-                            Projects<br>
-                        </div>
-                    </div>
-                    <div class="doughChart" id="chartdiv">
 
-                    </div>
-                </div>
-
-
-                <div class="card">
-                    <div>
-                        <div class="numbers" id="TaskNumber" name="TaskNumber">
-                            Meetings
-                        </div>
-                        <!-- <div class="cardName" id="Task">
-                            Tasks
-                        </div> -->
-                    </div>
-                    <div class="doughChart" id="chartdiv2">
-                    </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <!-- <div class="numbers" id="TaskNumber" name="TaskNumber">
-                            
-                        </div> -->
-                        <div class="numbers" id="Task">
-                            Tasks<br> Progress
-                        </div>
-                    </div>
-                    <div class="doughChart" id="chartdiv1">
-
-                    </div>
-                </div>
-                <!-- <div class="card">
-                    <div>
-                        <div class="numbers" id="TaskNumber" name="TaskNumber">
-                            20
-                        </div>
-                        <div class="cardName" id="Task">
-                            Tasks
-                        </div>
-                    </div>
-                    <div class="doughChart">
-                        <canvas id="doughnut2"></canvas>
-                    </div>
-                </div>
-                <div class="card">
-                    <div>
-                        <div class="numbers" id="completedTaskNumber" name="completedTaskNumber">
-                            10
-                        </div>
-                        <div class="cardName">
-                            Meetings
-                        </div>
-                    </div>
-                    <div class="doughChart">
-                        <canvas id="doughnut3"></canvas>
-                    </div>
-                </div> -->
-            </div>
-            <!-- mid div end -->
-
-            <!-- data charts -->
-            <div class="charts">
-                <div class="chart">
+            <div class="dashInner">
+                <div class="graphss">
                     <h2>Project Progress</h2>
-                    <div>
+                    <div id="chartLine">
                         <canvas id="lineChart"></canvas>
                     </div>
                 </div>
+                <div class="rightDiv">
+                    <h2>Task Status</h2>
+                    <div id="container22">
+                        <canvas id="myChart"></canvas>
 
+                    </div>
+                </div>
             </div>
-            <!-- data charts ends -->
-
+            <!--ends-->
         </div>
     </div>
 
+    <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
+    <script src="../assets/js/websiteSkeleton.js"></script>
+
+    <!-- Resources -->
+    <!-- <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script> -->
+
+    <!-- Resources -->
+    <!-- <script src="https://cdn.amcharts.com/lib/5/xy.js"></script> -->
+
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-    <script src="../assets/js/teacherDashbaord.js"></script>
 
-    <!-- Resources -->
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-
-    <!-- Resources -->
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-
-    <!-- Chart code -->
     <script>
-        am5.ready(function() {
-
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("chartdiv");
-
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root.setThemes([am5themes_Animated.new(root)]);
-
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-            var chart = root.container.children.push(
-                am5percent.PieChart.new(root, {
-                    innerRadius: 30,
-                    layout: root.verticalLayout,
-                })
-            );
-
-            // Create series
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-            var series = chart.series.push(
-                am5percent.PieSeries.new(root, {
-                    valueField: "size",
-                    categoryField: "sector",
-                })
-            );
-
-            // Set data
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-            series.data.setAll([{
-                    sector: "Completed",
-                    size: 5
-                },
-                {
-                    sector: "Pending",
-                    size: 6
-                },
-            ]);
-
-            // Play initial series animation
-            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
-            series.appear(1000, 100);
-
-            // Add label
-            var label = root.tooltipContainer.children.push(
-                am5.Label.new(root, {
-                    x: am5.p50,
-                    y: am5.p50,
-                    centerX: am5.p50,
-                    centerY: am5.p50,
-                    fill: am5.color(0x50b300),
-                    fontSize: 20,
-                })
-            );
-
-            label.set("text", "[bold]12");
-            series.labels.template.set("text", "{category}: {valuePercentTotal.formatNumber('0.00')}%[/] [bold]({value})");
-        }); // end am5.ready()
-
-        am5.ready(function() {
-
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("chartdiv1");
-
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root.setThemes([am5themes_Animated.new(root)]);
-
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-            var chart = root.container.children.push(
-                am5percent.PieChart.new(root, {
-                    innerRadius: 30,
-                    layout: root.verticalLayout,
-                })
-            );
-
-            // Create series
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-            var series = chart.series.push(
-                am5percent.PieSeries.new(root, {
-                    valueField: "size",
-                    categoryField: "sector",
-                })
-            );
-
-            // Set data
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-            series.data.setAll([{
-                    sector: "Completed",
-                    size: 2
-                },
-                {
-                    sector: "Pending",
-                    size: 6
-                },
-            ]);
-
-            // Play initial series animation
-            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
-            // series.appear(1000, 100);
-            series.appear(2000, 500);
-
-            // Add label
-            var label = root.tooltipContainer.children.push(
-                am5.Label.new(root, {
-                    x: am5.p50,
-                    y: am5.p50,
-                    centerX: am5.p50,
-                    centerY: am5.p50,
-                    fill: am5.color(0x50b300),
-                    fontSize: 20,
-                })
-            );
-
-            label.set("text", "[bold]8");
-            series.labels.template.set("text", "{category}: {valuePercentTotal.formatNumber('0.00')}%[/] [bold]({value})");
-        }); // end am5.ready()
-
-        am5.ready(function() {
-
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("chartdiv2");
-
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root.setThemes([am5themes_Animated.new(root)]);
-
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-            var chart = root.container.children.push(
-                am5percent.PieChart.new(root, {
-                    innerRadius: 30,
-                    layout: root.verticalLayout,
-                })
-            );
-
-            // Create series
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-            var series = chart.series.push(
-                am5percent.PieSeries.new(root, {
-                    valueField: "size",
-                    categoryField: "sector",
-                })
-            );
-
-            // Set data
-            // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Setting_data
-            series.data.setAll([{
-                    sector: "Completed",
-                    size: 2
-                },
-                {
-                    sector: "Pending",
-                    size: 6
-                },
-            ]);
-
-            // Play initial series animation
-            // https://www.amcharts.com/docs/v5/concepts/animations/#Animation_of_series
-            // series.appear(1000, 100);
-            series.appear(1500, 250);
-
-            // Add label
-            var label = root.tooltipContainer.children.push(
-                am5.Label.new(root, {
-                    x: am5.p50,
-                    y: am5.p50,
-                    centerX: am5.p50,
-                    centerY: am5.p50,
-                    fill: am5.color(0xff0000),
-                    fontSize: 20,
-                })
-            );
-
-            label.set("text", "[bold]6");
-            series.labels.template.set("text", "{category}: {valuePercentTotal.formatNumber('0.00')}%[/] [bold]({value})");
-        }); // end am5.ready()
+        //for project
+        // var ctx2 = document.getElementById("doughnut").getContext("2d");
+        // var myChart2 = new Chart(ctx2, {
+        //     type: "doughnut",
+        //     data: {
+        //         labels: ["Pending Projects", "Completed Projects"],
+        //         datasets: [{
+        //             label: "Employees",
+        //             data: [10, 2],
+        //             backgroundColor: ["purple", "#F76C6C"],
+        //             borderColor: ["white"],
+        //             borderWidth: 5,
+        //         }, ],
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         maintainAspectRatio: false,
+        //     },
+        // });
     </script>
 
-    <!-- Chart code -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.post("tempFunction/fetchMyTasksStatus.php", {
+                'id': <?= $userID ?>,
+            }, function(response) {
+                response = $.parseJSON(response);
+                if (response[0] == "Success") {
+                    var pendingAndCompleted = [response[1]["pending"], response[1]["completed"]];
+                    loadDoughnut(pendingAndCompleted);
+                } else if (response[0] == "Failed") {
+                    swal({
+                        title: "Failed to fetch task status",
+                        icon: "warning",
+                        closeOnClickOutside: false,
+                        closeOnEsc: true,
+                        timer: 3000,
+                        dangerMode: false,
+                    });
+                }
+            });
+
+            function loadDoughnut(dataGot) {
+                new Chart(document.getElementById('myChart'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: [
+                            "Pending Tasks",
+                            "Completed Tasks",
+
+                        ],
+                        datasets: [{
+                            data: dataGot,
+                            backgroundColor: [
+                                "#FF6283",
+                                "#36A2EB",
+                                "#FFCC54"
+                            ],
+                            hoverBackgroundColor: [
+                                "#FF6283",
+                                "#36A2EB",
+                                "#FFCC54"
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: {
+                            display: false
+                        }
+                    },
+
+                });
+            }
+        });
+    </script>
+
+    <!-- charts script-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <script>
-        am5.ready(function() {
+        //charts
+        var ctx = document.getElementById('lineChart').getContext('2d');
+        var ctx = $('#lineChart')[0];
+        ctx.height = 220;
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                        label: "PMS",
+                        // data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
+                        data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+                        backgroundColor: [
+                            'rgb(41,155,99)'
+                        ],
+                        borderColor: 'rgb(41, 155, 99)',
+                        borderWidth: 3
+                    },
+                    {
+                        label: "E-Commerce",
+                        // data: [2050, 1700, 2200, 2800, 1800, 2000, 2500, 2600, 2450, 1950, 2300, 2900],
+                        data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+                        backgroundColor: [
+                            'grey'
+                        ],
+                        borderColor: 'grey',
+                        borderWidth: 3
+                    },
+                    {
+                        label: "ParaFashion",
+                        // data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
+                        data: [300, 700, 2000, 5000, 6000, 4000, 2000, 1000, 200, 100],
+                        backgroundColor: [
+                            'pink'
+                        ],
+                        borderColor: 'pink',
+                        borderWidth: 3
+                    },
+                    {
+                        label: "SabKoBazar",
+                        data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 200, 2300, 900],
 
-            // Create root element
-            // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-            var root = am5.Root.new("line1");
+                        backgroundColor: [
+                            'blue'
+                        ],
+                        borderColor: 'blue',
+                        borderWidth: 3
+                    },
+                    {
+                        label: "CMS",
+                        data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
 
+                        backgroundColor: [
+                            'red'
+                        ],
+                        borderColor: 'red',
+                        borderWidth: 3
+                    },
+                ]
+            },
+            options: {
+                responsive: true,
+                tension: 0.4
 
-            // Set themes
-            // https://www.amcharts.com/docs/v5/concepts/themes/
-            root.setThemes([
-                am5themes_Animated.new(root)
-            ]);
+            }
+        });
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Suggested Min and Max Settings'
+                    }
+                },
+                scales: {
+                    y: {
+                        // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
+                        suggestedMin: 30,
 
+                        // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
+                        suggestedMax: 50,
+                    }
+                }
+            },
+        };
+        // </block:config>
 
-            // Create chart
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/
-            var chart = root.container.children.push(am5xy.XYChart.new(root, {
-                panX: true,
-                panY: true,
-                wheelX: "panX",
-                wheelY: "zoomX",
-                pinchZoomX: true
-            }));
-
-            // Add cursor
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/cursor/
-            var cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
-            cursor.lineY.set("visible", false);
-
-
-            // Create axes
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
-            var xRenderer = am5xy.AxisRendererX.new(root, {
-                minGridDistance: 30
-            });
-            xRenderer.labels.template.setAll({
-                rotation: -90,
-                centerY: am5.p50,
-                centerX: am5.p100,
-                paddingRight: 15
-            });
-
-            xRenderer.grid.template.setAll({
-                location: 1
-            })
-
-            var xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, {
-                maxDeviation: 0.3,
-                categoryField: "country",
-                renderer: xRenderer,
-                tooltip: am5.Tooltip.new(root, {})
-            }));
-
-            var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-                maxDeviation: 0.3,
-                renderer: am5xy.AxisRendererY.new(root, {
-                    strokeOpacity: 0.1
-                })
-            }));
-
-
-            // Create series
-            // https://www.amcharts.com/docs/v5/charts/xy-chart/series/
-            var series = chart.series.push(am5xy.ColumnSeries.new(root, {
-                name: "Series 1",
-                xAxis: xAxis,
-                yAxis: yAxis,
-                valueYField: "value",
-                sequencedInterpolation: true,
-                categoryXField: "country",
-                tooltip: am5.Tooltip.new(root, {
-                    labelText: "{valueY}"
-                })
-            }));
-
-            series.columns.template.setAll({
-                cornerRadiusTL: 5,
-                cornerRadiusTR: 5,
-                strokeOpacity: 0
-            });
-            series.columns.template.adapters.add("fill", function(fill, target) {
-                return chart.get("colors").getIndex(series.columns.indexOf(target));
-            });
-
-            series.columns.template.adapters.add("stroke", function(stroke, target) {
-                return chart.get("colors").getIndex(series.columns.indexOf(target));
-            });
-
-
-            // Set data
-            var data = [{
-                country: "USA",
-                value: 2025
-            }, {
-                country: "China",
-                value: 1882
-            }, {
-                country: "Japan",
-                value: 1809
-            }, {
-                country: "Germany",
-                value: 1322
-            }, {
-                country: "UK",
-                value: 1122
-            }, {
-                country: "France",
-                value: 1114
-            }, {
-                country: "India",
-                value: 984
-            }, {
-                country: "Spain",
-                value: 711
-            }, {
-                country: "Netherlands",
-                value: 665
-            }, {
-                country: "South Korea",
-                value: 443
-            }, {
-                country: "Canada",
-                value: 441
-            }];
-
-            xAxis.data.setAll(data);
-            series.data.setAll(data);
-
-
-            // Make stuff animate on load
-            // https://www.amcharts.com/docs/v5/concepts/animations/
-            series.appear(1000);
-            chart.appear(1000, 100);
-
-        }); // end am5.ready()
+        module.exports = {
+            config: config,
+        };
     </script>
 
 

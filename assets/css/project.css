@@ -184,7 +184,7 @@
   margin-top: 2rem;
 }
 .content-title > p {
-  font-size: 14px;
+  font-size: 16px;
 }
 .projectData1 {
   grid-area: 1/1/1/2;
@@ -235,7 +235,7 @@
 .member > img {
   width: 120px;
   height: 120px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   border-radius: 10px;
   margin-bottom: 1rem;
 }
@@ -251,10 +251,12 @@
 .description-box {
   background: whitesmoke;
   border-radius: 10px;
-  padding: 5px 15px;
+  /* padding: 5px 15px; */
   margin-top: 1.4rem;
   margin-bottom: 1.4rem;
   height: 200px;
+  font-size: 18px;
+  padding: 15px;
 }
 
 /* -------progress-------- */

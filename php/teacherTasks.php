@@ -127,7 +127,7 @@ $host = $_SERVER['HTTP_HOST'];
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
-    <!-- <script src="../assets/js/teacherDashbaord.js"></script> -->
+    <script src="../assets/js/websiteSkeleton.js"></script>
 
     <!-- <script src="http://datatables.net/reference/api/ajax.reload()"></script> -->
     <script>
@@ -285,7 +285,9 @@ $host = $_SERVER['HTTP_HOST'];
                     swal({
                         title: "Please check all fields",
                         icon: "warning",
-                        // buttons: ["Cancel", "Yes"],
+                        closeOnClickOutside: false,
+                        closeOnEsc: true,
+                        timer: 3000,
                         dangerMode: false,
                     }).then((isOkay) => {
                         if (isOkay) {}
@@ -310,6 +312,28 @@ $host = $_SERVER['HTTP_HOST'];
                                 'dueDate': dueDate,
                             },
                             function(response) {
+                                if (response == "Failed") {
+                                    swal({
+                                        title: "Updation Failed",
+                                        icon: "error",
+                                        closeOnClickOutside: false,
+                                        closeOnEsc: true,
+                                        timer: 3000,
+                                        dangerMode: true,
+                                    }).then((isOkay) => {
+                                        if (isOkay) {}
+                                    });
+                                } else if (response == "Success") {
+                                    swal({
+                                        title: "Updation Successful",
+                                        icon: "success",
+                                        closeOnClickOutside: false,
+                                        closeOnEsc: true,
+                                        timer: 3000,
+                                    }).then((isOkay) => {
+                                        if (isOkay) {}
+                                    });
+                                }
                                 resetTaskForm();
                                 fetchTasks();
                             }
@@ -327,7 +351,30 @@ $host = $_SERVER['HTTP_HOST'];
                                 'dueDate': dueDate,
                             },
                             function(response) {
-                                localStorage.removeItem("taskID")
+                                response = $.parseJSON(response);
+                                if (response == "Failed") {
+                                    swal({
+                                        title: "Updation Failed",
+                                        icon: "error",
+                                        closeOnClickOutside: false,
+                                        closeOnEsc: true,
+                                        timer: 3000,
+                                        dangerMode: true,
+                                    }).then((isOkay) => {
+                                        if (isOkay) {}
+                                    });
+                                } else if (response == "Success") {
+                                    swal({
+                                        title: "Updation Successful",
+                                        icon: "success",
+                                        closeOnClickOutside: false,
+                                        closeOnEsc: true,
+                                        timer: 3000,
+                                    }).then((isOkay) => {
+                                        if (isOkay) {}
+                                    });
+                                }
+                                localStorage.removeItem("taskID");
                                 fetchTasks();
                                 resetTaskForm();
                             }
@@ -343,11 +390,13 @@ $host = $_SERVER['HTTP_HOST'];
                     swal({
                         title: "Are you sure?",
                         icon: "warning",
+                        closeOnClickOutside: false,
+                        closeOnEsc: true,
+                        timer: 3000,
                         buttons: ["Cancel", "Yes"],
                         dangerMode: true,
                     }).then((isOkay) => {
                         if (isOkay) {
-                            // table.row($(this).parents("tr")).remove().draw(false);
                             $.post("tempFunction/deleteTasks.php", {
                                 'taskID': localStorage.getItem("taskID"),
                             }, function(response) {
@@ -356,7 +405,7 @@ $host = $_SERVER['HTTP_HOST'];
                             });
                         }
                     });
-                } else {
+                } else if (action == "edit" || action == "view") {
                     $.post("tempFunction/getDataToEditTasks.php", {
                         'taskID': localStorage.getItem("taskID"),
                     }, function(response) {
@@ -405,8 +454,6 @@ $host = $_SERVER['HTTP_HOST'];
                         if (action == "edit") {
                             $('#taskModel .forEditOrView').removeClass("blueSuccess");
                             $('#taskModel .forEditOrView').addClass("successTrack");
-                            $('#taskModel .forEditOrView').prop('disabled', false);
-                            $('#sdlcModel').prop('disabled', true);
                             $('#taskBtn').html("Update");
                             $('#taskBtn').css('display', 'block');
                             $('#taskBtn').attr('value', '1');
@@ -435,6 +482,9 @@ $host = $_SERVER['HTTP_HOST'];
                 $('#projectName').empty().append('<option value="0">Projects..</option>');
                 $('#taskPriority').empty().append(priority);
                 $("#taskModel .successTrack, .errorTrack").removeClass("successTrack errorTrack");
+                $("#taskModel .blueSuccess").removeClass("blueSuccess");
+                $('#taskModel .forEditOrView').prop('disabled', false);
+                $('#sdlcModel').prop('disabled', true);
             }
 
             function fetchTasks() {
@@ -443,7 +493,7 @@ $host = $_SERVER['HTTP_HOST'];
                 }, function(response) {
                     response = $.parseJSON(response);
                     $("#myTable").DataTable({
-                        "bDestroy": true,
+                        "destroy": true,
                         "data": response,
                         "paging": true,
                         "searching": true,
@@ -456,17 +506,17 @@ $host = $_SERVER['HTTP_HOST'];
                         },
                         "columnDefs": [{
                                 "targets": 0,
+                                "className": "dt-center",
                                 "createdCell": function(td, cellData, rowData, row, col) {
                                     $(td).html(row + 1);
                                 },
                             },
                             {
-                                "targets": 2,
+                                "targets": [2, 5],
                                 "sortable": false,
-                            },
-                            {
-                                "targets": 5,
-                                "sortable": false,
+                            }, {
+                                "targets": [0, 1, 2, 3, 4, 5],
+                                "className": "dt-center",
                             }
                         ],
                         "columns": [{
@@ -509,16 +559,6 @@ $host = $_SERVER['HTTP_HOST'];
             }
             fetchTasks();
         });
-        // var count = 0;
-        // $(this).closest('tr').children().map(function() {
-        //         count++;
-        //         if (count < 5) {
-        //             console.log($(this).html())
-        //         } else if (count == 5) {
-        //             console.log($(this).children().html());
-        //         };
-        //     }).get()
-        //     .join(", ");
     </script>
 
 </body>

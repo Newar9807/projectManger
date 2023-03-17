@@ -17,6 +17,13 @@ $host = $_SERVER['HTTP_HOST']; ?>
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
+    <style>
+        .table thead,
+        .table th {
+            text-align: center;
+            align-items: center;
+        }
+    </style>
     <title>Teacher</title>
 </head>
 
@@ -36,7 +43,7 @@ $host = $_SERVER['HTTP_HOST']; ?>
                 <div class="tableArea">
                     <div class="table-header">
                     </div>
-                    <table class="display" id="myTable">
+                    <table class="display table" id="myTable">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -44,8 +51,7 @@ $host = $_SERVER['HTTP_HOST']; ?>
                                 <th>Team Members</th>
                                 <th>SDLC</th>
                                 <th>Status</th>
-                                <th colspan="2">Action</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -63,17 +69,37 @@ $host = $_SERVER['HTTP_HOST']; ?>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
-    <!-- <script src="../assets/js/teacherDashbaord.js"></script> -->
+    <script src="../assets/js/websiteSkeleton.js"></script>
 
 
 
     <script>
         $(document).ready(function() {
+            $('#myTable').on("click", ".icon", function() {
+                if (this.id == "view") {
+                    var id = $(this).closest('tr').attr("value");
+                    window.location.href = "teacherProjectDetails.php?id=" + id;
+                } else if (this.id == "report") {
+                    swal({
+                        title: "Report this project ?",
+                        icon: "warning",
+                        closeOnClickOutside: false,
+                        closeOnEsc: true,
+                        timer: 3000,
+                        buttons: ["Cancel", "Yes"],
+                        dangerMode: false,
+                    }).then((isOkay) => {
+                        if (isOkay) {
+                            console.log("yes");
+                        }
+                    });
+                }
+            });
+
             $.post("tempFunction/fetchForTableProjects.php", {
                 "userID": <?= $userID; ?>,
             }, function(response) {
                 response = JSON.parse(response);
-                console.log(response);
                 var result = [];
                 for (var i in (response)) {
                     result.push(response[i]);
@@ -83,49 +109,33 @@ $host = $_SERVER['HTTP_HOST']; ?>
 
             function refreshTable(getArray) {
                 $("#myTable").DataTable({
+                    "destroy": true,
                     "data": getArray,
-                    // "columnDefs": [{
-                    //         "targets": 0,
-                    //         "data": "id",
-                    //         "sortable": false,
-                    //     },
-                    //     {
-                    //         "targets": 1,
-                    //         "data": "projectTitle",
-                    //         "sortable": false,
-                    //     },
-                    //     {
-                    //         "targets": 2,
-                    //         "data": "teamMembers",
-                    //         "sortable": false,
-                    //     },
-                    //     {
-                    //         "targets": 3,
-                    //         "data": "sdlc",
-                    //         "sortable": false,
-                    //     },
-                    //     {
-                    //         "targets": 4,
-                    //         "data": "status",
-                    //         "sortable": false,
-                    //     },
-                    //     /* EDIT */
-                    //     {
-                    //         "targets": 5,
-                    //         "sortable": false,
-                    //         mRender: function(data, type, row) {
-                    //             return '<a class="table-edit" data-id="' + row[0] + '">EDIT</a>'
-                    //         }
-                    //     },
-                    //     /* DELETE */
-                    //     {
-                    //         "targets": 5,
-                    //         "sortable": false,
-                    //         mRender: function(data, type, row) {
-                    //             return '<a class="table-delete" data-id="' + row[0] + '">DELETE</a>'
-                    //         }
-                    //     },
-                    // ],
+                    "paging": true,
+                    "searching": true,
+                    "scrollY": 510,
+                    "order": [
+                        [0, 'asc']
+                    ],
+                    "createdRow": function(row, data, dataIndex, cells) {
+                        $(row).attr("value", data.id);
+                    },
+                    "columnDefs": [{
+                            "targets": 0,
+                            "className": "dt-body-center",
+                            "createdCell": function(td, cellData, rowData, row, col) {
+                                $(td).html(row + 1);
+                            },
+                        },
+                        {
+                            "targets": [1, 2, 3, 4, 5],
+                            "className": "dt-center",
+                        },
+                        {
+                            "targets": [2, 5],
+                            "sortable": false,
+                        },
+                    ],
                     "columns": [{
                             "data": "id",
                         },
@@ -141,115 +151,22 @@ $host = $_SERVER['HTTP_HOST']; ?>
                         {
                             "data": "status"
                         },
-                        /* EDIT */
+                        /* Action */
                         {
                             mRender: function(data, type, row) {
-                                return '<a class="table-edit" data-id="' + row[0] + '">View</a>'
-                            }
-                        },
-                        /* DELETE */
-                        {
-                            mRender: function(data, type, row) {
-                                return '<a class="table-delete" data-id="' + row[0] + '">Report</a>'
+                                return `<div class="actions">
+                                        <span class="icon" id="view">
+                                                <ion-icon name="eye-outline" style="color: grey; font-size: 22px; cursor: pointer;"></ion-icon>
+                                        </span>
+                                        <span class="icon" id="report">
+                                                <ion-icon name="warning-outline" style="color: #f57878; font-size: 22px; cursor: pointer;"></ion-icon>
+                                        </span>
+                                    </div>`;
                             }
                         },
                     ],
                 });
             }
-            // var dataColumnTableDefinition = [{
-            //         "targets": 0,
-            //         "data": "Email",
-            //         "render": function(data, type, row, meta) {
-            //             console.log("0" + data + "?" + type + "?" + row + "?" + meta);
-            //             // return row;
-            //         }
-            //     },
-            //     {
-            //         "targets": 1,
-            //         "data": "Email",
-            //         "sortable": false,
-            //         "render": function(data, type, row, meta) {
-            //             console.log("01" + data + "?" + type + "?" + row + "?" + meta);
-            //             // return row;
-            //         }
-            //     },
-            //     {
-            //         "targets": 2,
-            //         "data": "Email",
-            //         "sortable": false,
-            //         "render": function(data, type, row, meta) {
-            //             console.log("02" + data + "?" + type + "?" + row + "?" + meta);
-            //             // return row;
-            //         }
-            //     },
-            //     {
-            //         "targets": 3,
-            //         "data": "Email",
-            //         "sortable": false,
-            //         "render": function(data, type, row, meta) {
-            //             console.log("03" + data + "?" + type + "?" + row + "?" + meta);
-            //             // return row;
-            //         }
-            //     },
-            //     {
-            //         "targets": 4,
-            //         "data": "Email",
-            //         "sortable": false,
-            //         "render": function(data, type, row, meta) {
-            //             console.log("04" + data + "?" + type + "?" + row + "?" + meta);
-            //             // return row;
-            //         }
-            //     },
-            //     {
-            //         "targets": 5,
-            //         "data": "Email",
-            //         "sortable": false,
-            //         "render": function(data, type, row, meta) {
-            //             console.log("05" + data + "?" + type + "?" + row + "?" + meta);
-            //             // return row;
-            //         }
-            //     },
-            // ];
-
-            // $('#myTable').DataTable({
-            //     "paging": true,
-            //     "processing": true,
-            //     "searching": true,
-            //     "info": true,
-            //     "responsive": true,
-            //     "serverSide": true,
-            //     "columnDefs": dataColumnTableDefinition,
-            //     "ajax": {
-            //         'url': 'tempFunction/fetchProjects.php',
-            //         'type': 'POST',
-            //         'data': function(send) {
-            //             send.userID = ;
-            //         },
-            //     },
-            //     "columns": [{
-            //             data: 'first_name',
-
-            //         },
-            //         {
-            //             data: 'last_name'
-            //         },
-            //         {
-            //             data: 'position'
-            //         },
-            //         {
-            //             data: 'office'
-            //         },
-            //         {
-            //             data: 'start_date'
-            //         },
-            //         {
-            //             data: 'salary'
-            //         },
-            //     ],
-            //     // "createdRow": function(row, data, dataIndex) {
-
-            //     // }
-            // });
         });
     </script>
 

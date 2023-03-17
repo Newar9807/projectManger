@@ -5,27 +5,74 @@ include("../assets/dbCon.php");
 $userID = $_POST["userID"];
 // $projectID = $_POST["projectID"];
 
-$fetchProjectSql = "SELECT `project_id` AS 'id', `project_name` AS 'projectTitle', `project_name` AS 'teamMembers', `project_sdlc` AS 'sdlc', `project_status` AS 'status'  FROM `tbl_ext_user` JOIN `tbl_project` ON `tbl_ext_user`.`ext_project_id` = `tbl_project`.`project_id` AND `tbl_ext_user`.`ext_user_id` = '{$userID}'";
+$testFetch = "SELECT `tbl_ext_user`.`ext_project_id` FROM `tbl_ext_user` WHERE `tbl_ext_user`.`ext_user_id` = '{$userID}'";
 
-$fetchQueryExection = mysqli_query($conn, $fetchProjectSql);
+$resTestFetch = mysqli_query($conn, $testFetch);
 
-$response  = [];
+$storeTestFetch = [];
 
-if (mysqli_num_rows($fetchQueryExection) != 0) :
-    while ($got = mysqli_fetch_assoc($fetchQueryExection)) :
-        $response[] = [
-            'id' => $got['id'],
-            'projectTitle' => $got['projectTitle'],
-            'teamMembers' => $got['teamMembers'],
-            'sdlc' => $got['sdlc'],
-            'status' => $got['status'],
-            'action' => "hello"
-        ];
-        // break;
+if ($resTestFetch) :
+    // Query Execution Success
+    while ($got = mysqli_fetch_assoc($resTestFetch)) :
+        $storeTestFetch[] = $got["ext_project_id"];
     endwhile;
 else :
-    // Query Returns 0 Rows
-    $response[] =  "Failed";
+    // Query Execution Error
+    $storeTestFetch[] = "Failed";
 endif;
+
+$response  = [];
+foreach ($storeTestFetch as $key => $val) :
+
+    $fetchProjectSql = "SELECT * FROM `tbl_ext_user` JOIN `tbl_project` ON `tbl_ext_user`.`ext_project_id` = `tbl_project`.`project_id` AND `tbl_ext_user`.`ext_project_id` = '{$val}' AND `tbl_ext_user`.`ext_user_id` != '{$userID}'";
+
+    $fetchQueryExection = mysqli_query($conn, $fetchProjectSql);
+
+    if (mysqli_num_rows($fetchQueryExection) != 0) :
+        $count = 0;
+        $tmpMembers = "";
+
+        $id = "";
+        $projectName = "";
+        $projectSdlc = "";
+        $projectStatus = "";
+        $actualMembers = "";
+
+        while ($got = mysqli_fetch_assoc($fetchQueryExection)) :
+            $fetchMemberName = "SELECT `user_name` FROM `tbl_user` WHERE `user_id` = '{$got["ext_user_id"]}'";
+            $resFetchMemberName = mysqli_query($conn, $fetchMemberName);
+            if ($resFetchMemberName) :
+                // Query Execution Success
+                $tmpMembers = mysqli_fetch_assoc($resFetchMemberName);
+            else :
+                // Query Execution Error
+                $tmpMembers = "Error";
+            endif;
+
+            if ($count == 0) :
+                $id = $got['project_id'];
+                $projectName = $got['project_name'];
+                $projectSdlc = $got['project_sdlc'];
+                $projectStatus = $got['project_status'];
+                $actualMembers = $tmpMembers['user_name'];
+            else :
+                $actualMembers .= ", " . $tmpMembers['user_name'];
+            endif;
+            $count++;
+        endwhile;
+        $response[$key] = [
+            'id' => $id,
+            'projectTitle' => $projectName,
+            'sdlc' => $projectSdlc,
+            'teamMembers' => $actualMembers,
+            'status' => $projectStatus,
+        ];
+
+    else :
+        // Query Returns 0 Rows
+        $response[] =  "Failed";
+    endif;
+
+endforeach;
 
 echo json_encode($response);

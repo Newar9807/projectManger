@@ -1,29 +1,28 @@
 @import url("https://fonts.googleapis.com/css?family=Ubuntu");
-*{
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Ubuntu',sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
 }
-:root{
-  --blue:#287bff;
-  --white:#f0f0f0;
-  --grey:#f5f5f5;
-  --black1:#222;
-  --black2:#999;
+:root {
+  --blue: #287bff;
+  --white: #f0f0f0;
+  --grey: #f5f5f5;
+  --black1: #222;
+  --black2: #999;
 }
-body{
+body {
   min-height: 100vh;
   overflow-x: hidden;
   background-color: #f0f0f0;
-
 }
-.container{
+.container {
   position: relative;
   width: 100%;
 }
-.navigation{
-  position:fixed;
+.navigation {
+  position: fixed;
   width: 300px;
   height: 100%;
   background: var(--blue);
@@ -31,46 +30,44 @@ body{
   transition: 0.5s;
   overflow: hidden;
 }
-.navigation.active{
+.navigation.active {
   width: 80px;
 }
 .navigation ul {
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   width: 100%;
 }
-.navigation ul li{
+.navigation ul li {
   position: relative;
   width: 100%;
   list-style: none;
-  border-top-left-radius:30px ;
+  border-top-left-radius: 30px;
   border-bottom-left-radius: 30px;
-
 }
-.navigation ul li:hover{
+.navigation ul li:hover {
   background: var(--white);
 }
-.navigation ul li:nth-child(1){
+.navigation ul li:nth-child(1) {
   margin-bottom: 40px;
   pointer-events: none;
 }
-.navigation ul li:nth-child(7){
-  top:210px;
-  
+.navigation ul li:nth-child(7) {
+  top: 210px;
 }
-.navigation ul li a{
+.navigation ul li a {
   position: relative;
   display: block;
-  width:100%;
+  width: 100%;
   display: flex;
   text-decoration: none;
   color: var(--white);
 }
-.navigation ul li a:hover{
+.navigation ul li a:hover {
   color: var(--blue);
 }
-.navigation ul li a .icon{
+.navigation ul li a .icon {
   position: relative;
   display: block;
   min-width: 60px;
@@ -78,10 +75,10 @@ body{
   text-align: center;
 }
 
-.navigation ul li a .icon ion-icon{
+.navigation ul li a .icon ion-icon {
   font-size: 1.25em;
 }
-.navigation ul li a .title{
+.navigation ul li a .title {
   position: relative;
   display: block;
   padding: 0 10px;
@@ -91,13 +88,12 @@ body{
   white-space: nowrap;
 }
 
-
 /* curve outside */
-.navigation ul li:hover a::before{
-  content: '';
+.navigation ul li:hover a::before {
+  content: "";
   position: absolute;
   right: 0;
-  top:-50px;
+  top: -50px;
   width: 50px;
   height: 50px;
   background: transparent;
@@ -105,11 +101,11 @@ body{
   box-shadow: 35px 35px 0 10px var(--white);
   pointer-events: none;
 }
-.navigation ul li:hover a::after{
-  content: '';
+.navigation ul li:hover a::after {
+  content: "";
   position: absolute;
   right: 0;
-  bottom:-50px;
+  bottom: -50px;
   width: 50px;
   height: 50px;
   background: transparent;
@@ -118,28 +114,27 @@ body{
   pointer-events: none;
 }
 /* */
-.main{
-  position:absolute;
+.main {
+  position: absolute;
   width: calc(100% - 300px);
   left: 300px;
   min-height: 100vh;
   background: var(--white);
   transition: 0.5s;
 }
-.main.active{
-  width:calc(100% - 80px);
- left: 70px;
+.main.active {
+  width: calc(100% - 80px);
+  left: 70px;
 }
-.topbar
-{
+.topbar {
   width: 100%;
   height: 60px;
   display: flex;
-  justify-content:space-between ;
+  justify-content: space-between;
   align-items: center;
   padding: 0 10px;
 }
-.toggle{
+.toggle {
   position: relative;
   top: 0;
   width: 60px;
@@ -150,20 +145,19 @@ body{
   font-size: 1.75rem;
   cursor: pointer;
 }
- .noti{
+.noti {
   position: relative;
   height: 40px;
   min-width: 40px;
   display: flex;
   cursor: pointer;
- left: 490px;
-  
+  left: 490px;
 }
-.noti img{
+.noti img {
   top: 10px;
   height: 50px;
 }
-.noti span{
+.noti span {
   background: #f00;
   padding: 7px;
   border-radius: 50%;
@@ -212,7 +206,7 @@ body{
   margin-top: 10px;
   margin-bottom: 10px;
 } */
- 
+
 /* Handle */
 /* ::-webkit-scrollbar-thumb {
   background: #888; 
@@ -276,105 +270,94 @@ opacity: 1;
   
 }  */
 
-.notifi-wrap{
+.notifi-wrap {
   position: absolute;
-  top:65px;
+  top: 65px;
   right: 10px;
   width: 320px;
   max-height: 0px;
-overflow: scroll;
-overflow-x: hidden;
-
+  overflow: scroll;
+  overflow-x: hidden;
 }
-.notifi-box{
+.notifi-box {
   background: #fff;
   padding: 20px;
   width: 320px;
   border-radius: 10px;
   margin-top: 13px;
   height: 69%;
- 
 }
-.notifi-wrap img{
+.notifi-wrap img {
   width: 60px;
   border-radius: 50%;
   cursor: pointer;
 }
-.notifi-wrap h2{
+.notifi-wrap h2 {
   font-size: 18px;
   padding: 10px;
-  
 }
-.notifi-wrap h2 span{
-  color:#f00;
+.notifi-wrap h2 span {
+  color: #f00;
 }
-.notifi-item{
+.notifi-item {
   display: flex;
   padding: 15px 5px;
   cursor: pointer;
 }
-.notifi-item .text h4{
+.notifi-item .text h4 {
   color: #777;
   font-size: 14px;
   margin-top: 10px;
   margin-left: 10px;
   line-height: 20px;
 }
-.notifi-item .text p{
+.notifi-item .text p {
   margin-left: 10px;
   font-size: 16px;
 }
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
-margin-top: 10px;
-  
-  
-} 
+  margin-top: 10px;
+}
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f0f0f0; 
+  background: #f0f0f0;
   border-radius: 40px;
   margin-top: 30px;
-margin-bottom: 20px;
-} 
- 
+  margin-bottom: 20px;
+}
+
 /* Handle */
- ::-webkit-scrollbar-thumb {
-  background: #888; 
+::-webkit-scrollbar-thumb {
+  background: #888;
   border-radius: 10px;
-  
-} 
+}
 
 /* Handle on hover */
- ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
-.notifi-wrap .notifi-box::before{
-  content:"" ;
+.notifi-wrap .notifi-box::before {
+  content: "";
   position: absolute;
-  
-  left:66%;
+
+  left: 66%;
   bottom: 520px;
   transform: translateX(-50%);
   z-index: 2;
   border: 15px solid;
   border-color: transparent transparent rgb(255, 255, 255) transparent;
-
-  
-  
 }
-.notifi-wrap.open-noti{
- 
+.notifi-wrap.open-noti {
   max-height: 535px;
   z-index: 4;
-  
-/* border-radius: 10px; */
-  
+
+  /* border-radius: 10px; */
 }
 /*profile dropdown css */
-.user{
+.user {
   position: relative;
   min-width: 45px;
   height: 45px;
@@ -393,108 +376,98 @@ margin-bottom: 20px;
   object-fit: cover;
 }
 
-
-
-.sub-menu-wrap{
+.sub-menu-wrap {
   position: absolute;
-  top:75px;
+  top: 75px;
   right: 10px;
   width: 320px;
   max-height: 0px;
-overflow: hidden;
- 
-
-
+  overflow: hidden;
 }
-.sub-menu-wrap .sub-menu::before{
-  content:"" ;
+.sub-menu-wrap .sub-menu::before {
+  content: "";
   position: absolute;
-  
-  left:84%;
+
+  left: 84%;
   bottom: 335px;
   transform: translateX(-50%);
   z-index: 2;
   border: 15px solid;
   border-color: transparent transparent white transparent;
   overflow: hidden;
-  
-  
 }
-.sub-menu-wrap.open-menu{
-  top:60px;
+.sub-menu-wrap.open-menu {
+  top: 60px;
   max-height: 410px;
-  
-border-radius: 14%;
-z-index: 10;
-  
+
+  border-radius: 14%;
+  z-index: 10;
 }
-.sub-menu{
+.sub-menu {
   background: #fff;
   padding: 20px;
   margin: 10px;
 }
-.user-info{
+.user-info {
   display: flex;
   align-items: center;
 }
-.user-info h2{
+.user-info h2 {
   font-weight: 400;
 }
-.user-info img{
+.user-info img {
   width: 54px;
   border-radius: 53%;
   height: 52px;
   margin-right: 15px;
-
 }
-.sub-menu hr{
+.sub-menu hr {
   border: 0;
   height: 1px;
   width: 100%;
   background: #ccc;
-  margin:15px 0 10px;
+  margin: 15px 0 10px;
 }
-.sub-menu-link{
-  display: flex;;
+.sub-menu-link {
+  display: flex;
   align-items: center;
   text-decoration: none;
   color: #525252;
   margin: 12px 0;
 }
-.sub-menu-link p{
+.sub-menu-link p {
   width: 100%;
 }
-.sub-menu-link img{
+.sub-menu-link img {
   width: 40px;
   background-color: #e5e5e5;
   border-radius: 50%;
   padding: 8px;
   margin-right: 15px;
 }
-.sub-menu-link span{
+.sub-menu-link span {
   font-size: 22px;
   transition: transform 0.5s;
 }
-.sub-menu-link:hover span{
+.sub-menu-link:hover span {
   transform: translate(5px);
 }
-.sub-menu-link:hover p{
+.sub-menu-link:hover p {
   font-weight: 600;
 }
 
 /* cardbox mid div */
-.cardBox{
+.cardBox {
   position: relative;
   width: 80%;
   padding: 20px;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   display: grid;
   grid-gap: 40px;
   height: 80%;
   margin-left: 120px;
-  
 }
-.cardBox .card{
+.cardBox .card {
   position: relative;
   background: var(--white);
   padding: 10px;
@@ -503,20 +476,18 @@ z-index: 10;
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  
 }
-.cardBox .card .numbers{
+.cardBox .card .numbers {
   position: relative;
   font-weight: 400;
-  font-size: 2.0rem;
+  font-size: 2rem;
   color: var(--blue);
 }
-.cardBox .card .cardName{
-
+.cardBox .card .cardName {
   font-size: 1.1em;
   margin-top: 5px;
 }
-.cardBox .card .iconBx{
+.cardBox .card .iconBx {
   font-size: 4.5em;
   top: 50px;
   color: var(--black2);
@@ -532,7 +503,7 @@ z-index: 10;
 {
 color: var(--white);
 } */
-.charts{
+.charts {
   width: 90%;
 }
 .chart {
@@ -545,23 +516,19 @@ color: var(--white);
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
   margin-bottom: 10px;
   width: 65%;
-
-
-  
 }
 .chart h2 {
   margin-bottom: 5px;
   font-size: 20px;
   color: #666;
-  text-align: center
+  text-align: center;
 }
-.doughChart{
-  width:200px;
+.doughChart {
+  width: 200px;
   height: 200px;
 }
-.dashInner{
+.dashInner {
   margin-top: 30px;
- 
 
   border: 4px solid #287bff;
 
@@ -575,40 +542,40 @@ color: var(--white);
   margin-left: 40px;
   border-radius: 10px;
   /* box-shadow: 0 7px 25px rgba(127, 126, 126, 0.88); */
-  
 }
-.graphss{
+.graphss {
   position: relative;
   height: 600px;
   width: 700px;
   margin-top: 10px;
 }
-.graphss h2{
+.graphss h2 {
   margin-left: 200px;
 }
 
-#lineChart{
+#lineChart {
   margin-top: 20px;
-
 }
-.rightDiv{
-  margin-left: 30px;
+.rightDiv {
+  margin-left: 36px;
   height: 600px;
-  width: 200px;
-  margin-top: 20px;
-  
+  /* width: 200px; */
+  margin-top: 73px;
 }
-.rightDiv h2{
+.rightDiv h2 {
   margin-left: 140px;
 }
-#container22{
+#container22 {
   margin-top: 20px;
   width: 420px;
   height: 100px;
   /* background-color: #0000; */
- 
 }
 
-
-
-
+.taskArea .taskSubArea h2 {
+  margin-top: 10px;
+}
+#example {
+  width: 100px;
+  margin-bottom: 100px;
+}

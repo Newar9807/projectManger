@@ -1,5 +1,6 @@
 <?php $root = $_SERVER['DOCUMENT_ROOT'];
-$host = $_SERVER['HTTP_HOST']; ?>
+$host = $_SERVER['HTTP_HOST'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,19 +12,27 @@ $host = $_SERVER['HTTP_HOST']; ?>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <title>Teacher</title>
     <style>
-        .content-details-header{
+        .content-details-header {
             display: flex;
         }
-        .conHead{
+
+        .conHead {
             /* float: left; */
             margin: 25px 0 0 77px;
         }
-        .conTail{
+
+        .conTail {
             margin: 30px 40px 0 0;
             float: right;
         }
-        .edit-btn{
+
+        .edit-btn {
             font-size: 24px;
+        }
+
+        img {
+
+            object-fit: cover;
         }
     </style>
 </head>
@@ -53,34 +62,34 @@ $host = $_SERVER['HTTP_HOST']; ?>
 
                 <div class="content-details">
                     <div class="content-details-title">
-                        <h2>Project Management System</h2>
+                        <h2 class="projectName" style="margin-bottom: .5rem;">Project Management System</h2>
                     </div>
                     <div class="project-container">
                         <div class="project-data">
                             <div class="content-title projectData1">
                                 <h3>Project Id</h3>
-                                <p name="projectId">101</p>
+                                <p name="projectId" id="projectId"></p>
                             </div>
                             <div class="content-title projectData2">
-                                <h3>Project Name</h3>
-                                <p name="projectName">Project Manager</p>
-                            </div>
-                            <div class="content-title projectData3">
                                 <h3>SDLC</h3>
-                                <p name="projectModel">WaterFall Model</p>
+                                <p name="projectModel" id="projectSDLC"></p>
                             </div>
 
+                            <div class="content-title projectData3">
+                                <h3>Created</h3>
+                                <p id="projectCreated"></p>
+                            </div>
                             <div class="content-title projectData4">
-                                <h3>Duration</h3>
-                                <p><ion-icon name="calendar-outline"></ion-icon>Start Date: 2023-01-22<br></p>
+                                <h3>Frontend</h3>
+                                <p name="frontendTool" id="projectFrontend"></p>
                             </div>
                             <div class="content-title projectData5">
-                                <h3>Frontend</h3>
-                                <p name="frontendTool">HTML/CSS <br> Javascript</p>
+                                <h3>Backend</h3>
+                                <p name="backendTool" id="projectBackend"></p>
                             </div>
                             <div class="content-title projectData6">
-                                <h3>Backend</h3>
-                                <p name="backendTool">PHP <br> MySQL</p>
+                                <h3>Status</h3>
+                                <p name="projectName" id="projectStatus"></p>
                             </div>
                         </div>
 
@@ -89,18 +98,6 @@ $host = $_SERVER['HTTP_HOST']; ?>
                         <div class="project-members">
                             <h3 style="margin-bottom: 2rem;">Team Members</h3>
                             <div class="member-details">
-                                <div class="member">
-                                    <img src="avatar1.png" alt="member image">
-                                    <p>Sarowar</p>
-                                    <p style="font-size: 14px;">Frontend Developer</p>
-                                </div>
-
-                                <div class="member">
-                                    <img src="avatar3.png" alt="member image">
-                                    <p>Samir</p>
-                                    <p style="font-size: 14px;">Backend Developer</p>
-                                </div>
-
                             </div>
                         </div>
 
@@ -108,7 +105,7 @@ $host = $_SERVER['HTTP_HOST']; ?>
 
                         <div class="project-description">
                             <h3>Project Abstract</h3>
-                            <p class="description-box" name="projectAbstract">Project Manager is the application to manage projects.</p>
+                            <p class="description-box" name="projectAbstract" id="projectAbstract"></p>
                         </div>
 
                         <hr style="width:85%; margin-left:auto; margin-right:auto; margin-bottom: 2rem;">
@@ -132,31 +129,108 @@ $host = $_SERVER['HTTP_HOST']; ?>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-    <script src="../assets/js/teacherDashbaord.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
+    <script src="../assets/js/websiteSkeleton.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            const tmpMonth = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var xValues = [];
+
+            $.post("tempFunction/fetchSpecificProjectDetails.php", {
+                "projectID": <?= $_GET["id"] ?>,
+            }, function(response) {
+                response = $.parseJSON(response);
+                if (response[0] == "Failed") {
+
+                } else if (response[0] == "Success") {
+                    $('.projectName').html(response[1].project_name);
+                    $('#projectId').html(response[1].project_id);
+                    $('#projectSDLC').html(response[1].project_sdlc);
+                    $('#projectFrontend').html(response[1].project_frontend);
+                    $('#projectBackend').html(response[1].project_backend);
+                    $('#projectBackend').html(response[1].project_backend);
+                    $('#projectAbstract').html(response[1].project_abstract);
+                    $('#projectStatus').html(response[1].project_status);
+                    $('#projectCreated').html("&#x1F4C6; " + response[1].project_created);
+                    var htm = "";
+                    Object.entries(response[2]).forEach(entry => {
+                        const [key, value] = entry;
+                        htm += `<div class="member">
+                                    <img src="` + value.user_pic + `" alt="member image">
+                                    <p>` + value.user_name + `</p>
+                                    <p style="font-size: 14px;">` + value.user_email + `</p>
+                                </div>`;
+                    });
+                    $('.member-details').empty().append(htm);
+
+                    var dt = new Date(response[1].project_created);
+                    var month = dt.getMonth() + 1;
+                    var count = -1;
+                    for (var i = 0; i < 7; i++) {
+                        xValues[i] = tmpMonth[count + month];
+                        if (month > 11) {
+                            month = 0;
+                            count++;
+                        } else {
+                            month++;
+                        }
+                    }
+                    drawChart(xValues);
+                }
+            });
+
+            function drawChart(xValues) {
+                new Chart("myChart", {
+                    type: "line",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            data: [600, 1700, 1700, 1900, 8000, 2700, 4000, 5000, 6000, 7000],
+                            borderColor: "green",
+                            fill: false
+                        }, ]
+                    },
+                    options: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                });
+                // new Chart(
+                //     document.getElementById('myChart'), {
+                //         type: 'line',
+                //         data: {
+                //             // labels: xValues.map(row => row.month),
+                //             datasets: [{
+                //                 data: [{
+                //                     'data.key': 'one',
+                //                     'data.value': 20
+                //                 }, {
+                //                     'data.key': 'two',
+                //                     'data.value': 30
+                //                 }]
+                //             }]
+                //         },
+                //         options: {
+                //             parsing: {
+                //                 xAxisKey: 'data\\.key',
+                //                 yAxisKey: 'data\\.value'
+                //             }
+                //         }
+                //     }
+                // );
+            }
+
+
+
+        });
+    </script>
+
     /* Charts script */
     <script>
-        var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
-        new Chart("myChart", {
-            type: "line",
-            data: {
-                labels: xValues,
-                datasets: [{
-                    data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
-                    borderColor: "red",
-                    fill: false
-                }, ]
-            },
-            options: {
-                legend: {
-                    display: false
-                }
-            }
-        });
     </script>
 
 </body>

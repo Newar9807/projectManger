@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2023 at 04:03 PM
+-- Generation Time: Mar 17, 2023 at 05:17 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -57,6 +57,15 @@ CREATE TABLE `tbl_events` (
   `events_status` varchar(255) DEFAULT NULL,
   `events_date` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_events`
+--
+
+INSERT INTO `tbl_events` (`events_id`, `events_from_id`, `events_to_id`, `events_description`, `events_status`, `events_date`) VALUES
+(1, 2, 3, 'This is 1st meeting ', 'Meeting Accepted', '2023-03-09'),
+(2, 2, 3, 'This is 2nd falskdflas asdfjlad fasdsf  jjk', 'Meeting Rejected', '2023-03-10'),
+(4, 3, 1, 'Meet me ..', 'Meeting Assigned', '2023-03-16');
 
 -- --------------------------------------------------------
 
@@ -204,8 +213,8 @@ CREATE TABLE `tbl_project` (
 --
 
 INSERT INTO `tbl_project` (`project_id`, `project_name`, `project_frontend`, `project_backend`, `project_sdlc`, `project_created`, `project_abstract`, `project_ppt`, `project_status`, `project_priority`) VALUES
-(1, 'Project Manager', 'Html,Css,JavaScript', 'php', 'ProtoType', '2023-03-04', 'Pope John XXIII Middle School is currently accepting applications for the 2023-2024 school year! We invite students entering grades 5-7 to visit our school and spend the day with us.Click Here to schedule your visit or contact our admissions office at adm', 'location', 'Pending', 'High'),
-(2, 'Handy Craft', 'Html, Css, Js', 'Php', 'ProtoType', '2023-03-05', 'Hello this is abstract', 'this is ppt location', 'Approved', 'Medium');
+(1, 'Project Manager', 'Html,Css,JavaScript', 'php', 'ProtoType', '2023-11-04', 'Pope John XXIII Middle School is currently accepting applications for the 2023-2024 school year! We invite students entering grades 5-7 to visit our school and spend the day with us.Click Here to schedule your visit or contact our admissions office at adm', 'location', 'Pending', 'High'),
+(2, 'Handy Craft', 'Html, Css, Js', 'Php', 'WaterFall', '2023-03-05', 'Hello this is abstract', 'this is ppt location', 'Approved', 'Medium');
 
 -- --------------------------------------------------------
 
@@ -229,11 +238,34 @@ CREATE TABLE `tbl_task` (
   `task_from_id` int(10) UNSIGNED DEFAULT NULL,
   `task_to_id` int(10) UNSIGNED DEFAULT NULL,
   `task_title` varchar(255) NOT NULL,
+  `task_phase` varchar(255) NOT NULL,
+  `task_description` text NOT NULL,
+  `task_priority` varchar(255) NOT NULL,
   `task_status` varchar(255) NOT NULL DEFAULT 'Pending',
   `task_file` varchar(255) DEFAULT NULL,
   `task_created` date NOT NULL DEFAULT current_timestamp(),
-  `task_deadline` datetime NOT NULL
+  `task_deadline` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_task`
+--
+
+INSERT INTO `tbl_task` (`task_id`, `task_from_id`, `task_to_id`, `task_title`, `task_phase`, `task_description`, `task_priority`, `task_status`, `task_file`, `task_created`, `task_deadline`) VALUES
+(2, 3, 2, 'Documentation', 'Testing', 'This is to be done till the', 'High', 'Completed', 'Soon..', '2023-03-14', '2023-04-06'),
+(3, 3, 1, 'Test ', 'Testing', 'please test before release', 'Medium', 'Pending', 'Soon..', '2023-03-14', '2023-03-15'),
+(4, 3, 2, 'Analysis', 'Requirement Analysis', 'Analysis is must important', 'High', 'Pending', 'Soon..', '2023-03-14', '2023-03-15'),
+(5, 3, 2, 'Ariel Ellis ', 'System Design', 'Qui vitae sed iste possimus omnis iusto ullam nihil ullamco cupiditate ', 'Medium', 'Pending', 'Soon', '2023-03-14', '1983-09-15'),
+(6, 3, 1, 'Juliet Jackson ', 'Building ProtoType', 'Odio consequat Quia proident deser unt est nulla suscipit obcaecati molestiae quibusdam non eligend', 'Medium', 'Pending', 'Soon..', '2023-03-14', '2007-04-17'),
+(7, 3, 1, 'Raya Harmon ', 'Testing', 'Qui non Nam pariatur Quis rerum tota m non velit amet irure voluptatem fugiat id dolore laborum fu', 'Medium', 'Completed', 'Soon..', '2023-03-14', '1978-10-21'),
+(9, 3, 1, 'Test Updates', 'Quick Design', 'sdfasdfasdfasdf', 'Medium', 'Pending', 'Soon', '2023-03-14', '2023-03-31'),
+(14, 3, 2, 'This is new', 'Testing', 'this is the paragraph description', 'Medium', 'Pending', 'Soon', '2023-03-15', '2023-03-25'),
+(15, 3, 1, 'Calvin Sexton ', 'Quick Design', 'Fugiat adipisci amet atque c onsequatur', 'Medium', 'Pending', 'Soon..', '2023-03-15', '2023-03-20'),
+(16, 3, 2, 'Bradley Neal ', 'Implementation', 'Sunt quis dolore ipsum et ipsam aut est ', 'High', 'Pending', 'Soon..', '2023-03-15', '2024-01-04'),
+(18, 3, 2, 'Kuame Weeks', 'Implementation', 'Et molestiae est sunt rerum nihil accusamus natus et esse corporis fuga Eaque accusantium perspic', 'Low', 'Pending', 'Soon', '2023-03-15', '2024-11-30'),
+(19, 3, 2, 'Cairo Deleon ', 'Implementation', 'Perspiciatis pariatur Sed sunt labore', 'High', 'Pending', 'Soon', '2023-03-16', '2025-11-20'),
+(21, 3, 1, 'Miriam Blair ', 'Customer Evaluation', 'Facilis ipsum neque dolores eiusmod consequuntur ut culpa sint omnis architecto ut deserunt excepte ', 'Medium', 'Pending', 'Soon', '2023-03-16', '2026-12-03'),
+(22, 3, 2, 'Reece Pennington ', 'System Design', 'Tempore vero est porro exercitation veniam asperiores incididunt autem nisi autem consectetur ', 'High', 'Completed', 'Soon', '2023-03-16', '2033-07-21');
 
 -- --------------------------------------------------------
 
@@ -249,22 +281,24 @@ CREATE TABLE `tbl_user` (
   `user_faculty` varchar(255) NOT NULL,
   `user_phone` bigint(20) NOT NULL,
   `user_email` varchar(255) NOT NULL,
-  `user_password` varchar(255) NOT NULL
+  `user_password` varchar(255) NOT NULL,
+  `user_pic` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbl_user` (`user_id`, `user_program_id`, `user_role`, `user_name`, `user_faculty`, `user_phone`, `user_email`, `user_password`) VALUES
-(1, NULL, 'Teacher', 'Sheila Fischer', 'Nostrud eaque sunt e', 1, 'vakas@mailinator.com', 'Pa$$w0rd!'),
-(2, 1, 'Student', 'Samir Shrestha', 'Science And Technology', 9807898070, 'samirshrestha9807@gmail.com', 'samir'),
-(3, NULL, 'Teacher', 'Utsav Maharjan', 'Science And Technology', 9807898070, 'utsavmaharjan@gmail.com', 'utsav'),
-(4, 1, 'Student', 'Sarowor Malla', 'Science And Technology', 9123456789, 'sarowor@gmail.com', 'Sarowor@1'),
-(5, 1, 'Studnet', 'Melina Rayamajhi', 'Science And Technology', 9231242311, 'melina@gmail.com', 'Melina1@'),
-(6, 1, 'Student', 'Bishal Tamang', 'Science And Technology', 9807898070, 'bishal@gmail.com', 'Bishal@1'),
-(7, 1, 'Student', 'Shristi Pradhan', 'Science And Technology', 9807121222, 'shristi@gmail.com', 'Shristi@1%'),
-(8, 1, 'Student', 'Prajita Bhattrai', 'Science And Technology', 9812121213, 'prajita@gmail.com', 'Prajita@1%');
+INSERT INTO `tbl_user` (`user_id`, `user_program_id`, `user_role`, `user_name`, `user_faculty`, `user_phone`, `user_email`, `user_password`, `user_pic`) VALUES
+(1, NULL, 'Teacher', 'Sheila Fischer', 'Nostrud eaque sunt e', 1, 'vakas@mailinator.com', 'Pa$$w0rd!', ''),
+(2, 1, 'Student', 'Samir Shrestha', 'Science And Technology', 9807898070, 'samirshrestha9807@gmail.com', 'samir', 'images/saw.jpg'),
+(3, NULL, 'Teacher', 'Utsav Maharjan', 'Science And Technology', 9807898070, 'utsavmaharjan@gmail.com', 'utsav', ''),
+(4, 1, 'Student', 'Sarowor Malla', 'Science And Technology', 9123456789, 'sarowor@gmail.com', 'Sarowor@1', 'images/saro.jpg'),
+(5, 1, 'Student', 'Melina Rayamajhi', 'Science And Technology', 9231242311, 'melina@gmail.com', 'Melina1@', 'images/meli.jpg'),
+(6, 1, 'Student', 'Bishal Tamang', 'Science And Technology', 9807898070, 'bishal@gmail.com', 'Bishal@1', 'images/bis.jpg'),
+(7, 1, 'Student', 'Shristi Pradhan', 'Science And Technology', 9807121222, 'shristi@gmail.com', 'Shristi@1%', 'images/user.png'),
+(8, 1, 'Student', 'Prajita Bhattrai', 'Science And Technology', 9812121213, 'prajita@gmail.com', 'Prajita@1%', 'images/pra.jpg'),
+(9, 1, 'Student', 'Yogesh Rajbanshi', 'Science And Technology', 9807898070, 'yogesh@gmail.com', 'Yogesh@1', '');
 
 --
 -- Indexes for dumped tables
@@ -374,7 +408,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_events`
 --
 ALTER TABLE `tbl_events`
-  MODIFY `events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `events_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_faculty`
@@ -410,7 +444,7 @@ ALTER TABLE `tbl_program`
 -- AUTO_INCREMENT for table `tbl_project`
 --
 ALTER TABLE `tbl_project`
-  MODIFY `project_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `project_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `tbl_role`
@@ -422,13 +456,13 @@ ALTER TABLE `tbl_role`
 -- AUTO_INCREMENT for table `tbl_task`
 --
 ALTER TABLE `tbl_task`
-  MODIFY `task_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `task_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
