@@ -1,31 +1,12 @@
 <?php
-require_once("usefulFunction/eventFunctions.php");
 require_once("usefulFunction/wordLimiter.php");
-require_once("assets/dbCon.php");
-
-// This Session will be set while login process
-$_SESSION["user"] = "Teacher";
-$_SESSION["userId"] = 3;
-$_SESSION["projectId"] = [1, 2, 3];
-$userID = $_SESSION['userId'];
-$projectID = $_SESSION["projectId"];
+require_once("usefulFunction/sessionCheck.php");
 
 $root = $_SERVER['DOCUMENT_ROOT'];
 $host = $_SERVER['HTTP_HOST'];
 
-
-if (isset($_POST["right"])) :
-    init('right');
-elseif (isset($_POST["left"])) :
-    init('left');
-else :
-    init();
-endif;
-
-extract($_SESSION);
-
-$sql
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -162,109 +143,28 @@ $sql
                         <div class="calendar mt-4">
                             <table class="table">
                                 <thead>
-                                    <tr class="table-dark">
-                                        <?php
-                                        foreach ($week as $value) {
-                                        ?>
-                                            <th scope="col" class="border-end border-light m-2 rounded" style="background-color: #45aaf2;"><?= $value; ?></th>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    if (isset($_POST))
-                                        unset($_POST);
-                                    $storeDay = 0;
-                                    nextRow:
-                                    while ($storeDay < $totalDay) {
-                                    ?>
-                                        <tr class="table-dark">
-                                            <?php
-                                            $dayCount = 0;
-                                            while ($dayCount < 7) {
-                                                if (!($dayCount < $day || $storeDay >= $totalDay)) :
-                                                    $storeDay++;
-                                                    $storeDay = sprintf("%02d", $storeDay);
-                                                endif;
-
-                                                if ($dayCount < $day || $storeDay >= $totalDay) {
-                                                    if ($dayCount == 6) {
-                                            ?>
-                                                        <th scope="col" class="border-end border-light table-dark m-2 rounded" style="background-color: #f53b57;"> <i class="bi bi-dash-lg"></i> </th>
-                                                    <?php } else {
-                                                    ?>
-                                                        <th scope="col" class="border-end border-light m-2 rounded"> <i class="bi bi-dash-lg"></i> </th>
-                                                    <?php
-                                                    }
-                                                } else if ($dayCount == 6) { ?>
-                                                    <td scope="col" class="gate border-end border-light m-2 rounded" data-ddate="<?php echo $year . '-' . $month . '-' . $storeDay; ?>" style=" background-color: #f53b57;">
-                                                        <?php
-                                                        // $storeDay = sprintf("%d", $storeDay);
-                                                        echo $storeDay;
-                                                        $temp = $year . '-' . $month . '-' . $storeDay;
-                                                        $see = $currentYear . '-' . $currentMonth . '-' . $currentDate;
-                                                        if (($temp) == ($see)) {
-                                                            echo "<span style=''><br />Today</span>";
-                                                        }
-                                                        foreach ($events as $eventDate) {
-                                                            if ($eventDate['events_date'] == $temp) {
-                                                                // echo "<span style='font-size:15px'><br />" . $eventDate['events_description'] . "</span>";
-                                                                break;
-                                                            }
-                                                        }
-                                                        ?></i></th>
-                                                    <?php
-                                                    $day = -1;
-                                                    goto nextRow;
-                                                } else { ?>
-                                                        <!--data-bs-toggle="modal" data-bs-target="#eventModal" -->
-                                                    <td scope="col" class="gate border-end border-light m-2 rounded" data-ddate="<?php echo $year . '-' . $month . '-' . $storeDay; ?>">
-                                                        <?php
-                                                        // $storeDay = sprintf("%d", $storeDay);
-                                                        echo $storeDay;
-                                                        $temp = $year . '-' . $month . '-' . $storeDay;
-                                                        $see = $currentYear . '-' . $currentMonth . '-' . $currentDate;
-                                                        if (($temp) == ($see)) {
-                                                            echo "<span style=''><br />Today</span>";
-                                                        }
-                                                        foreach ($events as $eventDate) {
-                                                            if ($eventDate['events_date'] == $temp) {
-                                                                // echo "<span style='font-size:15px'><br />" . $eventDate['events_description'] . "</span>";
-                                                                break;
-                                                            }
-                                                        }
-                                                        ?></td>
-                                                <?php
-                                                } ?>
-                                            <?php
-                                                $dayCount++;
-                                            } ?>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
                                 </tbody>
                             </table>
                         </div>
 
                         <div class="info d-flex justify-content-center">
-                            <form action="" method="post">
-                                <input type="hidden" name="inputMonth" value="<?= $month ?>">
-                                <input type="hidden" name="inputYear" value="<?= $year ?>">
-                                <button type="submit" class="btn" name="left">
-                                    <i class="bi bi-arrow-left-circle-fill bi-sm" id="manage" style="font-size: 20px;"></i>
-                                </button>
-                            </form>
-                            <h2 class="display-7"><?= " " . $year . ", " . $monthInWords . " "; ?></h2>
-                            <form action="" method="post">
-                                <input type="hidden" name="inputMonth" value="<?= $month ?>">
-                                <input type="hidden" name="inputYear" value="<?= $year ?>">
-                                <button type="submit" class="btn" name="right">
-                                    <i class="bi bi-arrow-right-circle-fill bi-sm" id="manage" style="font-size: 20px;"></i>
-                                </button>
-                            </form>
+                            <!-- <form action="" method="post"> -->
+                            <input class="putMonth" type="hidden" name="inputMonth" value="" id="inputMonth">
+                            <input class="putYear" type="hidden" name="inputYear" value="" id="inputYear">
+                            <button type="submit" class="btn" onclick="updateCalendar('left')">
+                                <i class="bi bi-arrow-left-circle-fill bi-sm" id="manage" style="font-size: 20px;"></i>
+                            </button>
+                            <!-- </form> -->
+                            <h2 class="display-7 putDate"></h2>
+                            <!-- <form action="" method="post"> -->
+                            <!-- <input class="putMonth" type="hidden" name="inputMonth" value="">
+                                <input class="putYear" type="hidden" name="inputYear" value=""> -->
+                            <button type="submit" class="btn" onclick="updateCalendar('right')">
+                                <i class="bi bi-arrow-right-circle-fill bi-sm" id="manage" style="font-size: 20px;"></i>
+                            </button>
+                            <!-- </form> -->
                         </div>
 
                         <div class="alert d-flex justify-content-center" role="alert" id="indicator">
@@ -282,12 +182,15 @@ $sql
                                     <?php
                                     $count = 0;
                                     // Database Work
-                                    foreach ($projectID as $value) :
+                                    foreach ($projectId as $value) :
                                         // $sqlToFetch = "SELECT * FROM `tbl_events` WHERE `events_to_id` = '{$value}' ORDER BY `events_id` DESC";
                                         // $sqlFromFetch = "SELECT * FROM `tbl_events` WHERE `events_from_id` = '{$value}' ORDER BY `events_id` DESC";
-                                        $sqlToFetch = "SELECT * FROM `tbl_events` JOIN `tbl_project` ON `tbl_events`.`events_to_id` = '{$value}' AND `tbl_events`.`events_from_id` = `tbl_project`.`project_id` ORDER BY `tbl_events`.`events_id` DESC";
+                                        // $sqlToFetch = "SELECT * FROM `tbl_events` JOIN `tbl_project` ON `tbl_events`.`events_to_id` = '{$value}' AND `tbl_events`.`events_from_id` = '{$userID}' AND `tbl_events`.`events_to_id` = `tbl_project`.`project_id` ORDER BY `tbl_events`.`events_id` DESC";
+                                        // $sqlFromFetch = "SELECT * FROM `tbl_events` JOIN `tbl_project` ON `tbl_events`.`events_from_id` = '{$value}' AND `tbl_events`.`events_to_id` = '{$userID}' AND `tbl_events`.`events_from_id` = `tbl_project`.`project_id` ORDER BY `tbl_events`.`events_id` DESC";
+                                        $sqlToFetch = "SELECT * FROM `tbl_events` JOIN `tbl_project` ON `tbl_events`.`events_from_id` = '{$value}' AND `tbl_events`.`events_to_id` = '{$userID}' AND `tbl_events`.`events_from_id` = `tbl_project`.`project_id` AND (`tbl_events`.`events_status` = 'Meeting Requested' OR `tbl_events`.`events_status` = 'Meeting Accepted' OR `tbl_events`.`events_status` = 'Meeting Rejected') ORDER BY `tbl_events`.`events_id` DESC";
                                         $resToFetch = mysqli_query($conn, $sqlToFetch);
-                                        $sqlFromFetch = "SELECT * FROM `tbl_events` JOIN `tbl_project` ON `tbl_events`.`events_from_id` = '{$value}' AND `tbl_events`.`events_to_id` = `tbl_project`.`project_id` ORDER BY `tbl_events`.`events_id` DESC";
+
+                                        $sqlFromFetch = "SELECT * FROM `tbl_events` JOIN `tbl_project` ON `tbl_events`.`events_to_id` = '{$value}' AND `tbl_events`.`events_from_id` = '{$userID}' AND `tbl_events`.`events_to_id` = `tbl_project`.`project_id` AND (`tbl_events`.`events_status` = 'Meeting Assigned') ORDER BY `tbl_events`.`events_id` DESC";
                                         $resFromFetch = mysqli_query($conn, $sqlFromFetch);
 
                                         if (mysqli_num_rows($resToFetch) == 0 && mysqli_num_rows($resFromFetch) == 0) :
@@ -311,12 +214,12 @@ $sql
                                                             <?= $got["events_status"]; ?>
                                                             <span class="badge bg-info rounded-pill mb-2" role="button" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
                                                             <?php  ?>
-                                                                <small class="d-none">
-                                                                    <hr style="margin: 0.15rem 0;">
-                                                                    <?= $got["events_description"]; ?>
-                                                                    <br>
-                                                                    <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
-                                                                </small>
+                                                            <small class="d-none">
+                                                                <hr style="margin: 0.15rem 0;">
+                                                                <?= $got["events_description"]; ?>
+                                                                <br>
+                                                                <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
+                                                            </small>
                                                             <?php if ($got["events_status"] == "Meeting Requested") : ?>
                                                                 <div class="row d-flex justify-content-between align-items-center my-2 actn">
                                                                     <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
@@ -340,19 +243,26 @@ $sql
                                                             <div class="fw-bold" role="button" id="clickCheck<?= $got["events_id"]; ?>"><?= word_limiter($got["project_name"], 22); ?></div>
                                                             <?= $got["events_status"]; ?>
                                                             <span class="badge bg-info rounded-pill mb-2" role="button" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
-                                                            <?php if ($got["events_status"] != "Meeting Requested") : ?>
-                                                                <small class="d-none">
-                                                                    <hr style="margin: 0.15rem 0;">
-                                                                    <?= $got["events_description"]; ?>
-                                                                    <br>
+                                                            <small class="d-none">
+                                                                <hr style="margin: 0.15rem 0;">
+                                                                <?= $got["events_description"]; ?>
+                                                                <br>
+                                                                <?php
+                                                                if ($got["events_status"] != "Meeting Requested") :
+                                                                ?>
                                                                     <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
-                                                                </small>
-                                                            <?php else : ?>
+                                                                <?php endif; ?>
+                                                            </small>
+                                                            <?php
+                                                            if ($got["events_status"] == "Meeting Requested") :
+                                                            ?>
                                                                 <div class="row d-flex justify-content-between align-items-center my-2 actn">
                                                                     <span class="badge bg-danger rounded-pill reject col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-x" style="font-size: 16px;"></i></span>
                                                                     <span class="badge bg-success rounded-pill  accept col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-check2" style="font-size: 16px;"></i></span>
                                                                 </div>
-                                                            <?php endif; ?>
+                                                            <?php
+                                                            endif;
+                                                            ?>
                                                         </div>
                                                     </li>
                                         <?php
@@ -363,7 +273,7 @@ $sql
                                             endif;
                                         endif;
                                     endforeach;
-                                    if ($count == count($projectID)) :
+                                    if ($count == count($projectId)) :
                                         ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-start">
                                             <div class="m-auto">
@@ -404,11 +314,11 @@ $sql
                                 <div class="mb-3 row">
                                     <div class="col-sm-6">
                                         <!-- <label for="eventDate" class="form-label">Date</label> -->
-                                        <input type="date" class="form-control" id="meetingDate" name="meetingDate" value="<?= $currentYear . '-' . $currentMonth . '-' . $currentDate; ?>" />
+                                        <input type="date" class="form-control" id="meetingDate" name="meetingDate" value="" />
                                     </div>
                                     <div class="col-sm-6 dropdown">
                                         <button class="btn btn-outline-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" id="selected" aria-expanded="false" value="0">Select Project</button>
-                                        <ul class="dropdown-menu">
+                                        <ul class="dropdown-menu putProjects">
                                             <?php
                                             $fetchProjectSql = "SELECT `tbl_project`.`project_name`, `tbl_project`.`project_id` FROM `tbl_ext_user` JOIN `tbl_project` ON `tbl_ext_user`.`ext_project_id` = `tbl_project`.`project_id` AND `tbl_ext_user`.`ext_user_id` = '{$userID}'";
                                             $fetchQueryExection = mysqli_query($conn, $fetchProjectSql);
@@ -459,6 +369,7 @@ $sql
 
     <script>
         $(document).ready(function() {
+            // Normal
             function getCurrentDate() {
                 const d = new Date();
                 let year = d.getFullYear(),
@@ -472,7 +383,7 @@ $sql
                 return currentDate;
             }
 
-            $('.dropdown-menu li').click(function() {
+            $('.dropdown-menu').on('click', 'li', function() {
                 $('#selected').addClass("btn-outline-success");
                 $('#selected').removeClass("btn-outline-danger");
                 $('#selected').text($(this).text());
@@ -529,9 +440,10 @@ $sql
                     $("#meetingDate").removeClass("btn btn-outline-danger");
                     $.post(
                         "tempFunction/teacherMeeting.php", {
-                            description: description,
-                            date: date,
-                            project: project,
+                            "userID": <?= $userID ?>,
+                            "description": description,
+                            "date": date,
+                            "project": project,
                         },
                         function(response) {
                             localStorage.setItem("comment", response);
@@ -541,6 +453,25 @@ $sql
                     );
                 }
             });
+
+            $.post("tempFunction/fetchProjects.php", {
+                    "userID": <?= $userID ?>
+                },
+                function(response) {
+                    var li = ``;
+                    if (response[0] == "Failed") {
+                        li += `<li><a class="dropdown-item" href="#" disabled>Not Assigned To Any Project !!</a></li>`;
+                    } else {
+                        response = $.parseJSON(response);
+                        Object.entries(response).forEach(entry => {
+                            const [key, value] = entry;
+                            li += `<li class="dropdown-item" role="button" data-id="` + key + `">` + value[1] + `</li>`;
+                        });
+                    }
+                    $('.putProjects').empty().append(li);
+                }
+            );
+
         });
     </script>
 

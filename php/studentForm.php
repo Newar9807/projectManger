@@ -2,20 +2,16 @@
 include("assets/dbCon.php");
 $root = $_SERVER['DOCUMENT_ROOT'];
 $host = $_SERVER['HTTP_HOST'];
-if (isset($_GET["id"])) :
-    $_SESSION["userId"] = $_GET["id"];
-else :
-    $_SESSION["userId"] = 0;
-    return;
-endif;
-$userID = $_SESSION['userId'];
+
+include("usefulFunction/sessionCheck.php");
+
 $sql = "SELECT count(`ext_project_id`) AS 'check' FROM `tbl_ext_user` WHERE `ext_user_id` = '{$userID}'";
 
 if (mysqli_query($conn, $sql)) :
     $res = mysqli_query($conn, $sql);
     while ($got = mysqli_fetch_assoc($res)) :
         if ($got["check"] == 1) :
-            echo "<script> window.location = 'studentDashboard.php?id=$userID';</script>";
+            echo "<script> window.location = 'studentDashboard.php';</script>";
             return;
         endif;
     endwhile;

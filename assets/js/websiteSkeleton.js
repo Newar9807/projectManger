@@ -31,3 +31,10 @@ function testnoti() {
   subMenu2.classList.toggle("open-noti");
   console.log("hello1");
 }
+
+$("#LOGOUT").click(function (e) {
+  e.preventDefault();
+  $.post("tempFunction/destroySession.php", {}, function () {
+    window.location = "http://localhost:8080/5thproject/";
+  });
+});

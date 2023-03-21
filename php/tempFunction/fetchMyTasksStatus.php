@@ -1,6 +1,5 @@
 <?php
 include("../assets/dbCon.php");
-$samir = 1;
 $userID = $_POST['id'];
 $sql = "SELECT `task_status` FROM `tbl_task` WHERE `task_from_id` = '{$userID}'";
 $response = [];

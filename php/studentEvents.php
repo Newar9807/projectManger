@@ -1,36 +1,19 @@
 <?php
-require_once("usefulFunction/eventFunctions.php");
 require_once("usefulFunction/wordLimiter.php");
-require_once("assets/dbCon.php");
+require_once("usefulFunction/sessionCheck.php");
 
 $root = $_SERVER['DOCUMENT_ROOT'];
 $host = $_SERVER['HTTP_HOST'];
 
-// This Session will be set while login process
-$_SESSION["user"] = "Student";
-$_SESSION["userId"] = 4;
-$_SESSION["projectId"] = 1;
+$projectID = $projectId[0];
 
-$userID = $_SESSION['userId'];
-$projectID = $_SESSION["projectId"];
-
-// Database Work
 $sqlToFetch = "SELECT * FROM `tbl_events` WHERE `events_to_id` = '{$projectID}' ORDER BY `events_id` DESC";
 $resToFetch = mysqli_query($conn, $sqlToFetch);
 $sqlFromFetch = "SELECT * FROM `tbl_events` WHERE `events_from_id` = '{$projectID}' ORDER BY `events_id` DESC";
 $resFromFetch = mysqli_query($conn, $sqlFromFetch);
 
-if (isset($_POST["right"])) :
-    init('right');
-elseif (isset($_POST["left"])) :
-    init('left');
-else :
-    init();
-endif;
-
-extract($_SESSION);
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -159,110 +142,27 @@ extract($_SESSION);
                         </div>
                         <div class="calendar mt-4">
                             <table class="table">
-                                <thead>
-                                    <tr class="table-dark">
-                                        <?php
-                                        foreach ($week as $value) {
-                                        ?>
-                                            <th scope="col" class="border-end border-light m-2 rounded" style="background-color: #45aaf2;"><?= $value; ?></th>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    if (isset($_POST))
-                                        unset($_POST);
-                                    $storeDay = 0;
-                                    nextRow:
-                                    while ($storeDay < $totalDay) {
-                                    ?>
-                                        <tr class="table-dark">
-                                            <?php
-                                            $dayCount = 0;
-                                            while ($dayCount < 7) {
-                                                if (!($dayCount < $day || $storeDay >= $totalDay)) :
-                                                    $storeDay++;
-                                                    $storeDay = sprintf("%02d", $storeDay);
-                                                endif;
-
-                                                if ($dayCount < $day || $storeDay >= $totalDay) {
-                                                    if ($dayCount == 6) {
-                                            ?>
-                                                        <th scope="col" class="border-end border-light table-dark m-2 rounded" style="background-color: #f53b57;"> <i class="bi bi-dash-lg"></i> </th>
-                                                    <?php } else {
-                                                    ?>
-                                                        <th scope="col" class="border-end border-light m-2 rounded"> <i class="bi bi-dash-lg"></i> </th>
-                                                    <?php
-                                                    }
-                                                } else if ($dayCount == 6) { ?>
-                                                    <td scope="col" class="gate border-end border-light m-2 rounded" data-ddate="<?php echo $year . '-' . $month . '-' . $storeDay; ?>" style=" background-color: #f53b57;">
-                                                        <?php
-                                                        // $storeDay = sprintf("%d", $storeDay);
-                                                        echo $storeDay;
-                                                        $temp = $year . '-' . $month . '-' . $storeDay;
-                                                        $see = $currentYear . '-' . $currentMonth . '-' . $currentDate;
-                                                        if (($temp) == ($see)) {
-                                                            echo "<span style=''><br />Today</span>";
-                                                        }
-                                                        foreach ($events as $eventDate) {
-                                                            if ($eventDate['events_date'] == $temp) {
-                                                                // echo "<span style='font-size:15px'><br />" . $eventDate['events_description'] . "</span>";
-                                                                break;
-                                                            }
-                                                        }
-                                                        ?></i></th>
-                                                    <?php
-                                                    $day = -1;
-                                                    goto nextRow;
-                                                } else { ?>
-                                                        <!--data-bs-toggle="modal" data-bs-target="#eventModal" -->
-                                                    <td scope="col" class="gate border-end border-light m-2 rounded" data-ddate="<?php echo $year . '-' . $month . '-' . $storeDay; ?>">
-                                                        <?php
-                                                        // $storeDay = sprintf("%d", $storeDay);
-                                                        echo $storeDay;
-                                                        $temp = $year . '-' . $month . '-' . $storeDay;
-                                                        $see = $currentYear . '-' . $currentMonth . '-' . $currentDate;
-                                                        if (($temp) == ($see)) {
-                                                            echo "<span style=''><br />Today</span>";
-                                                        }
-                                                        foreach ($events as $eventDate) {
-                                                            if ($eventDate['events_date'] == $temp) {
-                                                                // echo "<span style='font-size:15px'><br />" . $eventDate['events_description'] . "</span>";
-                                                                break;
-                                                            }
-                                                        }
-                                                        ?></td>
-                                                <?php
-                                                } ?>
-                                            <?php
-                                                $dayCount++;
-                                            } ?>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
-                                </tbody>
+                                <thead></thead>
+                                <tbody></tbody>
                             </table>
                         </div>
 
                         <div class="info d-flex justify-content-center">
-                            <form action="" method="post">
-                                <input type="hidden" name="inputMonth" value="<?= $month ?>">
-                                <input type="hidden" name="inputYear" value="<?= $year ?>">
-                                <button type="submit" class="btn" name="left">
-                                    <i class="bi bi-arrow-left-circle-fill bi-sm" id="manage" style="font-size: 20px;"></i>
-                                </button>
-                            </form>
-                            <h2 class="display-7"><?= " " . $year . ", " . $monthInWords . " "; ?></h2>
-                            <form action="" method="post">
-                                <input type="hidden" name="inputMonth" value="<?= $month ?>">
-                                <input type="hidden" name="inputYear" value="<?= $year ?>">
-                                <button type="submit" class="btn" name="right">
-                                    <i class="bi bi-arrow-right-circle-fill bi-sm" id="manage" style="font-size: 20px;"></i>
-                                </button>
-                            </form>
+                            <!-- <form action="" method="post"> -->
+                            <input class="putMonth" type="hidden" name="inputMonth" value="" id="inputMonth">
+                            <input class="putYear" type="hidden" name="inputYear" value="" id="inputYear">
+                            <button type="submit" class="btn" onclick="updateCalendar('left')">
+                                <i class="bi bi-arrow-left-circle-fill bi-sm" id="manage" style="font-size: 20px;"></i>
+                            </button>
+                            <!-- </form> -->
+                            <h2 class="display-7 putDate"></h2>
+                            <!-- <form action="" method="post"> -->
+                            <!-- <input class="putMonth" type="hidden" name="inputMonth" value="">
+                                <input class="putYear" type="hidden" name="inputYear" value=""> -->
+                            <button type="submit" class="btn" onclick="updateCalendar('right')">
+                                <i class="bi bi-arrow-right-circle-fill bi-sm" id="manage" style="font-size: 20px;"></i>
+                            </button>
+                            <!-- </form> -->
                         </div>
 
                         <div class="alert d-flex justify-content-center" role="alert" id="indicator">
@@ -278,8 +178,6 @@ extract($_SESSION);
                             <div class="list-group" id="eventInset">
                                 <ol class="list-group">
                                     <?php
-                                    $a = mysqli_num_rows($resToFetch);
-                                    $b = mysqli_num_rows($resFromFetch);
                                     if (mysqli_num_rows($resToFetch) == 0 && mysqli_num_rows($resFromFetch) == 0) :
                                     ?>
                                         <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -302,20 +200,20 @@ extract($_SESSION);
                                             while ($got = mysqli_fetch_assoc($resToFetch)) :
                                         ?>
                                                 <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php elseif ($got["events_status"] == "Meeting Assigned") : ?> style="background-color: #81ecec;" <?php endif; ?>>
-                                                    <div class="m-auto d-grid ">
+                                                    <div class="m-auto d-grid clickCheck">
                                                         <div class="fw-bold"><?= $got["events_status"]; ?></div>
                                                         <?= (word_limiter($got["events_description"])); ?><br>
                                                         <span class="badge bg-info rounded-pill" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
-                                                        <?php if ($got["events_status"] == "Meeting Requested") : ?>
-                                                            <small class="d-grid my-1">
-                                                                <!-- <hr style="margin: 0.15rem 0;"> -->
-                                                                <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
-                                                            </small>
-                                                        <?php endif; ?>
+                                                        <small class="d-none">
+                                                            <hr style="margin: 0.15rem 0;">
+                                                            <?= $got["events_description"]; ?>
+                                                            <br>
+
+                                                            <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                                <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
+                                                            <?php endif; ?>
+                                                        </small>
                                                     </div>
-                                                    <?php if ($got["events_status"] == "Meeting Requested") : ?>
-                                                        <!-- <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span> -->
-                                                    <?php endif; ?>
                                                 </li>
                                             <?php
                                             endwhile;
@@ -328,20 +226,19 @@ extract($_SESSION);
                                             while ($got = mysqli_fetch_assoc($resFromFetch)) :
                                             ?>
                                                 <li class="list-group-item d-flex justify-content-between align-items-center" <?php if ($got["events_status"] == "Meeting Rejected") : ?>style="background-color:#f53b57; color: snow;" <?php elseif ($got["events_status"] == "Meeting Accepted") : ?> style="background-color:#78e08f; color: snow;" <?php elseif ($got["events_status"] == "Meeting Assigned") : ?> style="background-color: #81ecec;" <?php endif; ?>>
-                                                    <div class="m-auto d-grid ">
+                                                    <div class="m-auto d-grid clickCheck">
                                                         <div class="fw-bold"><?= $got["events_status"]; ?></div>
                                                         <?= (word_limiter($got["events_description"])); ?><br>
                                                         <span class="badge bg-info rounded-pill" style="font-size: 14px;"><?= $got["events_date"]; ?></span>
-                                                        <?php if ($got["events_status"] == "Meeting Requested") : ?>
-                                                            <small class="d-grid my-1">
-                                                                <!-- <hr style="margin: 0.15rem 0;"> -->
-                                                                <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
-                                                            </small>
-                                                        <?php endif; ?>
+                                                        <small class="d-none">
+                                                            <hr style="margin: 0.15rem 0;">
+                                                            <?= $got["events_description"]; ?>
+                                                            <br>
+                                                            <?php if ($got["events_status"] == "Meeting Requested") : ?>
+                                                                <span class="badge bg-danger rounded-pill trash col-sm-6" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash" style="font-size: 16px;"></i></span>
+                                                            <?php endif; ?>
+                                                        </small>
                                                     </div>
-                                                    <?php if ($got["events_status"] == "Meeting Requested") : ?>
-                                                        <!-- <span class="badge bg-danger rounded-pill trash" role="button" data-id="<?= $got["events_id"]; ?>"><i class="bi bi-trash3"></i></span> -->
-                                                    <?php endif; ?>
                                                 </li>
                                     <?php
                                             endwhile;
@@ -448,6 +345,24 @@ extract($_SESSION);
                     );
                 }
             });
+
+            $.post("tempFunction/fetchProjects.php", {
+                    "userID": <?= $userID ?>
+                },
+                function(response) {
+                    var li = ``;
+                    if (response[0] == "Failed") {
+                        li += `<li><a class="dropdown-item" href="#" disabled>Not Assigned To Any Project !!</a></li>`;
+                    } else {
+                        response = $.parseJSON(response);
+                        Object.entries(response).forEach(entry => {
+                            const [key, value] = entry;
+                            li += `<li class="dropdown-item" role="button" data-id="` + key + `">` + value[1] + `</li>`;
+                        });
+                    }
+                    $('.putProjects').empty().append(li);
+                }
+            );
         });
     </script>
 

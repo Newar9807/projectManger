@@ -1,5 +1,8 @@
 <?php $root = $_SERVER['DOCUMENT_ROOT'];
-$host = $_SERVER['HTTP_HOST']; ?>
+$host = $_SERVER['HTTP_HOST'];
+include("usefulFunction/sessionCheck.php"); 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -16,5 +16,6 @@ if (mysqli_num_rows($fetchQueryExection) != 0) :
         $response[$got["project_id"]] = [$got["project_sdlc"], $got["project_name"]];
     endwhile;
 else :
+    $response[] = "Failed";
 endif;
 echo json_encode($response);

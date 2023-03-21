@@ -41,6 +41,8 @@ function teacherFunction() {
 }
 
 $(document).ready(function () {
+  $.post("php/tempFunction/destroySession.php");
+
   $("#studentRegister").submit(function (e) {
     e.preventDefault();
     var success = $("#signupstd .successTrack").length;
@@ -156,11 +158,11 @@ $(document).ready(function () {
             $(".passwordDiv").removeClass("errorTrack");
             clearTimeout(tmpTime);
           }, 6000);
-        } else if (response[0] == "success") {
-          if (response[2] == "Teacher") {
-            window.location = "php/teacherDashboard.php?id="+response[1];
-          } else if (response[2] == "Student") {
-            window.location = "php/studentForm.php?id="+response[1];
+        } else if (response[0] == "Success") {
+          if (response[1] == "Teacher") {
+            window.location = "php/teacherDashboard.php";
+          } else if (response[1] == "Student") {
+            window.location = "php/studentForm.php";
           }
         }
       }

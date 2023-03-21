@@ -24,24 +24,22 @@ $sqlSecond = "SELECT `user_id`, `user_role` FROM `tbl_user` WHERE `user_email` =
 
 $resSecond = mysqli_query($conn, $sqlSecond);
 
+session_start();
 if ($resSecond && (mysqli_num_rows($resSecond) == 1)) :
     while ($fetchSecond = mysqli_fetch_assoc($resSecond)) :
-        session_start();
         $_SESSION["id"] = $fetchSecond["user_id"];
-        $_SESSION["role"] = $fetchSecond["user_role"];
+        $response[1] = $fetchSecond["user_role"];
     endwhile;
-    $response[1] = $_SESSION["id"];
-    $response[2] = $_SESSION["role"];
 else :
     $response[0] = "Error";
 endif;
 
 if ($count == "0") :
     $response[0] = "emailError";
-elseif (!isset($_SESSION["user_id"])) :
+elseif (!isset($_SESSION["id"])) :
     $response[0] = "passwordError";
 else :
-    $response[0] = "success";
+    $response[0] = "Success";
 endif;
 
 echo json_encode($response);
