@@ -11,12 +11,8 @@ $host = $_SERVER['HTTP_HOST'];
     <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script>
 
-    </script>
     <title>Teacher</title>
 
 </head>
@@ -108,8 +104,14 @@ $host = $_SERVER['HTTP_HOST'];
                         </div><br>
                         <div class="row5">
                             <div class="input-container" id="attach">
-                                <span>Attachments</span>
-                                <input type="file" class="text-input" id="fileUpload" name="fileUpload" />
+                                <input type="file" class="text-input" id="fileUpload" name="fileUpload" hidden />
+                                Attachments
+                                <div class="img-area" data-img="">
+                                    <!-- <i class="bx bxs-cloud-upload icon"></i> -->
+                                    <!-- <h3>Empty</h3> -->
+                                    <p>File size must be less than <span>2MB</span></p>
+                                </div>
+                                <!-- <button class="select-image">Attach File</button> -->
                             </div>
                             <div class="btns" id="btns">
                                 <button type="submit" class="btn btn-primary" id="taskBtn" value="">Save</button>
@@ -129,9 +131,42 @@ $host = $_SERVER['HTTP_HOST'];
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script> -->
     <script src="../assets/js/websiteSkeleton.js"></script>
 
+    <script>
+        const selectImage = document.querySelector(".select-image");
+        const inputFile = document.querySelector("#file");
+        const imgArea = document.querySelector(".img-area");
+
+        selectImage.addEventListener("click", function() {
+            inputFile.click();
+        });
+
+        inputFile.addEventListener("change", function() {
+            const image = this.files[0];
+            if (image.size < 2000000) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    const allImg = imgArea.querySelectorAll("img");
+                    allImg.forEach((item) => item.remove());
+                    const imgUrl = reader.result;
+                    const img = document.createElement("img");
+                    img.src = imgUrl;
+                    imgArea.appendChild(img);
+                    imgArea.classList.add("active");
+                    imgArea.dataset.img = image.name;
+                };
+                reader.readAsDataURL(image);
+            } else {
+                alert("Image size more than 2MB");
+            }
+        });
+    </script>
+
     <!-- <script src="http://datatables.net/reference/api/ajax.reload()"></script> -->
     <script>
         $(document).ready(function() {
+            $("#attClose").click(function() {
+                console.log("hello");
+            })
 
             const priority = `<option value>Select Priority</option>
                         <option value="High">High</option>
@@ -155,12 +190,6 @@ $host = $_SERVER['HTTP_HOST'];
             <?php foreach ($projectID as $key => $val) : ?>
                 projectID[<?= $key ?>] = <?= $val; ?>;
             <?php endforeach; ?>
-
-            // var table = $("table#myTable").DataTable({
-            //     "bDestroy": true,
-            //     "searching": true,
-            //     // "paging": true,
-            // });
 
             $('#modal-button').click(function() {
                 $.post(
@@ -314,7 +343,7 @@ $host = $_SERVER['HTTP_HOST'];
                             function(response) {
                                 if (response == "Failed") {
                                     swal({
-                                        title: "Updation Failed",
+                                        title: "Failed !!",
                                         icon: "error",
                                         closeOnClickOutside: false,
                                         closeOnEsc: true,
@@ -325,7 +354,7 @@ $host = $_SERVER['HTTP_HOST'];
                                     });
                                 } else if (response == "Success") {
                                     swal({
-                                        title: "Updation Successful",
+                                        title: "Saved Successfully",
                                         icon: "success",
                                         closeOnClickOutside: false,
                                         closeOnEsc: true,

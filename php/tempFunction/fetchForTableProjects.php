@@ -1,5 +1,4 @@
 <?php
-
 include("../assets/dbCon.php");
 
 $userID = $_POST["userID"];

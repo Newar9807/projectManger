@@ -47,10 +47,155 @@
   /* background-color: #0000; */
 }
 
-.taskArea .taskSubArea h2 {
+/* .taskArea .taskSubArea h2 {
   margin-top: 10px;
 }
 #example {
   width: 100px;
   margin-bottom: 100px;
+} */
+
+.profileInner {
+  margin-top: 20px;
+
+  border: 4px solid #287bff;
+
+  position: relative;
+  width: 97%;
+  padding: 20px;
+  /* grid-template-columns: repeat(3,1fr); */
+  display: flex;
+  /* grid-gap: 40px; */
+  height: 670px;
+  margin-left: 20px;
+  border-radius: 10px;
+  /* box-shadow: 0 7px 25px rgba(127, 126, 126, 0.88);
+   */
+}
+
+.profileForm {
+  position: relative;
+  display: flex;
+  height: 570px;
+  /* border: 4px solid #287bff; */
+  width: 98%;
+  margin-top: 50px;
+  margin-left: -220px;
+}
+.imageUpload {
+  position: relative;
+  width: 100%;
+  height: 562px;
+  background-color: #fff;
+  display: flex;
+
+  border-radius: 15px;
+  margin-left: 20px;
+}
+.imageInner {
+  height: 540px;
+  width: 300px;
+  background-color: #f00;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imageInner h1 {
+  font-weight: 500;
+  font-size: 22px;
+}
+.imageInner img {
+  width: 180px;
+  height: 100px;
+  border-radius: 50%;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+.formDiv {
+  margin-top: 35px;
+
+  border: 4px solid #287bff;
+
+  position: relative;
+  width: 97%;
+  padding: 20px;
+  /* grid-template-columns: repeat(3,1fr); */
+
+  /* grid-gap: 40px; */
+  height: 700px;
+  margin-left: 20px;
+  border-radius: 10px;
+  /* box-shadow: 0 7px 25px rgba(127, 126, 126, 0.88); */
+}
+.formDiv h1 {
+  margin-left: 440px;
+  font-size: 30px;
+}
+.rowFirst {
+  display: flex;
+  margin-top: 20px;
+}
+#projectTitle {
+  margin-left: 300px;
+}
+#sdlcDiv {
+  margin-left: 20px;
+  float: right;
+}
+.secondRow {
+  display: flex;
+  margin-top: 20px;
+}
+#frontendTool {
+  margin-left: 300px;
+}
+#backendTool {
+  margin-left: 20px;
+}
+.thirdRow {
+  margin-top: 20px;
+  margin-left: 300px;
+}
+#Descript {
+  width: 580px;
+}
+.fourthrow {
+  display: flex;
+  margin-top: 20px;
+}
+#stdOne {
+  margin-left: 300px;
+}
+#stdTwo {
+  margin-left: 20px;
+}
+#addStudent {
+  margin-top: 20px;
+  margin-left: 550px;
+}
+.sixthRow {
+  display: none;
+}
+#stdThree {
+  margin-left: 300px;
+}
+.seventhRow {
+  /* margin-top: 10px; */
+  margin-left: 450px;
+}
+.visibleDiv {
+  display: flex;
+}
+#taskBtn {
+  width: 200px;
+
+  border-radius: 10px;
+  height: 40px;
+  background-color: #287bff;
+  color: #fefefe;
+  border: #287bff;
+}
+#taskBtn:hover {
+  background-color: #136adb;
 }
