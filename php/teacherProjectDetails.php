@@ -169,9 +169,9 @@ include("usefulFunction/sessionCheck.php");
                     $('.member-details').empty().append(htm);
 
                     var dt = new Date(response[1].project_created);
-                    var month = dt.getMonth() + 1;
+                    var month = dt.getMonth();
                     var count = -1;
-                    for (var i = 0; i < 7; i++) {
+                    for (var i = 0; i < 8; i++) {
                         xValues[i] = tmpMonth[count + month];
                         if (month > 11) {
                             month = 0;
@@ -180,17 +180,32 @@ include("usefulFunction/sessionCheck.php");
                             month++;
                         }
                     }
-                    drawChart(xValues);
+                    $.post("tempFunction/fetchTaskPoints.php", {
+                        "projectID": <?= $_GET["id"]; ?>,
+                    }, function(response) {
+                        pattern = /\{([^}]+)\}/;
+                        match = response.match(pattern);
+                        var data = JSON.parse(match[0]);
+                        console.log(typeof(data));
+                        var sendData = [0];
+                        Object.entries(data).forEach(entry => {
+                            const [key, value] = entry;
+                            sendData.push(value);
+                        });
+                        sendData.push(0);
+                        console.log(sendData);
+                        drawChart(xValues, sendData);
+                    });
                 }
             });
 
-            function drawChart(xValues) {
+            function drawChart(xValues, data) {
                 new Chart("myChart", {
                     type: "line",
                     data: {
                         labels: xValues,
                         datasets: [{
-                            data: [600, 1700, 1700, 1900, 8000, 2700, 4000, 5000, 6000, 7000],
+                            data: data,
                             borderColor: "green",
                             fill: false
                         }, ]

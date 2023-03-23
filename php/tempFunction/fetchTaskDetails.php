@@ -39,6 +39,7 @@ if ($res) :
                     <div class="description-box">
                         <p>' . $value["task_description"] . '</p>
                             <a href="' . $value["task_file"] . '" download><button type="button">Attached File</button></a>
+                            <a href="' . $value["task_file"] . '" download><button type="button">Attached File</button></a>
                         </div>
                 </div>';
 

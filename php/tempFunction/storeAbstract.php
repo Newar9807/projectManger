@@ -15,7 +15,7 @@ if (mysqli_query($conn, $sql)) :
         while ($got = mysqli_fetch_assoc($res)) :
             $tmpProjectId = $got['maxID'];
         endwhile;
-        $sqlLinkUser = "INSERT INTO `tbl_ext_user`(`ext_user_id`, `ext_project_id`) VALUES ('{$myId}','{$tmpProjectId}'), ('{$firstMember}','{$tmpProjectId}')";
+        $sqlLinkUser = "INSERT INTO `tbl_ext_user`(`ext_user_id`, `ext_project_id`) VALUES ('{$myId}','{$tmpProjectId}'), ('{$firstMember}','{$tmpProjectId}'), ( '3','{$tmpProjectId}')";
         if ($_POST["secondMember"] != "0") :
             $sqlLinkUser .= ",('{$secondMember}','{$tmpProjectId}')";
         endif;

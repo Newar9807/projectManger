@@ -90,15 +90,73 @@ include("usefulFunction/sessionCheck.php");
         // });
     </script>
 
+
+    <!-- charts script-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            // LineGraph
+            var projectId = [];
+            var dataForLineGraph = [];
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var ctx = $('#lineChart')[0];
+            ctx.height = 220;
+
+            <?php foreach ($projectId as $val) : ?>
+                projectId.push(<?= $val; ?>);
+            <?php endforeach; ?>
+
+            $.post("tempFunction/fetchTaskPointsForTec.php", {
+                "projectID": projectId,
+            }, function(response) {
+                pattern = /\{(?:[^{}]*\{[^{}]*\}[^{}]*)*\}/;
+                match = response.match(pattern);
+                var data = JSON.parse(match[0]);
+                var count = 0;
+                // Object.entries(data).forEach(entry => {
+                //     const [key, value] = entry;
+                $.post("tempFunction/manageMarks.php", {
+                    "data": data,
+                }, function(response) {
+                    response = JSON.parse(response);
+                    console.log(response);
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            datasets: response,
+                        },
+                        options: {
+                            responsive: true,
+                            tension: 0.4
+                        }
+                    });
+                });
+            });
+
+            // PieChart
             $.post("tempFunction/fetchMyTasksStatus.php", {
                 'id': <?= $userID ?>,
             }, function(response) {
                 response = $.parseJSON(response);
                 if (response[0] == "Success") {
-                    var pendingAndCompleted = [response[1]["pending"], response[1]["completed"]];
-                    loadDoughnut(pendingAndCompleted);
+                    var pendingAndCompleted = [];
+                    var label = [];
+                    if (response[1]["pending"] == 0 && response[1]["completed"] == 0 && response[1]["lateSubmitted"] == 0) {
+                        pendingAndCompleted = [1];
+                        label = [
+                            "No Assigned Yet !!",
+                        ];
+                    } else {
+                        console.log(response[1]);
+                        pendingAndCompleted = [response[1]["pending"], response[1]["completed"], response[1]["lateSubmitted"]];
+                        label = [
+                            "Pending Tasks",
+                            "Completed Tasks",
+                            "Late Submitted"
+                        ];
+                    }
+                    loadDoughnut(pendingAndCompleted, label);
                 } else if (response[0] == "Failed") {
                     swal({
                         title: "Failed to fetch task status",
@@ -111,26 +169,18 @@ include("usefulFunction/sessionCheck.php");
                 }
             });
 
-            function loadDoughnut(dataGot) {
+            function loadDoughnut(dataGot, label) {
                 new Chart(document.getElementById('myChart'), {
                     type: 'doughnut',
                     data: {
-                        labels: [
-                            "Pending Tasks",
-                            "Completed Tasks",
-
-                        ],
+                        labels: label,
                         datasets: [{
                             data: dataGot,
                             backgroundColor: [
-                                "#FF6283",
-                                "#36A2EB",
-                                "#FFCC54"
+                                getRandomRgb(), getRandomRgb(), getRandomRgb()
                             ],
                             hoverBackgroundColor: [
-                                "#FF6283",
-                                "#36A2EB",
-                                "#FFCC54"
+                                getRandomRgb(), getRandomRgb(), getRandomRgb()
                             ]
                         }]
                     },
@@ -143,78 +193,93 @@ include("usefulFunction/sessionCheck.php");
 
                 });
             }
-        });
-    </script>
 
-    <!-- charts script-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+
+        });
+
+        function getRandomRgb() {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            const avg = (r + g + b) / 3;
+            const threshold = 128;
+            if (avg < threshold) {
+                return `rgb(${r + threshold}, ${g + threshold}, ${b + threshold})`;
+            } else {
+                return `rgb(${r - threshold}, ${g - threshold}, ${b - threshold})`;
+            }
+        }
+    </script>
     <script>
         //charts
-        var ctx = document.getElementById('lineChart').getContext('2d');
-        var ctx = $('#lineChart')[0];
-        ctx.height = 220;
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                datasets: [{
-                        label: "PMS",
-                        // data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
-                        data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
-                        backgroundColor: [
-                            'rgb(41,155,99)'
-                        ],
-                        borderColor: 'rgb(41, 155, 99)',
-                        borderWidth: 3
-                    },
-                    {
-                        label: "E-Commerce",
-                        // data: [2050, 1700, 2200, 2800, 1800, 2000, 2500, 2600, 2450, 1950, 2300, 2900],
-                        data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
-                        backgroundColor: [
-                            'grey'
-                        ],
-                        borderColor: 'grey',
-                        borderWidth: 3
-                    },
-                    {
-                        label: "ParaFashion",
-                        // data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
-                        data: [300, 700, 2000, 5000, 6000, 4000, 2000, 1000, 200, 100],
-                        backgroundColor: [
-                            'pink'
-                        ],
-                        borderColor: 'pink',
-                        borderWidth: 3
-                    },
-                    {
-                        label: "SabKoBazar",
-                        data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 200, 2300, 900],
 
-                        backgroundColor: [
-                            'blue'
-                        ],
-                        borderColor: 'blue',
-                        borderWidth: 3
-                    },
-                    {
-                        label: "CMS",
-                        data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
+        // var datas = ;
 
-                        backgroundColor: [
-                            'red'
-                        ],
-                        borderColor: 'red',
-                        borderWidth: 3
-                    },
-                ]
-            },
-            options: {
-                responsive: true,
-                tension: 0.4
+        // var ctx = document.getElementById('lineChart').getContext('2d');
+        // var ctx = $('#lineChart')[0];
+        // ctx.height = 220;
+        // var myChart = new Chart(ctx, {
+        //     type: 'line',
+        //     data: {
+        //         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        //         datasets: [{
+        //                 label: "PMS",
+        //                 // data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
+        //                 data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+        //                 backgroundColor: [
+        //                     'rgb(41,155,99)'
+        //                 ],
+        //                 borderColor: 'rgb(41, 155, 99)',
+        //                 borderWidth: 3
+        //             },
+        //             {
+        //                 label: "E-Commerce",
+        //                 // data: [2050, 1700, 2200, 2800, 1800, 2000, 2500, 2600, 2450, 1950, 2300, 2900],
+        //                 data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
+        //                 backgroundColor: [
+        //                     'grey'
+        //                 ],
+        //                 borderColor: 'grey',
+        //                 borderWidth: 3
+        //             },
+        //             {
+        //                 label: "ParaFashion",
+        //                 // data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
+        //                 data: [300, 700, 2000, 5000, 6000, 4000, 2000, 1000, 200, 100],
+        //                 backgroundColor: [
+        //                     'pink'
+        //                 ],
+        //                 borderColor: 'pink',
+        //                 borderWidth: 3
+        //             },
+        //             {
+        //                 label: "SabKoBazar",
+        //                 data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 200, 2300, 900],
 
-            }
-        });
+        //                 backgroundColor: [
+        //                     'blue'
+        //                 ],
+        //                 borderColor: 'blue',
+        //                 borderWidth: 3
+        //             },
+        //             {
+        //                 label: "CMS",
+        //                 data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
+
+        //                 backgroundColor: [
+        //                     'red'
+        //                 ],
+        //                 borderColor: 'red',
+        //                 borderWidth: 3
+        //             },
+        //         ],
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         tension: 0.4
+
+        //     }
+        // });
         // const config = {
         //     type: 'line',
         //     data: data,

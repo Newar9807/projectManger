@@ -1,4 +1,4 @@
-<?php 
+<?php
 $root = $_SERVER['DOCUMENT_ROOT'];
 $host = $_SERVER['HTTP_HOST'];
 include("usefulFunction/sessionCheck.php");
@@ -437,7 +437,7 @@ include("usefulFunction/sessionCheck.php");
                             });
                         }
                     });
-                } else if (action == "edit" || action == "view") {
+                } else if (action == "edit") {
                     $.post("tempFunction/getDataToEditTasks.php", {
                         'taskID': localStorage.getItem("taskID"),
                     }, function(response) {
@@ -483,20 +483,15 @@ include("usefulFunction/sessionCheck.php");
                             }
                             count++;
                         });
-                        if (action == "edit") {
-                            $('#taskModel .forEditOrView').removeClass("blueSuccess");
-                            $('#taskModel .forEditOrView').addClass("successTrack");
-                            $('#taskBtn').html("Update");
-                            $('#taskBtn').css('display', 'block');
-                            $('#taskBtn').attr('value', '1');
-                        } else if (action == "view") {
-                            $('#taskModel .forEditOrView').removeClass("successTrack");
-                            $('#taskModel .forEditOrView').addClass("blueSuccess");
-                            $('#taskModel .forEditOrView').prop('disabled', true);
-                            $('#taskBtn').css('display', 'none');
-                            $('#taskBtn').attr('value', '');
-                        }
+                        $('#taskModel .forEditOrView').removeClass("blueSuccess");
+                        $('#taskModel .forEditOrView').addClass("successTrack");
+                        $('#taskBtn').html("Update");
+                        $('#taskBtn').css('display', 'block');
+                        $('#taskBtn').attr('value', '1');
                     });
+                } else if (action == "view") {
+                    window.location = "teacherTaskDetails.php?id=" + $(this).closest('tr').attr('value');
+
                 }
             });
 

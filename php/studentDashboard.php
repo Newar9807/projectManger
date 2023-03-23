@@ -149,7 +149,7 @@ include("usefulFunction/sessionCheck.php");
                     var dt = new Date(response[1].project_created);
                     var month = dt.getMonth();
                     var count = -1;
-                    for (var i = 0; i < 7; i++) {
+                    for (var i = 0; i < 8; i++) {
                         xValues[i] = tmpMonth[count + month];
                         if (month > 11) {
                             month = 0;
@@ -162,7 +162,6 @@ include("usefulFunction/sessionCheck.php");
                     $.post("tempFunction/fetchTaskPoints.php", {
                         "projectID": <?= $projectId[0]; ?>,
                     }, function(response) {
-                        console.log(response);
                         pattern = /\{([^}]+)\}/;
                         match = response.match(pattern);
                         var data = JSON.parse(match[0]);
@@ -172,6 +171,7 @@ include("usefulFunction/sessionCheck.php");
                             const [key, value] = entry;
                             sendData.push(value);
                         });
+                        sendData.push(0);
                         drawChart(xValues, sendData);
                     });
 
