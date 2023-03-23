@@ -215,33 +215,33 @@ include("usefulFunction/sessionCheck.php");
 
             }
         });
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Suggested Min and Max Settings'
-                    }
-                },
-                scales: {
-                    y: {
-                        // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
-                        suggestedMin: 30,
+        // const config = {
+        //     type: 'line',
+        //     data: data,
+        //     options: {
+        //         responsive: true,
+        //         plugins: {
+        //             title: {
+        //                 display: true,
+        //                 text: 'Suggested Min and Max Settings'
+        //             }
+        //         },
+        //         scales: {
+        //             y: {
+        //                 // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
+        //                 suggestedMin: 30,
 
-                        // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
-                        suggestedMax: 50,
-                    }
-                }
-            },
-        };
+        //                 // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
+        //                 suggestedMax: 50,
+        //             }
+        //         }
+        //     },
+        // };
         // </block:config>
 
-        module.exports = {
-            config: config,
-        };
+        // module.exports = {
+        //     config: config,
+        // };
     </script>
 
 

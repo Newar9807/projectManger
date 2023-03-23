@@ -11,9 +11,9 @@ $response  = [];
 
 if (mysqli_num_rows($fetchQueryExection) != 0) :
     // Query Execution Success
-    $response[] = "Success";
+    $response[0] = "Success";
     while ($got = mysqli_fetch_assoc($fetchQueryExection)) :
-        $response[] = $got;
+        $response[1] = $got;
     endwhile;
     $fetchMembers = "SELECT * FROM `tbl_ext_user` JOIN `tbl_user` ON `tbl_user`.`user_id` = `tbl_ext_user`.`ext_user_id` AND `tbl_user`.`user_role` = 'Student' AND `tbl_ext_user`.`ext_project_id` = '{$projectID}'";
     $membersFetchQueryExecution = mysqli_query($conn, $fetchMembers);
@@ -28,6 +28,6 @@ if (mysqli_num_rows($fetchQueryExection) != 0) :
     endif;
 else :
     // Query Execution Error
-    $response[] = "Failed";
+    $response[0] = "Failed";
 endif;
 echo json_encode($response);

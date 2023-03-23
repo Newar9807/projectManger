@@ -1,3 +1,15 @@
+<?php 
+
+$sql = "SELECT * FROM `tbl_user` WHERE `user_id` = '{$userID}'";
+
+
+if(!mysqli_query($conn, $sql)):
+    return;
+endif;
+
+$user = mysqli_fetch_assoc(mysqli_query($conn, $sql));
+
+?>
 <div class="topbar">
     <div class="toggle">
         <ion-icon name="menu-outline"></ion-icon>
@@ -128,16 +140,16 @@
     </div>
 
     <div class="user">
-        <img src="assets/icons/user.png" id="pro" onclick="toggleMenu()" />
+        <img src="<?= $user["user_pic"];?>" id="pro" onclick="toggleMenu()" />
     </div>
     <div class="sub-menu-wrap" id="subMenu">
         <div class="sub-menu">
             <div class="user-info">
-                <img src="assets/icons/user.png" />
-                <h4>David DeGea</h4>
+                <img src="<?= $user["user_pic"];?>" />
+                <h4><?= $user["user_name"]?></h4>
             </div>
             <hr />
-            <a href="editprofile.html" class="sub-menu-link">
+            <a href="<?php if($user["user_role"] == "Student"): echo "studentEditProfile.php"; elseif($user["user_role"] == "Teacher"): echo "teacherEditProfile.php"; endif;?>" class="sub-menu-link">
                 <img src="assets/icons/profile.png" />
                 <p>Edit Profile</p>
                 <span><ion-icon name="chevron-forward-outline"></ion-icon></span>
@@ -152,7 +164,7 @@
                 <p>Help & Support</p>
                 <span><ion-icon name="chevron-forward-outline"></ion-icon></span>
             </a>
-            <a href="#" class="sub-menu-link">
+            <a href="../" class="sub-menu-link">
                 <img src="assets/icons/logout.png" />
                 <p>Logout</p>
                 <span><ion-icon name="chevron-forward-outline"></ion-icon></span>

@@ -36,6 +36,7 @@ h4 {
 }
 
 .toggle-btn {
+    cursor: pointer;
     float: right;
     color: var(--blue);
     margin-top: -10px;
@@ -79,13 +80,17 @@ td {
 
 th:first-child,
 td:first-child {
-    text-align: left;
+    text-align: center;
     border-left-color: var(--blue);
 }
 
 th:not(:first-child),
 td:not(:first-child) {
     text-align: center;
+}
+
+tbody>tr{
+    cursor: pointer;
 }
 
 th {

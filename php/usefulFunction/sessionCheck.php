@@ -21,4 +21,3 @@ if (mysqli_num_rows($fetchQueryExection) != 0) :
     endwhile;
 else :
 endif;
-$projectId = $projectId;

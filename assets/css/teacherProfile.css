@@ -1,0 +1,181 @@
+@import url("tstyle.css");
+/*-------------------------------Main Conatiner-------------------------------------*/
+.profile-container {
+    width: 100%;
+    height: 675px;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    /* border: 2px solid black; */
+    column-gap: 10px;
+    
+    
+}
+
+.profile {
+    height: 650px;
+    width: 680px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-left: 3px solid var(--blue);
+    border-top: 3px solid var(--blue);
+    box-shadow:10px 10px 8px -5px black ;
+    border-radius: 20px;
+    padding-left: 20px;
+    padding-top: 20px;
+    padding-right: 20px;
+    margin-top: 10px;
+    margin-left: 40px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+
+.profile h2 {
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.row {
+    display: flex;
+    /* flex-wrap: wrap; */
+    margin-bottom: 10px;
+    /* margin-right: -50px; */
+    /* justify-content: center; */
+    margin-left: 30px;
+
+}
+
+.col {
+    /* flex: 0; */
+    margin-right: 30px;
+}
+
+/* .col:last-child {
+    margin-right: 0;
+} */
+
+.col p {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.col input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+
+.col button {
+    
+    background-color: var(--blue);
+    color: #fff;
+    padding: 8px 80px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/*--------------------PassWord-------------------------------------*/
+.current-password-container,
+.new-password-container,
+.confirm-password-container {
+    position: relative;
+    display: inline-block;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 30%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.current-password,
+.new-password,
+.confirm-password {
+    width: 270px;
+    padding: 8px 30px 8px 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+input[type="text"],
+input[type="password"] {
+    font-size: 16px;
+    padding: 5px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 270px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: var(--blue);
+}
+
+/*-----------------------------USER INFO-----------------------------*/
+.user-info {
+    height: 650px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    box-shadow:10px 10px 8px -5px black ;
+    border-left: 3px solid var(--blue);
+    border-top: 3px solid var(--blue);
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding-left: 110px;
+    padding-top: 20px;
+    padding-right: 80px;
+    padding-bottom: 100px;
+    margin-top: 10px;
+    margin-left: 10px;
+    /* margin-left: 690px; */
+    margin-right: 40px;
+    margin-bottom: 70px;
+  }
+
+
+  .user-info img {
+    width: 200px;
+    height: 200px;
+    border:2.5px solid #ccc;
+    box-shadow: 0 10px 8px -5px black;
+    border-radius: 50%;
+    margin-top: 0px;
+    margin-bottom: 70px;
+  }
+  
+  .user-info h3 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+  }
+  
+  .user-info p {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-size: 17px;
+  }
+  /*-----------------Uplaod------------------*/
+ label{
+    display: block;
+    text-align: center;
+    width: 200px;
+    background: var(--blue);
+    color: white;
+    padding: 12px;
+    margin-top:60px;
+    
+    border-radius: 10px;
+    cursor: pointer;
+}
+input[type="file"]{
+    display: none;
+}
