@@ -1,0 +1,83 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Comic Sans MS;
+  font-size: 16px;
+  font-weight: bold;
+  /* background-color: #F8EFBA; */
+  /* background-image: url('wall.jpg'); */
+}
+input {
+  width: 13%;
+  background-color: snow;
+  /* background: radial-gradient(black, transparent); */
+}
+pre {
+  display: inline;
+}
+#container {
+  margin: auto;
+  text-align: center;
+  align-items: center;
+}
+.btn {
+  border: 1px solid #ffc048;
+  background-color: #ffc048;
+  color: snow;
+  width: 25%;
+  height: 25px;
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #0be881;
+  border: 1px solid #0be881;
+}
+.inp {
+  text-align: center;
+}
+#pst {
+  font-size: 44px;
+  margin: -20px auto -86px;
+}
+table th {
+  width: 115px;
+}
+table tr {
+  height: 65px;
+}
+.manul {
+  background-color: #0be881;
+  border: 1px solid #0be881;
+}
+.manul:hover {
+  border: 1px solid #ffc048;
+  background-color: #ffc048;
+}
+.noColor {
+  background-color: default;
+  color: default;
+}
+/* #prev{
+            background-color: salmon;
+        }
+        #nxt{
+            background-color: salmon;
+        } */
+#hed {
+  font-size: 25px;
+}
+.holiday {
+  color: #ff3f34;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+

@@ -1,0 +1,128 @@
+/*---------------------Task-------------------------*/
+h1 {
+    padding-left: 26px;
+    padding-bottom: 20px;
+}
+
+
+/*--------------------Phases------------------------*/
+section {
+    padding-bottom: 20px;
+}
+
+.phases {
+    border: 2px solid var(--blue);
+    border-radius: 10px;
+    margin-left: 29px;
+    margin-right: 34px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+h4 {
+    color: var(--blue);
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+.phase-header.notification::after {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.toggle-btn {
+    cursor: pointer;
+    float: right;
+    color: var(--blue);
+    margin-top: -10px;
+    margin-right: 10px;
+    font-size: 30px;
+    border: none;
+}
+
+/*--------------------------------Table Area*------------------------------*/
+#table-area,
+#table-area2,
+#table-area3,
+#table-area4,
+#table-area5,
+#table-area6,
+#table-area7{
+    display: none;
+}
+
+.TableArea {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+table {
+    background-color: #dddada;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px;
+}
+
+th,
+td {
+    height: 50px;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border: 6px solid #f0f0f0;
+}
+
+th:first-child,
+td:first-child {
+    text-align: center;
+    border-left-color: var(--blue);
+}
+
+th:not(:first-child),
+td:not(:first-child) {
+    text-align: center;
+}
+
+tbody>tr{
+    cursor: pointer;
+}
+
+th {
+    padding: 4px;
+    border-radius: 40px;
+    border: 6px solid #f0f0f0;
+    background-color: #dddada;
+    font-weight: bold;
+}
+
+/*--------------STATUS DESIGN-----------------------------*/
+.status-pending{
+    background-color: #fc5757;
+}
+
+.status-completed{
+    background-color: #9bfd61;
+}
+
+.upload-btn input[type="file"] {
+    display: none;
+}
+
+/*-----------------------PRIORITY DESIGN--------------------*/
+.high {
+    background-color: #fc5757;
+}
+
+.medium {
+    background-color: #f8b756;
+}
+
+.low {
+    background-color: #57aafd;
+}
