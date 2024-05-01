@@ -6,7 +6,7 @@ include_once('usefulFunction/docHead.php');
 <html lang="en">
 
 <head>
-    <?php include($root . "/6thproject/php/assets/head.php"); ?>
+    <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
     <link rel="stylesheet" href="../assets/css/stdTask.css" />
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
@@ -17,11 +17,11 @@ include_once('usefulFunction/docHead.php');
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
-        <?php include($root . "/6thproject/php/assets/stdSidebar.php"); ?>
+        <?php include($root . "/5thproject/php/assets/stdSidebar.php"); ?>
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
-            <?php include($root . "/6thproject/php/assets/tecNav.php"); ?>
+            <?php include($root . "/5thproject/php/assets/tecNav.php"); ?>
             <!-- Navigation Ends -->
             <!-- mid div start -->
 

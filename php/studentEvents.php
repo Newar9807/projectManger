@@ -17,7 +17,7 @@ $resFromFetch = mysqli_query($conn, $sqlFromFetch);
 <html lang="en">
 
 <head>
-    <?php include($root . "/6thproject/php/assets/head.php"); ?>
+    <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Events</title>
@@ -113,12 +113,12 @@ $resFromFetch = mysqli_query($conn, $sqlFromFetch);
 <body style="overflow-y: hidden; background-color: #55efc4;">
     <div class="containers">
         <!-- Sidebar Starts -->
-        <?php include($root . "/6thproject/php/assets/stdSidebar.php"); ?>
+        <?php include($root . "/5thproject/php/assets/stdSidebar.php"); ?>
         <!-- Sidebar Ends -->
 
         <div class="main">
             <!-- Navigation Starts -->
-            <?php include($root . "/6thproject/php/assets/tecNav.php"); ?>
+            <?php include($root . "/5thproject/php/assets/tecNav.php"); ?>
             <!-- Navigation Ends -->
 
             <!-- mid div starts -->

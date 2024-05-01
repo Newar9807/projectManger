@@ -111,7 +111,7 @@ endif;
         }
     </style>
 
-    <?php include($root . "/6thproject/php/assets/head.php"); ?>
+    <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
 

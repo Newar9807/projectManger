@@ -9,7 +9,7 @@ include("usefulFunction/docHead.php");
     <link rel="stylesheet" href="../assets/css/tstyle.css">
     <link rel="stylesheet" href="../assets/css/project.css">
     <link rel="stylesheet" href="../assets/css/tecTask.css">
-    <?php include($root . "/6thproject/php/assets/head.php"); ?>
+    <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
     <script src="//cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
@@ -21,11 +21,11 @@ include("usefulFunction/docHead.php");
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
-        <?php include($root . "/6thproject/php/assets/tecSidebar.php"); ?>
+        <?php include($root . "/5thproject/php/assets/tecSidebar.php"); ?>
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
-            <?php include($root . "/6thproject/php/assets/tecNav.php"); ?>
+            <?php include($root . "/5thproject/php/assets/tecNav.php"); ?>
             <!-- Navigation Ends -->
 
             <!-- mid div start -->

@@ -13,7 +13,7 @@ $name = explode(" ", $res["user_name"]);
 <html lang="en">
 
 <head>
-    <?php include($root . "/6thproject/php/assets/head.php"); ?>
+    <?php include($root . "/5thproject/php/assets/head.php"); ?>
 
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
     <link rel="stylesheet" href="../assets/css/teacherProfile.css" />
@@ -38,7 +38,7 @@ $name = explode(" ", $res["user_name"]);
     <div class="container">
         <!-- Sidebar Starts -->
 
-        <?php if (!isset($_GET["id"])) include($root . "/6thproject/php/assets/stdSidebar.php"); ?>
+        <?php if (!isset($_GET["id"])) include($root . "/5thproject/php/assets/stdSidebar.php"); ?>
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
@@ -46,7 +46,7 @@ $name = explode(" ", $res["user_name"]);
 
             </div>
             <?php
-            // include($root . "/6thproject/php/assets/tecNav.php"); 
+            // include($root . "/5thproject/php/assets/tecNav.php"); 
             ?>
             <!-- Navigation Ends -->
 
