@@ -18,11 +18,7 @@ $resFromFetch = mysqli_query($conn, $sqlFromFetch);
 <html lang="en">
 
 <head>
-<<<<<<< Updated upstream
-    <?php include($root . "/5thproject/php/assets/head.php"); ?>
-=======
     <?php include($root . "/finalProject/php/assets/head.php"); ?>
->>>>>>> Stashed changes
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Student</title>
@@ -114,20 +110,12 @@ $resFromFetch = mysqli_query($conn, $sqlFromFetch);
 <body style="overflow-y: hidden; background-color: #55efc4;">
     <div class="containers">
         <!-- Sidebar Starts -->
-<<<<<<< Updated upstream
-        <?php include($root . "/5thproject/php/assets/stdSidebar.php"); ?>
-=======
         <?php include($root . "/finalProject/php/assets/stdSidebar.php"); ?>
->>>>>>> Stashed changes
         <!-- Sidebar Ends -->
 
         <div class="main">
             <!-- Navigation Starts -->
-<<<<<<< Updated upstream
-            <?php include($root . "/5thproject/php/assets/tecNav.php"); ?>
-=======
             <?php include($root . "/finalProject/php/assets/tecNav.php"); ?>
->>>>>>> Stashed changes
             <!-- Navigation Ends -->
 
             <!-- mid div starts -->

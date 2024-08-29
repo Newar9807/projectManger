@@ -7,11 +7,7 @@ include("usefulFunction/sessionCheck.php");
 <html lang="en">
 
 <head>
-<<<<<<< Updated upstream
-    <?php include($root . "/5thproject/php/assets/head.php"); ?>
-=======
     <?php include($root . "/finalProject/php/assets/head.php"); ?>
->>>>>>> Stashed changes
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
     <link rel="stylesheet" href="../assets/css/project.css" />
 
@@ -37,19 +33,11 @@ include("usefulFunction/sessionCheck.php");
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
-<<<<<<< Updated upstream
-        <?php include($root . "/5thproject/php/assets/tecSidebar.php"); ?>
-        <!-- Sidebar Ends -->
-        <div class="main">
-            <!-- Navigation Starts -->
-            <?php include($root . "/5thproject/php/assets/tecNav.php"); ?>
-=======
         <?php include($root . "/finalProject/php/assets/tecSidebar.php"); ?>
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
             <?php include($root . "/finalProject/php/assets/tecNav.php"); ?>
->>>>>>> Stashed changes
             <!-- Navigation Ends -->
 
             <!-- mid div start -->

@@ -45,9 +45,6 @@
             </a>
         </li>
         <li>
-<<<<<<< Updated upstream
-            <a href="../" id="LOGOUT">
-=======
             <a href="studentProgress.php">
                 <span class="icon"></span>
                 <span class="title"></span>
@@ -58,7 +55,6 @@
                 text-decoration: none;
                 color: white;
             ">
->>>>>>> Stashed changes
                 <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
                 <span class="title">Logout</span>
             </a>

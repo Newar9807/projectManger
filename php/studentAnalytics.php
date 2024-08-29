@@ -4,13 +4,9 @@ $host = $_SERVER['HTTP_HOST']; ?>
 <html lang="en">
 
 <head>
-<<<<<<< Updated upstream
-    <?php include($root . "/5thproject/php/assets/head.php"); ?>
-=======
     <?php include($root . "/finalProject/php/assets/head.php"); ?>
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
     <link rel="stylesheet" href="../assets/css/project.css" />
->>>>>>> Stashed changes
 
     <title>Teacher</title>
 </head>
@@ -18,16 +14,6 @@ $host = $_SERVER['HTTP_HOST']; ?>
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
-<<<<<<< Updated upstream
-        <?php include($root . "/5thproject/php/assets/stdSidebar.php"); ?>
-        <!-- Sidebar Ends -->
-        <div class="main">
-            <!-- Navigation Starts -->
-            <?php include($root . "/5thproject/php/assets/tecNav.php"); ?>
-            <!-- Navigation Ends -->
-            <div>
-                Studnet Analytics
-=======
         <?php include($root . "/finalProject/php/assets/stdSidebar.php"); ?>
         <!-- Sidebar Ends -->
         <div class="main">
@@ -101,7 +87,6 @@ $host = $_SERVER['HTTP_HOST']; ?>
                         </div>
                     </div>
                 </div>
->>>>>>> Stashed changes
             </div>
 
 

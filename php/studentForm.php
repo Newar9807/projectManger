@@ -170,11 +170,7 @@ endif;
         }
     </style>
 
-<<<<<<< Updated upstream
-    <?php include($root . "/5thproject/php/assets/head.php"); ?>
-=======
     <?php include($root . "/finalProject/php/assets/head.php"); ?>
->>>>>>> Stashed changes
 
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
 

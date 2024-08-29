@@ -26,11 +26,7 @@ if (count($_FILES) != 0) :
     mysqli_query($conn, $updateTaskTable);
 
     if (mysqli_query($conn, $sql)) :
-<<<<<<< Updated upstream
-        $dir =  $_SERVER["DOCUMENT_ROOT"] . '5thProject/php/files/' . $location;
-=======
         $dir =  $_SERVER["DOCUMENT_ROOT"] . 'finalProject/php/files/' . $location;
->>>>>>> Stashed changes
         move_uploaded_file($_FILES["file"]["tmp_name"][0], $dir);
         $response = "Success";
     endif;
