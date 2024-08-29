@@ -9,9 +9,10 @@
 <div class="navigation" id="navigation">
     <ul>
         <li>
-            <a href="teacherDashboard.php">
-                <span class="icon"><ion-icon name="logo-snapchat"></ion-icon></span>
-                <span class="title">Project Manager</span>
+            <a href="studentDashboard.php">
+                <span class="icon logo"><ion-icon name="chatbubbles-outline" size="large"></ion-icon></span>
+                <!-- <span class="icon"><img src="https://video-public.canva.com/VAD8lt3jPyI/v/ec7205f25c.gif" alt="logo" /></span> -->
+                <span class="title">Q & A Haven</span>
             </a>
         </li>
         <li>
@@ -40,11 +41,17 @@
             </a>
         </li>
         <li>
+            <a href="query.php">
+                <span class="icon tecQuery"><ion-icon name="chatbubble-outline"></ion-icon></span>
+                <span class="title">Query</span>
+            </a>
+        </li>
+        <!-- <li>
             <a href="teacherReports.php">
                 <span class="icon"><ion-icon name="alert-circle-outline"></ion-icon></span>
                 <span class="title">Report</span>
             </a>
-        </li>
+        </li> -->
         <li>
             <a href="" id="LOGOUT">
                 <span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>

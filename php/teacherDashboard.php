@@ -7,7 +7,13 @@ include("usefulFunction/sessionCheck.php");
 <html lang="en">
 
 <head>
+<<<<<<< Updated upstream
     <?php include($root . "/5thproject/php/assets/head.php"); ?>
+=======
+    <?php
+    include($root . "/finalProject/php/assets/head.php");
+    ?>
+>>>>>>> Stashed changes
 
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
     <!-- <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" /> -->
@@ -24,11 +30,19 @@ include("usefulFunction/sessionCheck.php");
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
+<<<<<<< Updated upstream
         <?php include($root . "/5thproject/php/assets/tecSidebar.php"); ?>
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
             <?php include($root . "/5thproject/php/assets/tecNav.php"); ?>
+=======
+        <?php include($root . "/finalProject/php/assets/tecSidebar.php"); ?>
+        <!-- Sidebar Ends -->
+        <div class="main">
+            <!-- Navigation Starts -->
+            <?php include($root . "/finalProject/php/assets/tecNav.php"); ?>
+>>>>>>> Stashed changes
             <!-- Navigation Ends -->
 
             <!-- mid div start -->
@@ -210,106 +224,6 @@ include("usefulFunction/sessionCheck.php");
             }
         }
     </script>
-    <script>
-        //charts
-
-        // var datas = ;
-
-        // var ctx = document.getElementById('lineChart').getContext('2d');
-        // var ctx = $('#lineChart')[0];
-        // ctx.height = 220;
-        // var myChart = new Chart(ctx, {
-        //     type: 'line',
-        //     data: {
-        //         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        //         datasets: [{
-        //                 label: "PMS",
-        //                 // data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
-        //                 data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
-        //                 backgroundColor: [
-        //                     'rgb(41,155,99)'
-        //                 ],
-        //                 borderColor: 'rgb(41, 155, 99)',
-        //                 borderWidth: 3
-        //             },
-        //             {
-        //                 label: "E-Commerce",
-        //                 // data: [2050, 1700, 2200, 2800, 1800, 2000, 2500, 2600, 2450, 1950, 2300, 2900],
-        //                 data: [860, 1140, 1060, 1060, 1070, 1110, 1330, 2210, 7830, 2478],
-        //                 backgroundColor: [
-        //                     'grey'
-        //                 ],
-        //                 borderColor: 'grey',
-        //                 borderWidth: 3
-        //             },
-        //             {
-        //                 label: "ParaFashion",
-        //                 // data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
-        //                 data: [300, 700, 2000, 5000, 6000, 4000, 2000, 1000, 200, 100],
-        //                 backgroundColor: [
-        //                     'pink'
-        //                 ],
-        //                 borderColor: 'pink',
-        //                 borderWidth: 3
-        //             },
-        //             {
-        //                 label: "SabKoBazar",
-        //                 data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 200, 2300, 900],
-
-        //                 backgroundColor: [
-        //                     'blue'
-        //                 ],
-        //                 borderColor: 'blue',
-        //                 borderWidth: 3
-        //             },
-        //             {
-        //                 label: "CMS",
-        //                 data: [2050, 1900, 2100, 2700, 2800, 2010, 2200, 2400, 2950, 1900, 2300, 2900],
-
-        //                 backgroundColor: [
-        //                     'red'
-        //                 ],
-        //                 borderColor: 'red',
-        //                 borderWidth: 3
-        //             },
-        //         ],
-        //     },
-        //     options: {
-        //         responsive: true,
-        //         tension: 0.4
-
-        //     }
-        // });
-        // const config = {
-        //     type: 'line',
-        //     data: data,
-        //     options: {
-        //         responsive: true,
-        //         plugins: {
-        //             title: {
-        //                 display: true,
-        //                 text: 'Suggested Min and Max Settings'
-        //             }
-        //         },
-        //         scales: {
-        //             y: {
-        //                 // the data minimum used for determining the ticks is Math.min(dataMin, suggestedMin)
-        //                 suggestedMin: 30,
-
-        //                 // the data maximum used for determining the ticks is Math.max(dataMax, suggestedMax)
-        //                 suggestedMax: 50,
-        //             }
-        //         }
-        //     },
-        // };
-        // </block:config>
-
-        // module.exports = {
-        //     config: config,
-        // };
-    </script>
-
-
 </body>
 
 </html>

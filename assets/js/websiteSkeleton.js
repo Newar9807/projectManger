@@ -35,6 +35,6 @@ function testnoti() {
 $("#LOGOUT").click(function (e) {
   e.preventDefault();
   $.post("tempFunction/destroySession.php", {}, function () {
-    window.location = "http://localhost:8080/5thproject/";
+    window.location = "http://localhost/finalProject/";
   });
 });

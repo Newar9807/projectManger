@@ -58,7 +58,6 @@ body {
 }
 .navigation ul li a {
   position: relative;
-  display: block;
   width: 100%;
   display: flex;
   text-decoration: none;
@@ -75,9 +74,23 @@ body {
   text-align: center;
 }
 
+.navigation ul li a .icon > img {
+  height: 50px !important;
+  object-fit: contain;
+}
+
 .navigation ul li a .icon ion-icon {
   font-size: 1.25em;
 }
+
+.navigation ul li a .logo {
+  font-size: 1.4em;
+}
+
+.navigation ul li a .tecQuery {
+  transform: scaleX(-1);
+}
+
 .navigation ul li a .title {
   position: relative;
   display: block;
@@ -147,15 +160,13 @@ body {
 }
 .noti {
   position: relative;
-  height: 40px;
-  min-width: 40px;
   display: flex;
   cursor: pointer;
   left: 490px;
 }
 .noti img {
   margin: -1px 0 0 23px;
-  height: 56px;
+  height: 50px;
 }
 .noti span {
   background: #f00;

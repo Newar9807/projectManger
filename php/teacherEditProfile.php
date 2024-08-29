@@ -13,7 +13,11 @@ $name = explode(" ", $res["user_name"]);
 <html lang="en">
 
 <head>
+<<<<<<< Updated upstream
     <?php include($root . "/5thproject/php/assets/head.php"); ?>
+=======
+    <?php include($root . "/finalProject/php/assets/head.php"); ?>
+>>>>>>> Stashed changes
 
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
     <link rel="stylesheet" href="../assets/css/teacherProfile.css" />
@@ -33,13 +37,21 @@ $name = explode(" ", $res["user_name"]);
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
+<<<<<<< Updated upstream
         <?php include($root . "/5thproject/php/assets/tecSidebar.php"); ?>
+=======
+        <?php include($root . "/finalProject/php/assets/tecSidebar.php"); ?>
+>>>>>>> Stashed changes
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
             <div class="topbar"></div>
             <?php
+<<<<<<< Updated upstream
             // include($root . "/5thproject/php/assets/tecNav.php"); 
+=======
+            // include($root . "/finalProject/php/assets/tecNav.php"); 
+>>>>>>> Stashed changes
             ?>
             <!-- Navigation Ends -->
 

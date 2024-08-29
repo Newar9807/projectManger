@@ -18,7 +18,11 @@ $resFromFetch = mysqli_query($conn, $sqlFromFetch);
 <html lang="en">
 
 <head>
+<<<<<<< Updated upstream
     <?php include($root . "/5thproject/php/assets/head.php"); ?>
+=======
+    <?php include($root . "/finalProject/php/assets/head.php"); ?>
+>>>>>>> Stashed changes
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Student</title>
@@ -37,7 +41,7 @@ $resFromFetch = mysqli_query($conn, $sqlFromFetch);
         .row {
             border-top: 5px solid var(--blue);
             border-left: 5px solid var(--blue);
-            box-shadow: 5px 10px 28px;
+            box-shadow: 0 7px 25px rgba(127, 126, 126, 0.88);
             margin: 10px 20px 0px 10px;
             padding: 10px;
             border-radius: 15px;
@@ -75,10 +79,6 @@ $resFromFetch = mysqli_query($conn, $sqlFromFetch);
             height: 600px; */
         }
 
-        .navigation ul>li {
-            /* margin-left: -20px; */
-        }
-
         /* Hide scrollbar for Chrome, Safari and Opera */
         #eventInset::-webkit-scrollbar {
             display: none;
@@ -114,12 +114,20 @@ $resFromFetch = mysqli_query($conn, $sqlFromFetch);
 <body style="overflow-y: hidden; background-color: #55efc4;">
     <div class="containers">
         <!-- Sidebar Starts -->
+<<<<<<< Updated upstream
         <?php include($root . "/5thproject/php/assets/stdSidebar.php"); ?>
+=======
+        <?php include($root . "/finalProject/php/assets/stdSidebar.php"); ?>
+>>>>>>> Stashed changes
         <!-- Sidebar Ends -->
 
         <div class="main">
             <!-- Navigation Starts -->
+<<<<<<< Updated upstream
             <?php include($root . "/5thproject/php/assets/tecNav.php"); ?>
+=======
+            <?php include($root . "/finalProject/php/assets/tecNav.php"); ?>
+>>>>>>> Stashed changes
             <!-- Navigation Ends -->
 
             <!-- mid div starts -->

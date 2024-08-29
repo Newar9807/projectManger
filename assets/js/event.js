@@ -54,35 +54,40 @@ $(document).ready(function () {
 // Vast
 updateCalendar(0);
 function updateCalendar(data) {
+<<<<<<< Updated upstream
   console.log(data);
   var inputMonth = $("#inputMonth").val();
   var inputYear = $("#inputYear").val();
+=======
+  const inputMonth = $("#inputMonth").val();
+  const inputYear = $("#inputYear").val();
+
+>>>>>>> Stashed changes
   $.post(
     "usefulFunction/eventFunction.php",
     {
-      data: data,
-      inputMonth: inputMonth,
-      inputYear: inputYear,
+      data,
+      inputMonth,
+      inputYear,
     },
     function (response) {
       response = $.parseJSON(response);
 
-      // insert table head
-      thead = `<tr class="table-dark">`;
-      Object.entries(response.week).forEach((entry) => {
-        const [key, value] = entry;
-        thead +=
-          `<th scope="col" class="border-end border-light m-2 rounded" style="background-color: #45aaf2;">` +
-          value +
-          `</th>`;
+      let thead = `<tr class="table-dark">`;
+      Object.values(response.week).forEach((value) => {
+        thead += `
+          <th scope="col" class="border-end border-light m-2 rounded" style="background-color: #45aaf2;">
+            ${value}
+          </th>`;
       });
       thead += `</tr>`;
       $("thead").empty().append(thead);
 
-      var storeDay = 0;
+      let storeDay = 0;
       $("tbody").empty();
-      var tbody = ``;
+
       while (storeDay < response.totalDay) {
+<<<<<<< Updated upstream
         tbody = `<tr class="table-dark">`;
         dayCount = 0;
         while (dayCount < 7) {
@@ -142,27 +147,43 @@ function updateCalendar(data) {
               response.currentDate;
             if (temp == see) {
               tbody += `<span style=''><br />Today</span>`;
+=======
+        let tbody = `<tr class="table-dark">`;
+
+        for (let dayCount = 0; dayCount < 7; dayCount++) {
+          if (dayCount < response.day || storeDay >= response.totalDay) {
+            tbody += `
+              <th scope="col" class="border-end border-light m-2 rounded" style="background-color: ${dayCount == 6 ? '#f53b57' : ''};">
+                <i class="bi bi-dash-lg"></i>
+              </th>`;
+          } else {
+            storeDay++;
+            const paddedStoreDay = String(storeDay).padStart(2, "0");
+            const formattedDate = `${response.year}-${response.month}-${paddedStoreDay}`;
+            const isToday = formattedDate === `${response.currentYear}-${response.currentMonth}-${response.currentDate}`;
+
+            tbody += `
+              <td scope="col" class="gate border-end border-light m-2 rounded" data-ddate="${formattedDate}" style="background-color: ${dayCount == 6 ? '#f53b57' : ''};">
+                ${paddedStoreDay}${isToday ? "<br />Today" : ""}
+              </td>`;
+
+            if (storeDay >= response.totalDay) {
+              break;
+>>>>>>> Stashed changes
             }
-            tbody += `</td>`;
           }
-          dayCount++;
         }
+
         tbody += `</tr>`;
+        $("tbody").append(tbody);
+        response.day = 0;
       }
-      $("tbody").append(tbody);
 
       $(".putMonth").val(response.month);
       $(".putYear").val(response.year);
-      $(".putDate").html(
-        " " + response.year + ", " + response.monthInWords + " "
-      );
-      $("#meetingDate").val(
-        response.currentYear +
-          "-" +
-          response.currentMonth +
-          "-" +
-          response.currentDate
-      );
+      $(".putDate").html(` ${response.year}, ${response.monthInWords} `);
+      $("#meetingDate").val(`${response.currentYear}-${response.currentMonth}-${response.currentDate}`);
     }
   );
 }
+

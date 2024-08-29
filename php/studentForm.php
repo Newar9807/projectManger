@@ -170,7 +170,11 @@ endif;
         }
     </style>
 
+<<<<<<< Updated upstream
     <?php include($root . "/5thproject/php/assets/head.php"); ?>
+=======
+    <?php include($root . "/finalProject/php/assets/head.php"); ?>
+>>>>>>> Stashed changes
 
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
 
@@ -185,7 +189,7 @@ endif;
                 <li>
                     <a href="#">
                         <span class="icon"><ion-icon name="logo-snapchat"></ion-icon></span>
-                        <span class="title">Project Manager</span>
+                        <span class="title">Q & A Haven</span>
                     </a>
                 </li>
             </ul>

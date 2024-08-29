@@ -1,5 +1,8 @@
 <?php
 include("../assets/dbCon.php");
+$Database = new dbCon();
+$conn = $Database->getConnection();
+
 
 $taskId = $_GET["id"];
 $location = $_FILES["file"]["name"][0];
@@ -21,16 +24,12 @@ if (count($_FILES) != 0) :
 
     $updateTaskTable = "UPDATE `tbl_task` SET `task_status` = 'Completed' WHERE `task_id` = '{$taskId}' AND `task_deadline` > '{$today}'";
     mysqli_query($conn, $updateTaskTable);
-    
+
     $updateTaskTable = "UPDATE `tbl_task` SET `task_status` = 'Submitted Late' WHERE `task_id` = '{$taskId}' AND `task_deadline` < '{$today}'";
     mysqli_query($conn, $updateTaskTable);
 
     if (mysqli_query($conn, $sql)) :
-<<<<<<< Updated upstream
-        $dir =  $_SERVER["DOCUMENT_ROOT"] . '5thProject/php/files/' . $location;
-=======
         $dir =  $_SERVER["DOCUMENT_ROOT"] . 'finalProject/php/files/' . $location;
->>>>>>> Stashed changes
         move_uploaded_file($_FILES["file"]["tmp_name"][0], $dir);
         $response = "Success";
     endif;
