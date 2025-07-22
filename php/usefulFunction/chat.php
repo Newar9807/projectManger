@@ -1,5 +1,5 @@
 <?php
-require( $_SERVER['DOCUMENT_ROOT']. '/finalProject/php/tempFunction/convertTime.php' );
+require( $_SERVER['DOCUMENT_ROOT']. '/php/tempFunction/convertTime.php' );
 
 $fromID = $_SESSION['id'];
 $isTeacherSql = "SELECT `tbl_user`.`user_role` FROM `tbl_user` WHERE `tbl_user`.`user_id` = '{$fromID}'";
@@ -48,7 +48,7 @@ if (mysqli_num_rows($projectQueryExection) != 0) :
             'name' => $got['project_name'],
             'status' => $got['project_status'],
             'time' => $got['project_created'],
-            'pic' => $got['project_dp'] ?? $_SERVER['DOCUMENT_ROOT'].'/finalProject/php/assets/icons/user.png',
+            'pic' => $got['project_dp'] ?? $_SERVER['DOCUMENT_ROOT'].'/php/assets/icons/user.png',
         ];
     endwhile;
 endif;

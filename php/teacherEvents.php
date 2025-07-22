@@ -11,7 +11,7 @@ $host = $_SERVER['HTTP_HOST'];
 <html lang="en">
 
 <head>
-    <?php include($root . "/finalProject/php/assets/head.php"); ?>
+    <?php include($root . "/php/assets/head.php"); ?>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Teacher</title>
@@ -114,12 +114,12 @@ $host = $_SERVER['HTTP_HOST'];
 <body style="overflow-y: hidden; background-color: #55efc4;">
     <div class="containers">
         <!-- Sidebar Starts -->
-        <?php include($root . "/finalProject/php/assets/tecSidebar.php"); ?>
+        <?php include($root . "/php/assets/tecSidebar.php"); ?>
         <!-- Sidebar Ends -->
 
         <div class="main">
             <!-- Navigation Starts -->
-            <?php include($root . "/finalProject/php/assets/tecNav.php"); ?>
+            <?php include($root . "/php/assets/tecNav.php"); ?>
             <!-- Navigation Ends -->
 
             <!-- mid div starts -->

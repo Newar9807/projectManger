@@ -170,7 +170,7 @@ endif;
         }
     </style>
 
-    <?php include($root . "/finalProject/php/assets/head.php"); ?>
+    <?php include($root . "/php/assets/head.php"); ?>
 
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
 

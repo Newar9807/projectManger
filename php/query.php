@@ -1,12 +1,16 @@
 <?php
-include_once('usefulFunction/docHead.php');
-include_once('usefulFunction/chat.php');
+// require('usefulFunction/docHead.php');
+// require('usefulFunction/chat.php');
+
+$root = $_SERVER['DOCUMENT_ROOT'];
+$host = $_SERVER['HTTP_HOST'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php include($root . "/finalProject/php/assets/head.php"); ?>
+    <?php include($root . "/php/assets/head.php"); ?>
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
     <link rel="stylesheet" href="../assets/css/project.css" />
     <link rel="stylesheet" href="../assets/css/chat.css">
@@ -130,16 +134,16 @@ include_once('usefulFunction/chat.php');
     <div class="container">
         <!-- Sidebar Starts -->
         <?php 
-            if ( $isTeacher ) {
-                include($root . "/finalProject/php/assets/tecSidebar.php");
+            if ( $isTeacher ?? false ) {
+                include($root . "/php/assets/tecSidebar.php");
             } else {
-                include($root . "/finalProject/php/assets/stdSidebar.php");
+                include($root . "/php/assets/stdSidebar.php");
             }
          ?>
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
-            <?php include($root . "/finalProject/php/assets/tecNav.php"); ?>
+            <?php include($root . "/php/assets/tecNav.php"); ?>
             <!-- Navigation Ends -->
 
             <!-- mid div start -->

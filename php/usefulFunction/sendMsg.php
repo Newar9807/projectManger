@@ -21,7 +21,7 @@ $stmt->bind_param("iisss", $from, $to, $msg, $queryTime, $status);
 
 // include_once("fetchMsg.php");
 if ($stmt->execute()) {
-    require( $_SERVER['DOCUMENT_ROOT']. '/finalProject/php/tempFunction/convertTime.php' );
+    require( $_SERVER['DOCUMENT_ROOT']. '/php/tempFunction/convertTime.php' );
 
     $fromID = $_POST['from'] ?? $_SESSION['id'];
     $to = $_POST['to'] ?? null;

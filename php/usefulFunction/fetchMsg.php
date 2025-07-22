@@ -5,7 +5,7 @@ if ( !class_exists('dbCon') ){
     $conn = $db->getConnection();
 } 
 
-require( $_SERVER['DOCUMENT_ROOT']. '/finalProject/php/tempFunction/convertTime.php' );
+require( $_SERVER['DOCUMENT_ROOT']. '/php/tempFunction/convertTime.php' );
 
 $fromID = $_POST['from'] ?? $_SESSION['id'];
 $to = $_POST['to'] ?? null;

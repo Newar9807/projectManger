@@ -32,12 +32,12 @@
                 <span class="title">Progress</span>
             </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="query.php">
                 <span class="icon"><ion-icon name="chatbubble-outline"></ion-icon></span>
                 <span class="title">Query</span>
             </a>
-        </li>
+        </li> -->
         <li>
             <a href="studentAnalytics.php">
                 <span class="icon"><ion-icon name="alert-circle-outline"></ion-icon></span>

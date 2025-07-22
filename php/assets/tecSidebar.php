@@ -40,12 +40,12 @@
                 <span class="title">Projects</span>
             </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="query.php">
                 <span class="icon tecQuery"><ion-icon name="chatbubble-outline"></ion-icon></span>
                 <span class="title">Query</span>
             </a>
-        </li>
+        </li> -->
         <!-- <li>
             <a href="teacherReports.php">
                 <span class="icon"><ion-icon name="alert-circle-outline"></ion-icon></span>

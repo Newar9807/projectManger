@@ -6,7 +6,7 @@ include("usefulFunction/sessionCheck.php");
 <html lang="en">
 
 <head>
-    <?php include($root . "/finalProject/php/assets/head.php"); ?>
+    <?php include($root . "/php/assets/head.php"); ?>
 
     <link rel="stylesheet" href="../assets/css/tstyle.css" />
     <!-- <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" /> -->
@@ -23,11 +23,11 @@ include("usefulFunction/sessionCheck.php");
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
-        <?php include($root . "/finalProject/php/assets/stdSidebar.php"); ?>
+        <?php include($root . "/php/assets/stdSidebar.php"); ?>
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
-            <?php include($root . "/finalProject/php/assets/tecNav.php"); ?>
+            <?php include($root . "/php/assets/tecNav.php"); ?>
             <!-- Navigation Ends -->
 
             <!-- mid div start -->

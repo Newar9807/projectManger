@@ -29,7 +29,7 @@ if (count($_FILES) != 0) :
     mysqli_query($conn, $updateTaskTable);
 
     if (mysqli_query($conn, $sql)) :
-        $dir =  $_SERVER["DOCUMENT_ROOT"] . 'finalProject/php/files/' . $location;
+        $dir =  $_SERVER["DOCUMENT_ROOT"] . 'php/files/' . $location;
         move_uploaded_file($_FILES["file"]["tmp_name"][0], $dir);
         $response = "Success";
     endif;

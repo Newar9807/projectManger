@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <?php include($root."/finalProject/php/assets/head.php"); ?>
+    <?php include($root."/php/assets/head.php"); ?>
 
     <title>Teacher</title>
 </head>
@@ -11,11 +11,11 @@
 <body>
     <div class="container">
         <!-- Sidebar Starts -->
-        <?php include($root."/finalProject/php/assets/tecSidebar.php"); ?>
+        <?php include($root."/php/assets/tecSidebar.php"); ?>
         <!-- Sidebar Ends -->
         <div class="main">
             <!-- Navigation Starts -->
-            <?php include($root."/finalProject/php/assets/tecNav.php"); ?>
+            <?php include($root."/php/assets/tecNav.php"); ?>
             <!-- Navigation Ends -->
             <div>
                 This is EVENTS
